@@ -5,16 +5,13 @@
     outline: none;
 }
 body{
-    min-height: 87vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: #010717;
     background-image: radial-gradient(circle farthest-side, rgba(250, 249, 219, 0.94), rgba(249, 227, 219, 0.945));
 }
-.homepage-first{
-    width: 100%;
-}
 
-/* .homepage-coverpic{
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-} */
+main {
+    margin-bottom: auto;
+}
