@@ -7,18 +7,17 @@ const Navbar = () => {
 
   return (
     <nav className='navbar-wrapper'>
-      <div className="navbar-left">
-        <div className="navbar-logo">
-          <img src={logo.src} alt="sayhayata" />
-          <div className="home-page navbar-pages">Sahayata</div>
-        </div>
-        <div className="aboutus-page navbar-pages">About Us</div>
+      <div className="nav-left">
+        <Link href="/" html className="logo">
+          <img src={logo.src} alt="Sahayata" />
+          {/* <div className="logo-text">Sahayata</div> */}
+        </Link>
+        <Link href='/about' className='aboutus'>About Us</Link>
       </div>
-      <div className="navbar-right">
-        <div className="navbar-searchbar">
-          <input type="search" name="search" id="search" placeholder='Search website'/>
-        </div>
-        <div className="navbar-joinus"><span className='joinus-content'>Become a Professional</span></div>
+      <div className="nav-right">
+        <input type='text' className="nav-right-item search" placeholder='search' />
+        <Link href={'/'} className="nav-right-item joinus">Become a professional</Link>
+        <Link href={'/'} className="nav-right-item joinus">Sign In</Link>
       </div>
     </nav>
   )

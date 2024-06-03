@@ -2,6 +2,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar.js";
 import Footer from "@/components/Footer/Footer.js";
+// import ReactToast from "@/components/react-toast";
+
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/utils/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,13 +14,19 @@ export const metadata = {
   description: "Yo description vanni chiz aaila maddath randi ko baan ley akxin ma halxa, aaila chai tyo muji tai na tui sga kk ho kk herirako xaw. And I want to say that to Maddath Subedi vanni damno fuck you bitch.",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+
+  const session = await getServerSession();
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        {children}
-        <Footer />
+        <SessionProvider session={session}>
+          <Navbar />
+          {children}
+          <Footer />
+          {/* <ReactToast /> */}
+        </SessionProvider>
       </body>
     </html>
   );
