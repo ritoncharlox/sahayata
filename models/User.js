@@ -13,6 +13,10 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
+            required: false,
+        },
+        number: {
+            type: String,
             required: true,
         },
         password: {
@@ -23,9 +27,17 @@ const userSchema = new Schema(
             type: Date,
             required: true,
         },
-        role: {
-            type: String,
-            required: true,
+        isUser : {
+            type: Boolean,
+            default: true
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false,
+        },
+        isFreelancer: {
+            type: Boolean,
+            default: false,
         },
     },
     { timestamps: true }

@@ -43,6 +43,7 @@
     /* background-color: red; */
     /* #114b71 */
     /* #0000008c */
+    width: fit-content;
     display: flex;
     align-items: center;
     font-size: 1.1rem;
@@ -54,4 +55,5 @@
 .navbar-wrapper .nav-right .nav-right-item.search {
     padding: 0px 20px;
     border-radius: 50px;
+    background-color: white;
 }
