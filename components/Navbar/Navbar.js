@@ -3,7 +3,6 @@
 import React from 'react'
 import Link from 'next/link';
 import logo from "./logo.png";
-import { signOut, useSession } from "next-auth/react"
 import "./Navbar.css"
 const Navbar = () => {
   // const { data: session } = useSession();

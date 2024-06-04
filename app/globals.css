@@ -12,6 +12,12 @@ body{
     background-image: radial-gradient(circle farthest-side, rgba(250, 249, 219, 0.94), rgba(249, 227, 219, 0.945));
 }
 
+:root {
+    --theme-color : #EE7214;
+    --theme-color2 : #E14D2A;
+    --text-light : rgb(243, 243, 243);
+}
+
 main {
     margin-bottom: auto;
     padding: 0px 20px;
