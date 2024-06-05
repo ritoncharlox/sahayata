@@ -5,7 +5,7 @@ const userSchema = new Schema(
     {
         userName: {
             type: String,
-            required: true,
+            required: false,
         },
         name: {
             type: String,
@@ -17,11 +17,12 @@ const userSchema = new Schema(
         },
         number: {
             type: String,
-            required: true,
+            required: false,
         },
         password: {
             type: String,
             required: false,
+            select: false
         },
         dateJoined: {
             type: Date,
@@ -39,10 +40,14 @@ const userSchema = new Schema(
             type: Boolean,
             default: false,
         },
+        isVerified: {
+            type: Boolean,
+            default: false
+        }
     },
     { timestamps: true }
 );
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models?.User || mongoose.model("User", userSchema);
 
 export default User;
