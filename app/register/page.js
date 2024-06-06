@@ -22,7 +22,8 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [signUpMode, setSignUpMode] = useState(true);
-    const [error, setError] = useState('');
+    const [registerError, setRegisterError] = useState('');
+    const [loginError, setLoginError] = useState('');
 
     const hasSpecialCharactersOrNumbers = (str) => {
         const regex = /[^a-zA-Z\s]/;
@@ -38,41 +39,30 @@ export default function Register() {
         e.preventDefault();
         // console.log("hello");
 
-        await handleLoginSubmit({
+        if (!loginEmail || !loginPassword) {
+            setLoginError("Please provide all the fields");
+            return;
+        }
+
+        if (!isValidEmail(loginEmail)) {
+            setLoginError("Invalid email");
+            return;
+        }
+
+        const loginUser = await handleLoginSubmit({
             loginEmail,
             loginPassword
         })
 
-        return;
-
-        if (!name || !number || !email || !password) {
-            setError("Please provide all the fields");
+        if (loginUser?.error) {
+            setLoginError(loginUser.error);
             return;
         }
 
-        if (hasSpecialCharactersOrNumbers(name)) {
-            setError("Name cannnot contain special characters or nubmers");
+        if (loginUser?.nextError) {
+            setLoginError("Internal server error. Please try again after a while");
             return;
         }
-
-        let trimmedName = name.trim();
-
-        const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username,
-                email,
-                name: trimmedName,
-                mobile,
-                password,
-                confirmPassword,
-            }),
-        });
-
-        const data = await response.json();
 
     };
 
@@ -112,17 +102,17 @@ export default function Register() {
         e.preventDefault();
 
         if (!name || !registerEmail || !registerPassword || !confirmPassword) {
-            setError("Please provide all the fields");
+            setRegisterError("Please provide all the fields");
             return;
         }
 
         if (hasSpecialCharactersOrNumbers(name)) {
-            setError("Name cannnot contain special characters or nubmers");
+            setRegisterError("Name cannnot contain special characters or nubmers");
             return;
         }
 
         if (!isValidEmail(registerEmail)) {
-            setError("Invalid email");
+            setRegisterError("Invalid email");
             return;
         }
 
@@ -141,12 +131,12 @@ export default function Register() {
         // console.log(registerUser);
 
         if (registerUser?.error) {
-            setError(registerUser.error);
+            setRegisterError(registerUser.error);
             return;
         }
 
         if (registerUser?.nextError) {
-            setError("Internal server error. Please try again after a while");
+            setRegisterError("Internal server error. Please try again after a while");
             return;
         }
     }
@@ -183,6 +173,23 @@ export default function Register() {
                             <span>Password</span>
                             <i></i>
                         </div>
+                        {
+                            loginError ? (
+                                <>
+                                    <div className="error-field">
+                                        <div className="icon">
+                                            <MdError />
+                                        </div>
+                                        <div className="text">
+                                            {loginError}
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                </>
+                            )
+                        }
                         <input type="submit" value="Login" className="btn" />
                         <p className="account-text">Don't have an account? <a href="#" id="sign-up-btn2" onClick={signUpTwoHandler}>Sign up</a></p>
                     </form>
@@ -209,14 +216,14 @@ export default function Register() {
                             <i></i>
                         </div>
                         {
-                            error ? (
+                            registerError ? (
                                 <>
                                     <div className="error-field">
                                         <div className="icon">
                                             <MdError />
                                         </div>
                                         <div className="text">
-                                            {error}
+                                            {registerError}
                                         </div>
                                     </div>
                                 </>
