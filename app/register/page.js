@@ -8,7 +8,9 @@ import User from '@/models/User';
 import { hash } from 'bcryptjs';
 import connectDB from '@/config/db';
 import { handleRegisterSubmit } from '@/actions/handleRegisterSubmit';
+import { handleLoginSubmit } from '@/actions/handleLoginSubmit';
 import { MdError } from "react-icons/md";
+import { signIn } from '@/auth';
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -22,15 +24,26 @@ export default function Register() {
     const [signUpMode, setSignUpMode] = useState(true);
     const [error, setError] = useState('');
 
-    const handleLogInSubmit = async (e) => {
+    const hasSpecialCharactersOrNumbers = (str) => {
+        const regex = /[^a-zA-Z\s]/;
+        return regex.test(str);
+    };
+
+    const isValidEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
+    const handleLogin = async (e) => {
         e.preventDefault();
+        // console.log("hello");
 
-        console.log(name);
+        await handleLoginSubmit({
+            loginEmail,
+            loginPassword
+        })
 
-        const hasSpecialCharactersOrNumbers = (str) => {
-            const regex = /[^a-zA-Z\s]/;
-            return regex.test(str);
-        };
+        return;
 
         if (!name || !number || !email || !password) {
             setError("Please provide all the fields");
@@ -98,11 +111,6 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        const hasSpecialCharactersOrNumbers = (str) => {
-            const regex = /[^a-zA-Z\s]/;
-            return regex.test(str);
-        };
-
         if (!name || !registerEmail || !registerPassword || !confirmPassword) {
             setError("Please provide all the fields");
             return;
@@ -110,6 +118,11 @@ export default function Register() {
 
         if (hasSpecialCharactersOrNumbers(name)) {
             setError("Name cannnot contain special characters or nubmers");
+            return;
+        }
+
+        if (!isValidEmail(registerEmail)) {
+            setError("Invalid email");
             return;
         }
 
@@ -125,12 +138,14 @@ export default function Register() {
             dateJoined
         });
 
-        if (registerUser.error) {
+        // console.log(registerUser);
+
+        if (registerUser?.error) {
             setError(registerUser.error);
             return;
         }
 
-        if (registerUser.nextError) {
+        if (registerUser?.nextError) {
             setError("Internal server error. Please try again after a while");
             return;
         }
@@ -156,7 +171,7 @@ export default function Register() {
         <main className='login-registration'>
             <div className={`container ${signUpMode ? `sign-up-mode sign-up-mode2` : ``}`}>
                 <div className="signin-signup">
-                    <form action="" className="sign-in-form" onSubmit={(e) => handleLogInSubmit(e)}>
+                    <form action="" className="sign-in-form" onSubmit={(e) => handleLogin(e)}>
                         <h2 className="title">Log in</h2>
                         <div className="input-field">
                             <input type="text" className={`titleInput ${loginEmail !== '' ? `valid` : ''}`} name="loginemail" onChange={(e) => setLoginEmail(e.target.value)} required />
