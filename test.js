@@ -1,5 +1,9 @@
-let name = 'asdfads';
+const isValidEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+};
 
-name = name.trim();
+const email = "dslkf@lkfadasf.ssdaf"
+const test = isValidEmail(email);
 
-console.log(name);
+console.log(test);
