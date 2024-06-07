@@ -16,9 +16,5 @@ body{
     --theme-color : #EE7214;
     --theme-color2 : #E14D2A;
     --text-light : rgb(243, 243, 243);
-}
-
-main {
-    margin-bottom: auto;
-    padding: 0px 20px;
+    --slogan-width : 420px;
 }

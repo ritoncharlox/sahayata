@@ -1,0 +1,90 @@
+main {
+    margin-bottom: auto;
+}
+
+.homepage-coverpic{
+    width: 100%;
+    height: 60vh;
+}
+.homepage-slogan{
+    position: absolute;
+    top: 180px;
+    left: calc(96% - var(--slogan-width));
+    width: var(--slogan-width);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+.homepage-slogan-title{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #363636;
+}
+.homepage-slogan-desc{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #444444;
+}
+
+.services-section{
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: #363636;
+}
+.services-section-title{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.services-lists{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 20px;
+    width: 90vw;
+}
+.services-listitems{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #444444;
+    padding: 15px;
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    cursor: pointer;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .3s;
+    transition-property: transform;    
+}
+.services-listitems:hover{
+    transform: scale(1.08);
+    box-shadow: 0px 0px 10px 0px rgba(1, 26, 55, 0.2);
+    color: #393939;
+}
+.service-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    font-size: 40px;
+    transition: all .3s ease;
+}
+.service-title{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all .3s ease;
+}

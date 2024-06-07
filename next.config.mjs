@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'images.unsplash.com',
+                hostname: 'i0.wp.com',
                 port: '',
             },
         ],
