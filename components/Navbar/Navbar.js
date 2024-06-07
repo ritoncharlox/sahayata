@@ -1,25 +1,54 @@
 "use client"
 
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import Link from 'next/link';
 import logo from "./logo.png";
 import "./Navbar.css"
+import { FaSearch } from "react-icons/fa";
 const Navbar = () => {
   // const { data: session } = useSession();
+
+  const [searchItem, setSearchItem] = useState("");
+  const [showSearch, setShowSearch] = useState(true);
+  const inputRef = useRef(null);
+
+  const handleSearchChange = (e) => {
+    setSearchItem(e.target.value);
+  }
+  const handleBlur = () => {
+    setShowSearch(true);
+  };
+
+  const handleFocus = () => {
+    setShowSearch(false);
+  };
 
   return (
     <nav className='navbar-wrapper'>
       <div className="nav-left">
         <Link href="/" className="logo">
           <img src={logo.src} alt="Sahayata" />
-          {/* <div className="logo-text">Sahayata</div> */}
+          <div className="logo-text">Sahayata</div>
         </Link>
-        <Link href='/about' className='aboutus'>About Us</Link>
+        <div className="nav-left-item search" onClick={() => inputRef.current.focus()}>
+          <div className="search-icon" style={{ animation: showSearch ? "slideIn .4s forwards" : "slideOut .4s forwards" }}><FaSearch /></div>
+          <input
+            ref={inputRef}
+            type='text'
+            onChange={(e) => { handleSearchChange(e); }}
+            value={searchItem}
+            placeholder='search services'
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            style={{ animation: showSearch ? "slideInput .4s forwards" : "slideOutput .4s forwards" }}
+          />
+        </div>
+
       </div>
       <div className="nav-right">
-        <input type='text' className="nav-right-item search" placeholder='search' />
+        <Link href='/about' className='aboutus'>About Us</Link>
         <Link href='/' className="nav-right-item joinus">Become a professional</Link>
-        <Link href='/' className="nav-right-item joinus">Sign In</Link>
+        <Link href='/login' className="nav-right-item signin">Log In</Link>
       </div>
     </nav>
   )
