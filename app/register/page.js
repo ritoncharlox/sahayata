@@ -11,6 +11,7 @@ import { handleRegisterSubmit } from '@/actions/handleRegisterSubmit';
 import { handleLoginSubmit } from '@/actions/handleLoginSubmit';
 import { MdError } from "react-icons/md";
 import { signIn } from '@/auth';
+import { useFormStatus } from 'react-dom';
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -25,6 +26,8 @@ export default function Register() {
     const [registerError, setRegisterError] = useState('');
     const [loginError, setLoginError] = useState('');
 
+    const { pending } = useFormStatus();
+
     const hasSpecialCharactersOrNumbers = (str) => {
         const regex = /[^a-zA-Z\s]/;
         return regex.test(str);
@@ -37,7 +40,10 @@ export default function Register() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        console.log(pending);
         // console.log("hello");
+
+        setLoginError('');
 
         if (!loginEmail || !loginPassword) {
             setLoginError("Please provide all the fields");
@@ -54,6 +60,8 @@ export default function Register() {
             loginPassword
         })
 
+        // console.log(loginUser);
+
         if (loginUser?.error) {
             setLoginError(loginUser.error);
             return;
@@ -61,6 +69,16 @@ export default function Register() {
 
         if (loginUser?.nextError) {
             setLoginError("Internal server error. Please try again after a while");
+            return;
+        }
+
+        if (loginUser?.nextApiError) {
+            setLoginError("Internal server error. Please try again after a while");
+            return;
+        }
+
+        if (loginUser?.apiError) {
+            setLoginError(loginUser.apiError);
             return;
         }
 
@@ -100,6 +118,8 @@ export default function Register() {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+
+        setRegisterError('');
 
         if (!name || !registerEmail || !registerPassword || !confirmPassword) {
             setRegisterError("Please provide all the fields");
@@ -164,12 +184,12 @@ export default function Register() {
                     <form action="" className="sign-in-form" onSubmit={(e) => handleLogin(e)}>
                         <h2 className="title">Log in</h2>
                         <div className="input-field">
-                            <input type="text" className={`titleInput ${loginEmail !== '' ? `valid` : ''}`} name="loginemail" onChange={(e) => setLoginEmail(e.target.value)} required />
+                            <input type="email" className={`titleInput ${loginEmail !== '' ? `valid` : ''}`} name="loginemail" onChange={(e) => setLoginEmail(e.target.value)} required />
                             <span>Email</span>
                             <i></i>
                         </div>
                         <div className="input-field">
-                            <input type="text" className={`titleInput ${loginPassword !== '' ? `valid` : ''}`} name="loginpassword" onChange={(e) => setLoginPassword(e.target.value)} required />
+                            <input type="password" className={`titleInput ${loginPassword !== '' ? `valid` : ''}`} name="loginpassword" onChange={(e) => setLoginPassword(e.target.value)} required />
                             <span>Password</span>
                             <i></i>
                         </div>
