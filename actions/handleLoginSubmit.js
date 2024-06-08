@@ -71,7 +71,35 @@ const handleLogin = async (credentials) => {
             success: true
         };
     } catch (error) {
-        console.log("The error is", error);
+        console.log(error);
+
+        function convertStringToObject(jsonString) {
+            try {
+                const jsonObject = JSON.parse(jsonString);
+                return jsonObject;
+            } catch (error) {
+            }
+        }
+
+        const err = error?.cause?.err?.message;
+
+        const errObj = convertStringToObject(err);
+
+        // console.log(errObj);
+        // console.log("The error is", error?.cause?.err?.message);
+
+        if (errObj?.apiError) {
+            return ({
+                apiError: errObj.apiError
+            });
+        }
+
+        if (errObj?.nextApiError) {
+            return ({
+                nextApiError: errObj.nextApiError
+            });
+        }
+
         return ({
             nextError: error.message
         });

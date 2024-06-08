@@ -8,14 +8,14 @@ const connectDB = async () => {
       return;
     }
 
-    const { connection } = mongoose.connect(
+    const connection = await mongoose.connect(
       process.env.MONGODB_URI,
       {
         dbName: "Sahayata"
       }
     )
 
-    console.log(`Successfully connnected to mongoDB`);
+    console.log(`Successfully connnected to mongoDB, Database : ${connection.connection.host}`);
   } catch (error) {
     console.error(`ERROR: ${error.message}`);
   }
