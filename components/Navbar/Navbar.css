@@ -73,7 +73,7 @@
 .navbar-wrapper .nav-left .nav-left-item.search {
     padding: 0px 20px;
     border-radius: 50px;
-    background-color: white;
+    background-color: var(--text-light);
     font-size: 1.1rem;
     font-weight: 500;
     color: #363636;
@@ -86,7 +86,7 @@
 }
 
 .navbar-wrapper .nav-left .nav-left-item.search input {
-    background-color: white;
+    background-color: var(--text-light);
     font-size: 1rem;
     font-weight: 500;
     color: #363636;
