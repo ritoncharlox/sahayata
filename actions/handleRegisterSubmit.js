@@ -5,11 +5,14 @@ import User from '@/models/User';
 import { hash } from 'bcryptjs';
 import connectDB from '@/config/db';
 import { generateUniqueUsername } from '@/utils/usernameGenerator';
+import { simulateDelay } from '@/utils/functions';
 
 const handleRegister = async (credentials) => {
     // e.preventDefault();
     // console.log("Hello");
     try {
+
+        await simulateDelay(5000);
 
         const hasSpecialCharactersOrNumbers = (str) => {
             const regex = /[^a-zA-Z\s]/;

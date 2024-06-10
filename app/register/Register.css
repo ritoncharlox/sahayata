@@ -11,9 +11,10 @@ main.login-registration .container {
     border-radius: 15px;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
     overflow: hidden;
-    
+
     padding: 40px 0px;
 }
+
 main.login-registration .container::before {
     content: "";
     position: absolute;
@@ -26,6 +27,7 @@ main.login-registration .container::before {
     transform: translateX(100%);
     transition: 1s ease-in-out;
 }
+
 main.login-registration .signin-signup {
     /* position: absolute; */
     position: relative;
@@ -39,6 +41,7 @@ main.login-registration .signin-signup {
     /* padding: 20px 0px; */
     z-index: 5;
 }
+
 main.login-registration form {
     display: flex;
     align-items: center;
@@ -48,22 +51,26 @@ main.login-registration form {
     min-width: 238px;
     padding: 0 10px;
 }
+
 main.login-registration form.sign-in-form {
     opacity: 1;
     transition: 0.5s ease-in-out;
     transition-delay: 1s;
 }
+
 main.login-registration form.sign-up-form {
     opacity: 0;
     transition: 0.5s ease-in-out;
     transition-delay: 1s;
 }
+
 main.login-registration .title {
     font-size: 35px;
     /* color: #df4adf; */
     color: var(--theme-color);
     margin-bottom: 10px;
 }
+
 main.login-registration .input-field {
     width: 100%;
     height: 50px;
@@ -75,6 +82,7 @@ main.login-registration .input-field {
     display: flex;
     align-items: center;
 }
+
 main.login-registration .input-field span {
     width: fit-content;
     height: fit-content;
@@ -91,6 +99,7 @@ main.login-registration .input-field span {
     letter-spacing: 0.05em;
     transition: 0.5s;
 }
+
 main.login-registration .input-field input.valid~span,
 main.login-registration .input-field input:focus~span {
     /* color: #df4adf; */
@@ -118,6 +127,7 @@ main.login-registration .input-field input.valid~i,
 main.login-registration .input-field input:focus~i {
     height: 100%;
 }
+
 main.login-registration .input-field input {
     width: 100%;
     height: 50px;
@@ -131,6 +141,7 @@ main.login-registration .input-field input {
     padding: 0px 10px 0px 10px;
     z-index: 10;
 }
+
 main.login-registration .error-field {
     width: calc(100% - 20px);
     display: flex;
@@ -142,37 +153,58 @@ main.login-registration .error-field {
     border-radius: 10px;
     /* background-color: red; */
 }
+
 main.login-registration .error-field .icon {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.3rem;
 }
+
 main.login-registration .error-field .text {
     font-size: 1rem;
     font-weight: 500;
 }
+
 main.login-registration .btn {
     width: 150px;
     height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     border-radius: 50px;
     /* background: #df4adf; */
     background: var(--theme-color);
     color: #fff;
     font-weight: 600;
-    margin: 10px 0;
+    margin: 10px auto;
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.25s;
 }
+
 main.login-registration .btn:hover {
     /* background: #c03cc0; */
     background: var(--theme-color2);
 }
+
+main.login-registration .btn.pending {
+    cursor: not-allowed;
+    background: #FFA836;
+    /* background: #FFA756; */
+}
+
+main.login-registration .btn.pending:hover {
+    /* background: #CC6012; */
+    /* background: var(--theme-color); */
+    background: #FFA836;
+}
+
 main.login-registration a {
     text-decoration: none;
 }
+
 main.login-registration .panels-container {
     position: absolute;
     top: 0;
@@ -183,6 +215,7 @@ main.login-registration .panels-container {
     align-items: center;
     justify-content: space-around;
 }
+
 main.login-registration .panel {
     display: flex;
     flex-direction: column;
@@ -194,62 +227,78 @@ main.login-registration .panel {
     text-align: center;
     z-index: 6;
 }
+
 main.login-registration .left-panel {
     pointer-events: none;
 }
+
 main.login-registration .content {
     color: #fff;
     transition: 1.1s ease-in-out;
     transition-delay: 0.5s;
 }
+
 main.login-registration .panel h3 {
     font-size: 24px;
     font-weight: 600;
 }
+
 main.login-registration .panel p {
     font-size: 15px;
     padding: 10px 0;
 }
+
 main.login-registration .image {
     width: 100%;
     transition: 1.1s ease-in-out;
     transition-delay: 0.4s;
 }
+
 main.login-registration .left-panel .image,
 main.login-registration .left-panel .content {
     transform: translateX(-200%);
 }
+
 main.login-registration .right-panel .image,
 main.login-registration .right-panel .content {
     transform: translateX(0);
 }
+
 main.login-registration .account-text {
     display: none;
 }
+
 /*Animation*/
 main.login-registration .container.sign-up-mode::before {
     transform: translateX(0);
 }
+
 main.login-registration .container.sign-up-mode .right-panel .image,
 main.login-registration .container.sign-up-mode .right-panel .content {
     transform: translateX(200%);
 }
+
 main.login-registration .container.sign-up-mode .left-panel .image,
 main.login-registration .container.sign-up-mode .left-panel .content {
     transform: translateX(0);
 }
+
 main.login-registration .container.sign-up-mode form.sign-in-form {
     opacity: 0;
 }
+
 main.login-registration .container.sign-up-mode form.sign-up-form {
     opacity: 1;
 }
+
 main.login-registration .container.sign-up-mode .right-panel {
     pointer-events: none;
 }
+
 main.login-registration .container.sign-up-mode .left-panel {
     pointer-events: all;
 }
+
 /*Responsive*/
 @media (max-width:780px) {
     main.login-registration .container {
@@ -257,31 +306,39 @@ main.login-registration .container.sign-up-mode .left-panel {
         /* height: 100vh; */
     }
 }
+
 @media (max-width:635px) {
     main.login-registration .container::before {
         display: none;
     }
+
     main.login-registration form {
         width: 80%;
     }
+
     main.login-registration form.sign-up-form {
         display: none;
     }
+
     main.login-registration .container.sign-up-mode2 form.sign-up-form {
         display: flex;
         opacity: 1;
     }
+
     main.login-registration .container.sign-up-mode2 form.sign-in-form {
         display: none;
     }
+
     main.login-registration .panels-container {
         display: none;
     }
+
     main.login-registration .account-text {
         display: initial;
         margin-top: 30px;
     }
 }
+
 @media (max-width:320px) {
     main.login-registration form {
         width: 90%;
