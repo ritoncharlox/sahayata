@@ -1,0 +1,255 @@
+[
+    {
+        "title": "Electrician",
+        "subcategories": [
+            {
+                "title": "Light"
+            },
+            {
+                "title": "Power Sockets and Switch Boards"
+            },
+            {
+                "title": "Telephone And Networking Sockets"
+            },
+            {
+                "title": "MCB & MCCBs"
+            },
+            {
+                "title": "Sub Meter"
+            },
+            {
+                "title": "Fan"
+            },
+            {
+                "title": "Inverter"
+            },
+            {
+                "title": "Wiring"
+            },
+            {
+                "title": "Whole House Wiring"
+            },
+            {
+                "title": "Solar Repair And Installation"
+            },
+            {
+                "title": "Unknown Problem"
+            },
+            {
+                "title": "Somethong Else"
+            }
+        ]
+    },
+    {
+        "title": "Plumbing",
+        "subcategories": [
+            {
+                "title": "Wash Basin"
+            },
+            {
+                "title": "Tap And Fauctes"
+            },
+            {
+                "title": "Toilet"
+            },
+            {
+                "title": "Water Tank"
+            },
+            {
+                "title": "Blocakges"
+            },
+            {
+                "title": "Whole House Plumbing"
+            },
+            {
+                "title": "Unknown Problem"
+            },
+            {
+                "title": "Somethong Else"
+            }
+        ]
+    },
+    {
+        "title": "Painting",
+        "subcategories": [
+            {
+                "title": "Interior Painting"
+            },
+            {
+                "title": "Exterior Painting"
+            },
+            {
+                "title": "Something Else"
+            }
+        ]
+    },
+    {
+        "title": "Computer And Networking",
+        "subcategories": [
+            {
+                "title": "Computer And Laptop Repairing"
+            },
+            {
+                "title": "Printers And Photocopy Machine"
+            },
+            {
+                "title": "IT Technician"
+            },
+            {
+                "title": "Computer And Laptop Servicing"
+            },
+            {
+                "title": "Gaming Setup"
+            }
+        ]
+    },
+    {
+        "title": "Electronic Devices",
+        "subcategories": [
+            {
+                "title": "Television"
+            },
+            {
+                "title": "AC"
+            },
+            {
+                "title": "Refrigerator"
+            },
+            {
+                "title": "Washing Machine"
+            },
+            {
+                "title": "Geyser"
+            },
+            {
+                "title": "Oven"
+            },
+            {
+                "title": "Iron"
+            },
+            {
+                "title": "Vacuum Cleaner"
+            }
+        ]
+    },
+    {
+        "title": "Cleaning",
+        "subcategories": [
+            {
+                "title": "Tank Cleaning"
+            },
+            {
+                "title": "House Cleaning"
+            },
+            {
+                "title": "Waste Management"
+            }
+        ]
+    },
+    {
+        "title": "Beautician",
+        "subcategories": [
+            {
+                "title": "Bridai Packages"
+            },
+            {
+                "title": "Makeup"
+            },
+            {
+                "title": "Mehendi"
+            },
+            {
+                "title": "Facial"
+            },
+            {
+                "title": "Hair"
+            },
+            {
+                "title": "Waxing"
+            },
+            {
+                "title": "Something Else"
+            }
+        ]
+    },
+    {
+        "title": "Laundry",
+        "subcategories": [
+            {
+                "title": "Normal Clothes"
+            },
+            {
+                "title": "Party Wear"
+            },
+            {
+                "title": "Something Else"
+            }
+        ]
+    },
+    {
+       "title": "Home Construction",
+       "subcategories": [
+        {
+            "title": "Engineer Consultation"
+        },
+        {
+            "title": "Home Design"
+        },
+        {
+            "title": "Whole Home Construction"
+        }
+       ]
+    },
+    {
+        "title": "Home Renovation",
+        "subcategories": [
+            {
+                "title": "Bathroom Renovation"
+            },
+            {
+                "title": "Kitchen Renovation"
+            },
+            {
+                "title": "Alumnium"
+            },
+            {
+                "title": "Upvc"
+            },
+            {
+                "title": "Railings"
+            },
+            {
+                "title": "Door And Windows"
+            },
+            {
+                "title": "Furniture"
+            }
+        ]
+    },
+    {
+        "title": "Catering Services",
+        "subcategories": [
+            {
+                "title": "Marriage"
+            },
+            {
+                "title": "Bartabanda"
+            }
+        ]
+    },
+    {
+        "title": "Shifting",
+        "subcategories": [
+            {
+                "title": "House"
+            },
+            {
+                "title": "Room"
+            },
+            {
+                "title": "Office"
+            }
+        ]
+    }
+    
+]
