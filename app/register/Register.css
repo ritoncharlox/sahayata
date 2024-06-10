@@ -198,6 +198,7 @@ main.login-registration .btn.pending {
 main.login-registration .btn.pending:hover {
     /* background: #CC6012; */
     /* background: var(--theme-color); */
+    background: #FFA836;
 }
 
 main.login-registration a {
