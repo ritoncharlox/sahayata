@@ -12,6 +12,11 @@ const nextConfig = {
                 hostname: 'media.istockphoto.com',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'cdn-icons-png.flaticon.com',
+                port: '',
+            },
         ],
     },
 };
