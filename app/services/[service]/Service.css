@@ -9,33 +9,84 @@
 }
 .service-container-first{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
-    /* border: 2px solid black; */
+    border: 2px solid black;
     gap: 50px;
     margin-top: 50px;
 }
 .service-container-first-left{
     display: flex;
     flex-direction: column;    
-    justify-content: center;
-    /* border: 2px solid black; */
+    /* justify-content: center; */
+    gap: 30px;
+    width: 50%;
+    box-shadow: 0px 0px 10px 0px rgba(55, 34, 1, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+.service-container-left-icon-title{
+    display: flex;
+    align-items: center;
     gap: 20px;
-    width: 40%;
 }
 .service-container-first-left-title{
-    display: flex;
+    font-size: 1.5rem;
 }
 .service-container-first-left-desc{
+    font-size: .95rem;
     width: 80%;
+}
+.service-categories{
+    display: flex;
+    row-gap: 20px;
+    column-gap: 20px;
+    flex-wrap: wrap;
+}
+.service-category{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid black;
 }
 .service-container-first-right{
     display: flex;
     justify-content: center;
     justify-content: center;
     /* border: 2px solid black; */
-    width: 40%;
+    width: 450px;
+    height: 450px;
+    background: linear-gradient(-45deg, orangered, orange);
+    position: relative;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(55, 34, 1, 0.6);
 }
-.service-container-first-right img{
+.service-container-first-right-inner{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 410px;
+    width: 410px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 10px;
+    overflow: hidden;
+}
+.service-container-first-right-inner img{
     border-radius: 10px;
+    object-fit: cover;
+    
 }

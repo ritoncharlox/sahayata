@@ -17,6 +17,11 @@ const nextConfig = {
                 hostname: 'cdn-icons-png.flaticon.com',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'www.bankrate.com',
+                port: '',
+            },
         ],
     },
 };
