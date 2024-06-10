@@ -5,7 +5,6 @@ import Link from 'next/link';
 import "./Homepage.css"
 import data from "@/app/services.json"
 import { v4 as uuidv4 } from 'uuid';
-import { FaComputer } from "react-icons/fa6";
 
 const Homepage = () => {
 
@@ -13,30 +12,10 @@ const Homepage = () => {
 
     useEffect(() => {
         const getdata = () => {
-            const newdata = [...data];
-            const imageadd = [
-                "https://cdn-icons-png.flaticon.com/128/3707/3707167.png",
-                "https://cdn-icons-png.flaticon.com/128/312/312971.png",
-                "https://cdn-icons-png.flaticon.com/128/1815/1815785.png",
-                "https://cdn-icons-png.flaticon.com/128/3067/3067451.png",
-                "https://cdn-icons-png.flaticon.com/128/2777/2777142.png",
-                "https://cdn-icons-png.flaticon.com/128/2946/2946701.png",
-                "https://cdn-icons-png.flaticon.com/128/15898/15898074.png",
-                "https://cdn-icons-png.flaticon.com/128/3322/3322854.png",
-                "https://cdn-icons-png.flaticon.com/128/15952/15952638.png",
-                "https://cdn-icons-png.flaticon.com/128/5687/5687442.png",
-                "https://cdn-icons-png.flaticon.com/128/13910/13910909.png",
-                "https://cdn-icons-png.flaticon.com/128/10235/10235832.png"
-            ]
-            // console.log(newdata);
+            let newdata = [...data];
             for (let i = 0; i < newdata.length; i++) {
                 let service = newdata[i];
                 service.id = uuidv4();
-                service.imageAddress = imageadd[i];
-                for (let j = 0; j < service.subcategories.length; j++) {
-                    let subcategory = service.subcategories[j];
-                    subcategory.id = j + 1;
-                }
             }
             setServices(newdata);
         }
@@ -49,7 +28,6 @@ const Homepage = () => {
 
     return (
         <main className="homepage-first">
-            {/* <div className="black-cover"></div> */}
             <Image className="homepage-coverpic" width={1000} height={350} src="https://i0.wp.com/cmgtoronto.com/wp-content/uploads/2017/03/Repairs.jpg?resize=1210%2C423&ssl=1" priority alt="sahayata cover" />
             <div className="homepage-slogan">
                 <h1 className="homepage-slogan-title">Expert Home Fixes - Trusted Solutions</h1>
@@ -57,19 +35,19 @@ const Homepage = () => {
             </div>
 
             <div className="services-section">
-                <h2 className="services-section-title">Book Services</h2>
+                <h2 className="services-section-title">Our Services</h2>
                 <ul className="services-lists">
                     {
                         services.map((service, index) => {
                             return (
-                                <li key={index} className="services-listitems">
-                                    <Link href={`/${service.title}`}>
+                                <Link key={service.id} href={`/services/${service.title}`}>
+                                    <li className="services-listitems">
                                         <div className="service-icon">
-                                            <Image className='service-icon-image' src={service.imageAddress} width={50} height={50} priority alt={service.title} />
+                                            <Image className='service-icon-image' src={service.icon} width={50} height={50} priority alt={service.title} />
                                         </div>
                                         <h4 className="service-title">{service.title}</h4>
-                                    </Link>
-                                </li>
+                                    </li>
+                                </Link>
                             )
                         })
                     }
@@ -128,7 +106,7 @@ const Homepage = () => {
 
             <div className="homepage-separator"></div>
 
-            
+
         </main >
     )
 }
