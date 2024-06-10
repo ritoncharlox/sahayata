@@ -11,7 +11,7 @@ import { handleRegisterSubmit } from '@/actions/handleRegisterSubmit';
 import { handleLoginSubmit } from '@/actions/handleLoginSubmit';
 import { MdError } from "react-icons/md";
 import { signIn } from '@/auth';
-import { useFormStatus } from 'react-dom';
+import { ScaleLoader } from 'react-spinners';
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -26,7 +26,8 @@ export default function Register() {
     const [registerError, setRegisterError] = useState('');
     const [loginError, setLoginError] = useState('');
 
-    const { pending } = useFormStatus();
+    const [loginPending, setLoginPending] = useState(false);
+    const [registerPending, setRegisterPending] = useState(false);
 
     const hasSpecialCharactersOrNumbers = (str) => {
         const regex = /[^a-zA-Z\s]/;
@@ -40,18 +41,25 @@ export default function Register() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log(pending);
         // console.log("hello");
+
+        if (loginPending) {
+            return;
+        }
+
+        setLoginPending(true);
 
         setLoginError('');
 
         if (!loginEmail || !loginPassword) {
             setLoginError("Please provide all the fields");
+            setLoginPending(false);
             return;
         }
 
         if (!isValidEmail(loginEmail)) {
             setLoginError("Invalid email");
+            setLoginPending(false);
             return;
         }
 
@@ -59,6 +67,8 @@ export default function Register() {
             loginEmail,
             loginPassword
         })
+
+        setLoginPending(false);
 
         // console.log(loginUser);
 
@@ -119,22 +129,37 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
 
+        if (registerPending) {
+            return;
+        }
+
+        setRegisterPending(true);
+
         setRegisterError('');
 
         if (!name || !registerEmail || !registerPassword || !confirmPassword) {
             setRegisterError("Please provide all the fields");
+            setRegisterPending(false);
             return;
         }
 
         if (hasSpecialCharactersOrNumbers(name)) {
             setRegisterError("Name cannnot contain special characters or nubmers");
+            setRegisterPending(false);
             return;
         }
 
         if (!isValidEmail(registerEmail)) {
             setRegisterError("Invalid email");
+            setRegisterPending(false);
             return;
         }
+
+        // if (registerPassword !== confirmPassword) {
+        //     setRegisterError("Passwords do not match");
+        //     setRegisterPending(false);
+        //     return;
+        // }
 
         let trimmedName = name.trim();
 
@@ -147,6 +172,8 @@ export default function Register() {
             name: trimmedName,
             dateJoined
         });
+
+        setRegisterPending(false);
 
         // console.log(registerUser);
 
@@ -210,7 +237,14 @@ export default function Register() {
                                 </>
                             )
                         }
-                        <input type="submit" value="Login" className="btn" />
+                        <button type="submit" className={`btn ${ loginPending ? `pending` : `` }`} disabled={loginPending}>
+                            {
+                                loginPending ?
+                                    <ScaleLoader height={20} color={"#fff"} />
+                                    :
+                                    "Login"
+                            }
+                        </button>
                         <p className="account-text">Don't have an account? <a href="#" id="sign-up-btn2" onClick={signUpTwoHandler}>Sign up</a></p>
                     </form>
                     <form action="" className="sign-up-form" onSubmit={(e) => handleRegister(e)}>
@@ -252,7 +286,14 @@ export default function Register() {
                                 </>
                             )
                         }
-                        <input type="submit" value="Sign up" className="btn" />
+                        <button type="submit" className={`btn ${ registerPending ? `pending` : `` }`} disabled={registerPending}>
+                            {
+                                registerPending ?
+                                    <ScaleLoader height={20} color={"#fff"} />
+                                    :
+                                    "Sign up"
+                            }
+                        </button>
                         <p className="account-text">Already have an account? <a href="#" id="sign-in-btn2" onClick={signInTwoHandler}>Sign in</a></p>
                     </form>
                 </div>
@@ -261,7 +302,7 @@ export default function Register() {
                         <div className="content">
                             <h3>Member of Brand?</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque accusantium dolor, eos incidunt minima iure?</p>
-                            <button className="btn" id="sign-in-btn" onClick={signInHandler}>Log in</button>
+                            <button className={`btn ${ registerPending ? `pending` : `` }`} id="sign-in-btn" onClick={signInHandler} disabled={registerPending}>Log in</button>
                         </div>
                         <img src="/signin.svg" alt="" className="image" />
                     </div>
@@ -269,7 +310,7 @@ export default function Register() {
                         <div className="content">
                             <h3>New to Brand?</h3>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque accusantium dolor, eos incidunt minima iure?</p>
-                            <button className="btn" id="sign-up-btn" onClick={signUpHandler}>Sign up</button>
+                            <button className={`btn ${ loginPending ? `pending` : `` }`} id="sign-up-btn" onClick={signUpHandler} disabled={loginPending}>Sign up</button>
                         </div>
                         <img src="/signup.svg" alt="" className="image" />
                     </div>
