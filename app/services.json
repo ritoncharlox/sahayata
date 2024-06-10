@@ -1,0 +1,150 @@
+[
+    {
+        "title": "Electrician",
+        "subcategories": [
+            { "title": "Light", "id": 1 },
+            { "title": "Power Sockets and Switch Boards", "id": 2 },
+            { "title": "Telephone And Networking Sockets", "id": 3 },
+            { "title": "MCB & MCCBs", "id": 4 },
+            { "title": "Sub Meter", "id": 5 },
+            { "title": "Fan", "id": 6 },
+            { "title": "Inverter", "id": 7 },
+            { "title": "Wiring", "id": 8 },
+            { "title": "Whole House Wiring", "id": 9 },
+            { "title": "Solar Repair And Installation", "id": 10 },
+            { "title": "Unknown Problem", "id": 11 },
+            { "title": "Somethong Else", "id": 12 }
+        ],
+        "id": 1,
+        "icon": "https://cdn-icons-png.flaticon.com/128/3707/3707167.png"
+    },
+    {
+        "title": "Plumbing",
+        "subcategories": [
+            { "title": "Wash Basin", "id": 1 },
+            { "title": "Tap And Fauctes", "id": 2 },
+            { "title": "Toilet", "id": 3 },
+            { "title": "Water Tank", "id": 4 },
+            { "title": "Blocakges", "id": 5 },
+            { "title": "Whole House Plumbing", "id": 6 },
+            { "title": "Unknown Problem", "id": 7 },
+            { "title": "Somethong Else", "id": 8 }
+        ],
+        "id": 2,
+        "icon": "https://cdn-icons-png.flaticon.com/128/312/312971.png"
+    },
+    {
+        "title": "Painting",
+        "subcategories": [
+            { "title": "Interior Painting", "id": 1 },
+            { "title": "Exterior Painting", "id": 2 },
+            { "title": "Something Else", "id": 3 }
+        ],
+        "id": 3,
+        "icon": "https://cdn-icons-png.flaticon.com/128/1815/1815785.png"
+    },
+    {
+        "title": "Computer And Networking",
+        "subcategories": [
+            { "title": "Computer And Laptop Repairing", "id": 1 },
+            { "title": "Printers And Photocopy Machine", "id": 2 },
+            { "title": "IT Technician", "id": 3 },
+            { "title": "Computer And Laptop Servicing", "id": 4 },
+            { "title": "Gaming Setup", "id": 5 }
+        ],
+        "id": 4,
+        "icon": "https://cdn-icons-png.flaticon.com/128/3067/3067451.png"
+    },
+    {
+        "title": "Electronic Devices",
+        "subcategories": [
+            { "title": "Television", "id": 1 },
+            { "title": "AC", "id": 2 },
+            { "title": "Refrigerator", "id": 3 },
+            { "title": "Washing Machine", "id": 4 },
+            { "title": "Geyser", "id": 5 },
+            { "title": "Oven", "id": 6 },
+            { "title": "Iron", "id": 7 },
+            { "title": "Vacuum Cleaner", "id": 8 }
+        ],
+        "id": 5,
+        "icon": "https://cdn-icons-png.flaticon.com/128/2777/2777142.png"
+    },
+    {
+        "title": "Cleaning",
+        "subcategories": [
+            { "title": "Tank Cleaning", "id": 1 },
+            { "title": "House Cleaning", "id": 2 },
+            { "title": "Waste Management", "id": 3 }
+        ],
+        "id": 6,
+        "icon": "https://cdn-icons-png.flaticon.com/128/2946/2946701.png"
+    },
+    {
+        "title": "Beautician",
+        "subcategories": [
+            { "title": "Bridai Packages", "id": 1 },
+            { "title": "Makeup", "id": 2 },
+            { "title": "Mehendi", "id": 3 },
+            { "title": "Facial", "id": 4 },
+            { "title": "Hair", "id": 5 },
+            { "title": "Waxing", "id": 6 },
+            { "title": "Something Else", "id": 7 }
+        ],
+        "id": 7,
+        "icon": "https://cdn-icons-png.flaticon.com/128/15898/15898074.png"
+    },
+    {
+        "title": "Laundry",
+        "subcategories": [
+            { "title": "Normal Clothes", "id": 1 },
+            { "title": "Party Wear", "id": 2 },
+            { "title": "Something Else", "id": 3 }
+        ],
+        "id": 8,
+        "icon": "https://cdn-icons-png.flaticon.com/128/3322/3322854.png"
+    },
+    {
+       "title": "Home Construction",
+       "subcategories": [
+            { "title": "Engineer Consultation", "id": 1 },
+            { "title": "Home Design", "id": 2 },
+            { "title": "Whole Home Construction", "id": 3 }
+       ],
+       "id": 9,
+       "icon": "https://cdn-icons-png.flaticon.com/128/15952/15952638.png"
+    },
+    {
+        "title": "Home Renovation",
+        "subcategories": [
+            { "title": "Bathroom Renovation", "id": 1 },
+            { "title": "Kitchen Renovation", "id": 2 },
+            { "title": "Alumnium", "id": 3 },
+            { "title": "Upvc", "id": 4 },
+            { "title": "Railings", "id": 5 },
+            { "title": "Door And Windows", "id": 6 },
+            { "title": "Furniture", "id": 7 }
+        ],
+        "id": 10,
+        "icon": "https://cdn-icons-png.flaticon.com/128/5687/5687442.png"
+    },
+    {
+        "title": "Catering Services",
+        "subcategories": [
+            { "title": "Marriage", "id": 1 },
+            { "title": "Bartabanda", "id": 2 }
+        ],
+        "id": 11,
+        "icon": "https://cdn-icons-png.flaticon.com/128/13910/13910909.png"
+    },
+    {
+        "title": "Shifting",
+        "subcategories": [
+            { "title": "House", "id": 1 },
+            { "title": "Room", "id": 2 },
+            { "title": "Office", "id": 3 }
+        ],
+        "id": 12,
+        "icon": "https://cdn-icons-png.flaticon.com/128/10235/10235832.png"
+    }
+]
