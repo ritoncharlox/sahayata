@@ -40,7 +40,7 @@ const Homepage = () => {
                     {
                         services.map((service, index) => {
                             return (
-                                <Link key={service.id} href={`/services/${service.title}`}>
+                                <Link rel='preload' key={service.id} href={`/services/${service.title}`}>
                                     <li className="services-listitems">
                                         <div className="service-icon">
                                             <Image className='service-icon-image' src={service.icon} width={50} height={50} priority alt={service.title} />
