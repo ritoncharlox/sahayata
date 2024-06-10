@@ -18,7 +18,7 @@ const page = ({ params }) => {
       let newService = newdata[index];
 
       newService.description = "Transform your home with our professional painting services. Whether you need interior or exterior painting, our skilled painters deliver high-quality results with meticulous attention to detail. From choosing the perfect color to ensuring a flawless finish, we make your home look fresh, vibrant, and inviting. Enhance the beauty and value of your property with our reliable and efficient painting services.";
-      newService.imageAddress = "https://media.istockphoto.com/id/1227342775/vector/home-repair-set-with-different-workers-in-uniform-with-equipment-painting-wall-drilling.jpg?s=612x612&w=0&k=20&c=1DIcLKsFGcfxidksKfkgSEBYr-5iRBKBnK7InOGnIzA=";
+      newService.imageAddress = "https://media.istockphoto.com/id/1297724495/photo/family-painting-walls-in-their-new-house.jpg?s=612x612&w=0&k=20&c=JIPBIj3GbSMT188GP1igZ0wSa7aAf1jSxlgz7CwL17w=";
 
       for (let i = 0; i < newService.subcategories.length; i++) {
         let item = newService.subcategories[i];
@@ -38,11 +38,29 @@ const page = ({ params }) => {
       <main className='service-container'>
         <div className="service-container-first">
           <div className="service-container-first-left">
-            <h2 className='service-container-first-left-title'>{serviceDetails.title}</h2>
-            <p className="service-container-first-left-desc">{serviceDetails.description}</p>
+            <div className="service-container-left-icon-title">
+              {/* <Image src={serviceDetails.icon} width={50} height={50} priority alt="" /> */}
+              <h2 className='service-container-first-left-title'>Services Regarding {serviceDetails.title}</h2>
+            </div>
+            {/* <p className="service-container-first-left-desc">{serviceDetails.description}</p> */}
+            <ul className="service-categories">
+              {serviceDetails.subcategories.map((item)=>{
+                return (
+                  <li className="service-category">
+                    <div className="service-category-icon">
+                      <Image src={serviceDetails.icon} width={40} height={40} priority alt="" />
+                    </div>
+                    <div className="service-category-title">{item.title}</div>
+                    <button className="service-category-book">Book Now</button>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
           <div className="service-container-first-right">
-            <Image src={serviceDetails.imageAddress} width={450} height={300} priority alt="painting" />
+            <div className="service-container-first-right-inner">
+              <Image src={serviceDetails.imageAddress} width={410} height={410} priority alt="painting" />
+            </div>
           </div>
         </div>
         <div className="service-separator"></div>
