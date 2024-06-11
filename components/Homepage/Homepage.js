@@ -99,7 +99,7 @@ const Homepage = () => {
                     </ul>
                 </div>
                 <div className="why-sahayata-right">
-                    <Image className='why-sahayata-cover' src="https://media.istockphoto.com/id/1588085993/photo/young-woman-painting-furniture.jpg?s=612x612&w=0&k=20&c=cRDWUbEN10hO-6vJVDR5hYMuVMgnjgb1c6DtyNups7E=" width={425} height={650} alt="" />
+                    <Image className='why-sahayata-cover' src="https://media.istockphoto.com/id/1481209153/photo/young-female-artist-painting-mural-in-the-attic.jpg?s=612x612&w=0&k=20&c=pnPK_G7TPAZ0zrxzEle5vHQ7qOk8NZmBjVqa60D3Jfg=" width={425} height={650} alt="" />
                 </div>
 
             </div>
