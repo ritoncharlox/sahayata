@@ -1,59 +1,62 @@
 [
     {
         "title": "Electrician",
+        "description": "Professional electricians provide a wide range of electrical services, from installing and repairing lighting fixtures, power sockets, and switch boards, to setting up telephone and networking sockets. They ensure the safe and efficient operation of electrical systems by maintaining and installing MCBs, MCCBs, and sub meters. Electricians also handle fan installations, inverter maintenance, general wiring tasks, whole house wiring, and solar power system services. They are equipped to diagnose and fix unknown electrical issues and offer custom services for specific electrical needs.",
         "subcategories": [
-            { "title": "Light", "id": 1 },
-            { "title": "Power Sockets and Switch Boards", "id": 2 },
-            { "title": "Telephone And Networking Sockets", "id": 3 },
-            { "title": "MCB & MCCBs", "id": 4 },
-            { "title": "Sub Meter", "id": 5 },
-            { "title": "Fan", "id": 6 },
-            { "title": "Inverter", "id": 7 },
-            { "title": "Wiring", "id": 8 },
-            { "title": "Whole House Wiring", "id": 9 },
-            { "title": "Solar Repair And Installation", "id": 10 },
-            { "title": "Unknown Problem", "id": 11 },
-            { "title": "Somethong Else", "id": 12 }
-        ],
+        { "title": "Light", "id": 1, "description": "Installation and repair of lighting fixtures.", "imageAddress": "https://images.unsplash.com/photo-1521288936840-032bc23139ab?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGVsZWN0cmljJTIwbGlnaHR8ZW58MHwxfDB8fHwy" },
+        { "title": "Power Sockets and Switch Boards", "id": 2, "description": "Installation and maintenance of sockets and switch boards.", "imageAddress": "https://images.unsplash.com/photo-1587534012737-1fd8a84b519e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG93ZXIlMjBzb2NrZXR8ZW58MHwxfDB8fHwy" },
+        { "title": "Telephone And Networking Sockets", "id": 3, "description": "Setup and repair of telephone and networking sockets.", "imageAddress": "https://images.unsplash.com/photo-1565277441243-2be39689f95b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dGVsZXBob25lfGVufDB8MXwwfHx8Mg%3D%3D" },
+        { "title": "MCB & MCCBs", "id": 4, "description": "Maintenance and installation of MCB and MCCBs.", "imageAddress": "https://media.istockphoto.com/id/1492493901/photo/mcb-or-circuit-breaker-was-installed-on-the-wall.jpg?s=612x612&w=0&k=20&c=jjSmqviSqrDXvEz3-8gZQu2Vtb95etcFZ7U1Kt7HV6E=" },
+        { "title": "Sub Meter", "id": 5, "description": "Installation and repair of sub meters for electricity.", "imageAddress": "https://images.unsplash.com/photo-1527332756452-1ebef4a55fb1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZWxlY3RyaWMlMjBzdWIlMjBtZXRlcnxlbnwwfDF8MHx8fDI%3D" },
+        { "title": "Fan", "id": 6, "description": "Installation and repair of ceiling and wall fans.", "imageAddress": "https://images.unsplash.com/photo-1598492665673-f853ef03add4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWxlY3RyaWMlMjBmYW58ZW58MHwxfDB8fHwy" },
+        { "title": "Inverter", "id": 7, "description": "Installation and maintenance of power inverters.", "imageAddress": "https://media.istockphoto.com/id/1405056288/photo/power-adapter-isolated-above-white-background-220v-to-12v.jpg?s=612x612&w=0&k=20&c=MEZgAiD60v4kteUUeiZnBUt-wuiFdOBjpFXTMWq6o3A=" },
+        { "title": "Wiring", "id": 8, "description": "General electrical wiring services.", "imageAddress": "https://images.unsplash.com/photo-1557516300-46e218a6961f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2lyaW5nfGVufDB8MXwwfHx8Mg%3D%3D" },
+        { "title": "Whole House Wiring", "id": 9, "description": "Complete wiring solutions for entire houses.", "imageAddress": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2UlMjB3aXJpbmd8ZW58MHwxfDB8fHwy" },
+        { "title": "Solar Repair And Installation", "id": 10, "description": "Repair and installation of solar power systems.", "imageAddress": "https://images.unsplash.com/photo-1595437193398-f24279553f4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c29sYXIlMjBwYW5lbHN8ZW58MHwxfDB8fHwy" }
+    ],
         "id": 1,
-        "icon": "https://cdn-icons-png.flaticon.com/128/3707/3707167.png"
+        "icon": "https://cdn-icons-png.flaticon.com/128/3707/3707167.png",
+        "imageAddress": "https://media.istockphoto.com/id/1396605410/photo/electrician-engineer-tests-electrical-installations-and-wires-on-relay-protection-system.jpg?s=612x612&w=0&k=20&c=2tv-S8_NnWy9Xy4HWxzmvggRqL09sHqndIAfXWHPt5Q="
     },
     {
-        "title": "Plumbing",
+        "title": "Plumbing Service",
+        "description": "Our professional plumbing service offers comprehensive solutions for all your plumbing needs. From installing and repairing wash basins, taps, and faucets, to fixing and maintaining toilets and water tanks, our skilled plumbers ensure your plumbing systems function smoothly. We specialize in clearing blockages and providing complete plumbing solutions for entire houses. Whether it's a known issue or an unidentified problem, our team is equipped to diagnose and resolve it efficiently. Trust us to keep your plumbing in top condition with reliable and prompt service.",
         "subcategories": [
-            { "title": "Wash Basin", "id": 1 },
-            { "title": "Tap And Fauctes", "id": 2 },
-            { "title": "Toilet", "id": 3 },
-            { "title": "Water Tank", "id": 4 },
-            { "title": "Blocakges", "id": 5 },
-            { "title": "Whole House Plumbing", "id": 6 },
-            { "title": "Unknown Problem", "id": 7 },
-            { "title": "Somethong Else", "id": 8 }
+            { "title": "Wash Basin", "id": 1, "description": "Installation and repair of wash basins.", "imageAddress": "https://images.unsplash.com/photo-1556228578-1f08a75ac92d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8d2FzaCUyMGJhc2lufGVufDB8MXwwfHx8Mg%3D%3D" },
+            { "title": "Tap And Faucets", "id": 2, "description": "Installation and maintenance of taps and faucets.", "imageAddress": "https://images.unsplash.com/photo-1602761004880-0cbb1ba589d2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fFRhcCUyMEFuZCUyMEZhdWNldHN8ZW58MHwxfDB8fHwy" },
+            { "title": "Toilet", "id": 3, "description": "Repair and maintenance of toilet systems.", "imageAddress": "https://images.unsplash.com/photo-1563204719-44395a035bb6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dG9pbGV0fGVufDB8MXwwfHx8Mg%3D%3D" },
+            { "title": "Water Tank", "id": 4, "description": "Installation and repair of water tanks.", "imageAddress": "https://media.istockphoto.com/id/182150089/photo/a-water-tank-surrounded-by-a-floral-vine.jpg?s=612x612&w=0&k=20&c=4bdGFU6K3Q0RrOBDryh4uqIqD1z1J4ydYrg4983b3b4=" },
+            { "title": "Blockages", "id": 5, "description": "Clearing blockages in plumbing systems.", "imageAddress": "https://media.istockphoto.com/id/1045602268/vector/paper-in-toilet-consequences-litter-in-water-pipe-old-pipes-water-leak-sewerage-is-broken.jpg?s=612x612&w=0&k=20&c=joZvnSMwYeEbfBqOBYjPpLas_TYa5ZJMUMa5HjEhW_o=" },
+            { "title": "Whole House Plumbing", "id": 6, "description": "Complete plumbing solutions for entire houses.", "imageAddress": "https://images.unsplash.com/photo-1551837818-f52fc6991b70?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cGx1bWJpbmd8ZW58MHwxfDB8fHwy" }
         ],
         "id": 2,
-        "icon": "https://cdn-icons-png.flaticon.com/128/312/312971.png"
+        "icon": "https://cdn-icons-png.flaticon.com/128/312/312971.png",
+        "imageAddress": "https://media.istockphoto.com/id/2152919352/photo/construction-site-with-new-hydraulic-system-of-drinking-water-to-be-carried-below-ground.jpg?s=612x612&w=0&k=20&c=4mVrnMCHcFTvvwN25nX-0clvAYxIeYDpR1jxTMm6X8I="
     },
     {
-        "title": "Painting",
+        "title": "Home Painting Service",
+        "description": "Transform your home with our professional painting services. Whether you need interior or exterior painting, our skilled painters deliver high-quality results with meticulous attention to detail. From choosing the perfect color to ensuring a flawless finish, we make your home look fresh, vibrant, and inviting. Enhance the beauty and value of your property with our reliable and efficient painting services.",
+        "imageAddress": "https://media.istockphoto.com/id/519251233/photo/3d-interor-of-orange-white-bedroom.jpg?s=612x612&w=0&k=20&c=rD0VlSzhEilfLVPk0v94FxhjSATvaKaKuWexXYW5hTc=",
         "subcategories": [
-            { "title": "Interior Painting", "id": 1 },
-            { "title": "Exterior Painting", "id": 2 },
-            { "title": "Something Else", "id": 3 }
+            { "title": "Interior Painting", "description": "Professional house inner wall painting for fresh, vibrant interiors.", "id": 1, "imageAddress": "https://images.unsplash.com/photo-1516962080544-eac695c93791?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9tZSUyMHBhaW50aW5nfGVufDB8MXwwfHx8Mg%3D%3D" },
+            { "title": "Exterior Painting", "description": "Expert house outer wall painting for durable, attractive exteriors.", "id": 2, "imageAddress" : "https://images.unsplash.com/photo-1687069241293-152f51173d04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fGhvdXNlJTIwcGFpbnRpbmd8ZW58MHwxfDB8fHwy"}
         ],
         "id": 3,
         "icon": "https://cdn-icons-png.flaticon.com/128/1815/1815785.png"
     },
     {
         "title": "Computer And Networking",
+        "description": "Our computer and networking service offers expert solutions for all your technology needs. We specialize in repairing and servicing computers and laptops, ensuring they operate at peak performance. Our services include fixing and maintaining printers and photocopy machines, providing skilled IT technicians for technical support, and setting up gaming systems for an enhanced experience. Whether you need regular servicing or have specific technical issues, our experienced team is ready to assist you with reliable and efficient service.",
         "subcategories": [
-            { "title": "Computer And Laptop Repairing", "id": 1 },
-            { "title": "Printers And Photocopy Machine", "id": 2 },
-            { "title": "IT Technician", "id": 3 },
-            { "title": "Computer And Laptop Servicing", "id": 4 },
-            { "title": "Gaming Setup", "id": 5 }
+            { "title": "Computer And Laptop Repairing", "id": 1, "description": "Repair services for computers and laptops.", "imageAddress": "https://images.unsplash.com/photo-1709102884400-b50ca1a12bc3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Q29tcHV0ZXIlMjBBbmQlMjBMYXB0b3AlMjBSZXBhaXJpbmd8ZW58MHwxfDB8fHwy" },
+            { "title": "Printers And Photocopy Machine", "id": 2, "description": "Maintenance and repair of printers and photocopy machines.", "imageAddress": "https://media.istockphoto.com/id/187656221/photo/copier-in-an-office-floor.jpg?s=612x612&w=0&k=20&c=duV2ccmtnHbtbjGPzQaSisS-nvwpea0nEbS__y0E6XU=" },
+            { "title": "IT Technician", "id": 3, "description": "Professional IT technician support.", "imageAddress": "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dGVjaG5pY2lhbnxlbnwwfDF8MHx8fDI%3D" },
+            { "title": "Computer And Laptop Servicing", "id": 4, "description": "Regular servicing for computers and laptops.", "imageAddress": "https://images.unsplash.com/photo-1504198070170-4ca53bb1c1fa?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fENvbXB1dGVyJTIwQW5kJTIwTGFwdG9wJTIwc2VydmljaW5nfGVufDB8MXwwfHx8Mg%3D%3D" },
+            { "title": "Gaming Setup", "id": 5, "description": "Setup and optimization of gaming systems.", "imageAddress": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTl8fGdhbWluZyUyMHNldHVwfGVufDB8MXwwfHx8Mg%3D%3D" }
         ],
         "id": 4,
-        "icon": "https://cdn-icons-png.flaticon.com/128/3067/3067451.png"
+        "icon": "https://cdn-icons-png.flaticon.com/128/3067/3067451.png",
+        "imageAddress": "https://acom.pk/cdn/shop/articles/generation_of_laptop_1200x.jpg?v=1678446433"
     },
     {
         "title": "Electronic Devices",
@@ -71,7 +74,7 @@
         "icon": "https://cdn-icons-png.flaticon.com/128/2777/2777142.png"
     },
     {
-        "title": "Cleaning",
+        "title": "Cleaning Service",
         "subcategories": [
             { "title": "Tank Cleaning", "id": 1 },
             { "title": "House Cleaning", "id": 2 },
@@ -88,18 +91,16 @@
             { "title": "Mehendi", "id": 3 },
             { "title": "Facial", "id": 4 },
             { "title": "Hair", "id": 5 },
-            { "title": "Waxing", "id": 6 },
-            { "title": "Something Else", "id": 7 }
+            { "title": "Waxing", "id": 6 }
         ],
         "id": 7,
         "icon": "https://cdn-icons-png.flaticon.com/128/15898/15898074.png"
     },
     {
-        "title": "Laundry",
+        "title": "Laundry Service",
         "subcategories": [
             { "title": "Normal Clothes", "id": 1 },
-            { "title": "Party Wear", "id": 2 },
-            { "title": "Something Else", "id": 3 }
+            { "title": "Party Wear", "id": 2 }
         ],
         "id": 8,
         "icon": "https://cdn-icons-png.flaticon.com/128/3322/3322854.png"
@@ -131,14 +132,14 @@
     {
         "title": "Catering Services",
         "subcategories": [
-            { "title": "Marriage", "id": 1 },
-            { "title": "Bartabanda", "id": 2 }
+            { "title": "Bartabanda", "id": 1, "imageAddress": "https://images.unsplash.com/photo-1601313054987-42af9d8ac8ae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGNhdGVyaW5nfGVufDB8MXwwfHx8Mg%3D%3D" },
+            { "title": "Marriage", "id": 2, "imageAddress" : "https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d2VkZGluZ3xlbnwwfDF8MHx8fDI%3D" }
         ],
         "id": 11,
         "icon": "https://cdn-icons-png.flaticon.com/128/13910/13910909.png"
     },
     {
-        "title": "Shifting",
+        "title": "Shifting Service",
         "subcategories": [
             { "title": "House", "id": 1 },
             { "title": "Room", "id": 2 },

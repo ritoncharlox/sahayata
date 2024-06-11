@@ -22,6 +22,16 @@ const nextConfig = {
                 hostname: 'www.bankrate.com',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                port: '',
+            },
+            {
+                protocol: 'https',
+                hostname: 'acom.pk',
+                port: '',
+            },
         ],
     },
 };
