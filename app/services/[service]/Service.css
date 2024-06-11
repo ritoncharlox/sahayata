@@ -1,6 +1,6 @@
-.service-container{
+/* .service-container{
     /* position: relative; */
-}
+/* } */
 .service-container-separator{
     width: 100%;
     height: 6px;
@@ -92,6 +92,12 @@
     box-shadow: 0px 0px 10px 0px rgba(55, 34, 1, 0.4);
     overflow: hidden;
     cursor: pointer;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .3s;
+    transition-property: transform;
+}
+.service-category:hover{
+    transform: scale(1.02);
 }
 .service-category:hover{
     .learnmore-btn{
@@ -115,12 +121,14 @@
     text-align: center;
 }
 .service-category-title{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
+    color: black;
 }
 .service-category-desc{
     font-size: .95rem;
     font-weight: 400;
+    color: black;
 }
 .learnmore-btn {
     color: white;
@@ -153,7 +161,8 @@
 .service-category-image{
     height: 100%;
     width: 100%;
-    
+    opacity: .85;
+    z-index: -1;
 }
 .service-container-second-coverpic{
     display: flex;
