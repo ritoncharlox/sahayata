@@ -7,14 +7,11 @@ import connectDB from '@/config/db';
 import { generateUniqueUsername } from '@/utils/usernameGenerator';
 import { signIn } from '@/auth';
 import { CredentialsSignin } from 'next-auth';
-import { simulateDelay } from '@/utils/functions';
 
 const handleLogin = async (credentials) => {
     // e.preventDefault();
     // console.log("Hello");
     try {
-
-        await simulateDelay(5000);
 
         const isValidEmail = (email) => {
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,7 +111,9 @@ export const handleLoginSubmit = async (credentials) => {
     const loginUser = await handleLogin(credentials);
     // console.log(loginUser);
     if (loginUser.success) {
-        redirect('/');
+        if (credentials.redirect !== false) {
+            redirect('/');
+        }
     }
     return loginUser;
 };

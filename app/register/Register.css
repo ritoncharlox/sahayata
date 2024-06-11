@@ -166,6 +166,30 @@ main.login-registration .error-field .text {
     font-weight: 500;
 }
 
+main.login-registration .info-field {
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: green;
+    border: 2px solid green;
+    padding: 10px;
+    border-radius: 10px;
+    /* background-color: red; */
+}
+
+main.login-registration .info-field .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+main.login-registration .info-field .text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
 main.login-registration .btn {
     width: 150px;
     height: 50px;
