@@ -29,7 +29,12 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
-                hostname: 'acom.pk',
+                hostname: 'wallpapers.com',
+                port: '',
+            },
+            {
+                protocol: 'https',
+                hostname: 'static.vecteezy.com',
                 port: '',
             },
         ],

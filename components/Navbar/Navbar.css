@@ -42,13 +42,14 @@
     font-weight: 500;
     color: #363636;
     text-decoration: none;
-    transition: all .2s ease;
-    width: 90px;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .2s;
+    transition-property: transform;
 }
 .navbar-wrapper .nav-right .aboutus:hover {
     font-weight: bold;
     color: var(--theme-color2);
-    text-decoration: none;
+    transform: scale(1.01);
 }
 
 .navbar-wrapper .nav-left .logo img {
@@ -59,7 +60,7 @@
     display: flex;
     flex-direction: row;
     padding: 4px 0px;
-    gap: 30px;
+    gap: 40px;
     /* align-items: center; */
 }
 
@@ -108,17 +109,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 200px;
     font-size: 1.1rem;
     font-weight: 500;
-    color: #363636;
+    width: 200px;
     padding: 0px 10px;
-    transition: all .2s ease;
+    color: #363636;
+    text-decoration: none;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .2s;
+    transition-property: transform;
 }
 .navbar-wrapper .nav-right .nav-right-item.joinus:hover {
     font-weight: bold;
     color: var(--theme-color2);
-    text-decoration: none;
+    transform: scale(1.01);
 }
 
 .navbar-wrapper .nav-right .nav-right-item.signin {
