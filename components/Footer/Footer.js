@@ -14,9 +14,9 @@ const Footer = () => {
         <div className="footer-top-left">
           <h4 className="footer-top-left-title footer-titles">More On Sahayata</h4>
           <ul className="more-on-sahayata footer-lists">
-            <li className="more-on-item">About Us</li>
-            <li className="more-on-item">Privacy Policy</li>
-            <li className="more-on-item">Terms & Conditions</li>
+            <Link href={"/about-us"}><li className="more-on-item">About Us</li></Link>
+            <Link href={"/privacy-policy"}><li className="more-on-item">Privacy Policy</li></Link>
+            <Link href={"/terms-and-conditions"}><li className="more-on-item">Terms & Conditions</li></Link>
           </ul>
         </div>
         <div className="footer-top-middle">
@@ -52,11 +52,11 @@ const Footer = () => {
           <div className="footer-bottom-text">Copyright &copy; www.sahayata.com - 2024 | All Right Reserved</div>
         </div>
         <ul className="footer-bottom-platforms">
-          <li className="footer-platform-item"><FaFacebookF /></li>
-          <li className="footer-platform-item"><FaInstagram /></li>
-          <li className="footer-platform-item"><FaTiktok /></li>
-          <li className="footer-platform-item"><FaLinkedinIn /></li>
-          <li className="footer-platform-item"><FaYoutube /></li>
+          <Link href={"https://www.facebook.com/sudip.15622"} target='_blank'><li className="footer-platform-item"><FaFacebookF /></li></Link>
+          <Link href={"https://www.instagram.com/sudip.15622"} target='_blank'><li className="footer-platform-item"><FaInstagram /></li></Link>
+          <Link href={"/"} target='_blank'><li className="footer-platform-item"><FaTiktok /></li></Link>
+          <Link href={"https://www.linkedin.com/in/sudeep-lamichhane-a22613271"} target='_blank'><li className="footer-platform-item"><FaLinkedinIn /></li></Link>
+          <Link href={"https://www.youtube.com/@sunnyleone"} target='_blank'><li className="footer-platform-item"><FaYoutube /></li></Link>
         </ul>
       </div>
     </footer>

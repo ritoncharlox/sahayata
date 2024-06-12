@@ -37,6 +37,11 @@ const nextConfig = {
                 hostname: 'static.vecteezy.com',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'acom.pk',
+                port: '',
+            },
         ],
     },
 };
