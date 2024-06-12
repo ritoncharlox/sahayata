@@ -34,14 +34,10 @@ const page = ({ params }) => {
       <main className="service-container">
         <div className="service-container-first">
           <div className='service-container-first-top'>
-            <Image src={serviceDetails.icon} width={60} height={60} priority alt="" />
+            <Image className='service-container-first-top-icon' src={serviceDetails.icon} width={60} height={60} priority alt="" />
             <h1 className="service-container-first-left-title">{serviceDetails.title}</h1>
           </div>
           <p className="service-container-first-left-desc">{serviceDetails.description}</p>
-          {/* <div className="service-container-first-buttons">
-            <button className='readmore-btn'>Read More</button>
-            <button className='readmore-btn'>View More</button>
-          </div> */}
         </div>
         <div className="service-container-separator"></div>
         <div className="service-container-second">

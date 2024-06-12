@@ -1,3 +1,127 @@
 .footer-wrapper {
-    margin-top: 50px;
+    /* margin-top: 50px; */
+    /* border: 2px solid black; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+    color: rgb(225, 224, 224);
+    padding: 25px 0px;
+    
+}
+.footer-separator{
+    height: 2px;
+    background-color: rgb(80, 79, 79);
+    margin: 30px auto;
+    width: 85%;
+    border-radius: 10px;
+}
+.footer-top{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    /* border: 2px solid red; */
+}
+.footer-top-left{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.footer-top-middle{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.footer-titles{
+    font-size: 1.2rem;
+}
+.footer-lists{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.more-on-item{
+    font-size: .9rem;
+    color: rgb(217, 217, 217);
+    list-style: none;
+    cursor: pointer;
+}
+.footer-top-right{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.sahayata-details{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.sahayta-details-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--theme-color2);
+    /* font-size: 30px; */
+}
+.sahayata-infos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sahayata-infos-title{
+    font-size: 1.01rem;
+}
+.sahayata-infos-desc{
+    font-size: .95rem;
+}
+
+.footer-bottom{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* gap: 30px; */
+}
+.footer-bottom-upper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+.footer-bottom-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgb(225, 224, 224);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.footer-bottom-text{
+    font-size: .95rem;
+}
+.footer-bottom-platforms{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.footer-platform-item{
+    list-style: none;
+    border: 2.4px solid rgb(225, 224, 224);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 9px;
+    cursor: pointer;
+    /* color: var(--theme-color2); */
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .3s;
+    transition-property: transform;
+}
+.footer-platform-item:hover{
+    transform: scale(1.1);
 }
