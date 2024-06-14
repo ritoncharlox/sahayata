@@ -4,11 +4,44 @@ import Image from "next/image";
 import Link from 'next/link';
 import "./Homepage.css"
 import data from "@/app/services.json"
+import { GoDotFill } from "react-icons/go";
 import { v4 as uuidv4 } from 'uuid';
 
 const Homepage = () => {
 
     const [services, setServices] = useState([])
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    const slides = [
+        {
+            name: "Sudip Lamichhane",
+            post: "CEO of NASA",
+            address: "Bharatpur-5, Chitwan",
+            profileurl: "/electrician.png",
+            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+        },
+        {
+            name: "Maddath Subedi",
+            post: "CEO of NASA",
+            address: "Bharatpur-5, Chitwan",
+            profileurl: "/electrician.png",
+            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+        },
+        {
+            name: "Oasis Regmi",
+            post: "CEO of NASA",
+            address: "Bharatpur-5, Chitwan",
+            profileurl: "/electrician.png",
+            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+        },
+        {
+            name: "Ayush Pandey",
+            post: "CEO of NASA",
+            address: "Bharatpur-5, Chitwan",
+            profileurl: "/electrician.png",
+            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+        },
+    ];
 
     useEffect(() => {
         const getdata = () => {
@@ -24,6 +57,22 @@ const Homepage = () => {
             getdata();
         }
     }, [])
+
+    const goToPrevious = () => {
+        const isFirstSlide = currentIndex === 0;
+        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+        setCurrentIndex(newIndex);
+    }
+
+    const goToNext = () => {
+        const isLastSlide = currentIndex === slides.length - 1;
+        const newIndex = isLastSlide ? 0 : currentIndex + 1;
+        setCurrentIndex(newIndex);
+    }
+
+    const goToSlide = (slideIndex) => {
+        setCurrentIndex(slideIndex);
+    }
 
 
     return (
@@ -106,7 +155,52 @@ const Homepage = () => {
 
             <div className="homepage-separator"></div>
 
+            <div className="testimonials-section">
+                <h2 className="testimonial-section-title">Testimonials</h2>
+                <div className="testimonials-slider-container">
+                    <div className="left-arrow" onClick={goToPrevious}>{"<"}</div>
+                    <div className="right-arrow" onClick={goToNext}>{">"}</div>
+                    <div className="testimonials-slider" style={{ transform: `translateX(${-currentIndex * 100}%)` }}>
+                        {slides.map((slide, slideIndex) => (
+                            <div key={slideIndex} className={`testimonials-slides ${currentIndex === slideIndex ? 'slide-active' : ''}`}>
+                                {slide.name}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="dots-container">
+                    {slides.map((slide, slideIndex) => (
+                        <div
+                            key={slideIndex}
+                            className={`dots-item ${currentIndex === slideIndex ? 'active' : ''}`}
+                            onClick={() => goToSlide(slideIndex)}
+                        >
+                            <GoDotFill />
+                        </div>
+                    ))}
+                </div>
+            </div>
 
+            <div className="homepage-totaldetails-section">
+                <div className="homepage-totaldetails-infos">
+                    <p className="totaldetails-counting">20000+</p>
+                    <h3 className="totaldetails-title">Bookings</h3>
+                </div>
+
+                <div className="totaldetails-separator"></div>
+
+                <div className="homepage-totaldetails-infos">
+                    <p className="totaldetails-counting">200+</p>
+                    <h3 className="totaldetails-title">Verified Experts</h3>
+                </div>
+
+                <div className="totaldetails-separator"></div>
+
+                <div className="homepage-totaldetails-infos">
+                    <p className="totaldetails-counting">50+</p>
+                    <h3 className="totaldetails-title">Services</h3>
+                </div>
+            </div>
         </main >
     )
 }
