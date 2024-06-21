@@ -229,43 +229,42 @@ main {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    width: 100%;
+    max-width: 1300px;
+    margin: 0px auto;
 }
 
 .testimonials-slider-container {
-    width: 80%;
-    border: 2px solid black;
-    height: 350px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
     display: flex;
-    justify-content: center; /* Center the slider */
-    align-items: center;     /* Center the slider vertically */
+    position: relative;
+    /* flex-direction: column; */
+    margin: 0px auto;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 0px 20px 0px;
+    overflow: hidden;   /* Center the slider vertically */
 }
 
 .testimonials-slider {
     display: flex;
+    width: 200%;
+    transform: translateX(0px);
     transition: transform 0.5s ease;
-    width: 50%;  /* Ensure the slider takes the full width */
-    margin: 0px auto;
-    border: 2px solid black;
-    align-items: center;
+
 }
 
 .testimonials-slides {
-    min-width: 100%; /* Make each slide take the full width of the container */
-    height: 100%;
-    border-radius: 10px;
+    flex: 0 0 30%;
+    padding: 20px;
+    opacity: 0.5;
+    transform: scale(0.8);
+    transition: transform 0.5s ease;
     border: 2px solid black;
-    display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center;     /* Center content vertically */
-    transform: scale(.8);
     
 }
 .slide-active{
-    transform: scale(1.01);
+    flex: 0 0 40%;
+    opacity: 1;
+    transform: scale(1);
 }
 
 .left-arrow, .right-arrow {
