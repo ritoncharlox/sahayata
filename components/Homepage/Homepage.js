@@ -160,10 +160,10 @@ const Homepage = () => {
                 <div className="testimonials-slider-container">
                     <div className="left-arrow" onClick={goToPrevious}>{"<"}</div>
                     <div className="right-arrow" onClick={goToNext}>{">"}</div>
-                    <div className="testimonials-slider" style={{ transform: `translateX(${-currentIndex * 100}%)` }}>
+                    <div className="testimonials-slider" style={{ transform: `translateX(${(currentIndex * -30)}%)` }}>
                         {slides.map((slide, slideIndex) => (
                             <div key={slideIndex} className={`testimonials-slides ${currentIndex === slideIndex ? 'slide-active' : ''}`}>
-                                {slide.name}
+                                <div className="testimonials-card">{slide.name}</div>
                             </div>
                         ))}
                     </div>
