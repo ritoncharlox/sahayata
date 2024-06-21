@@ -42,6 +42,11 @@ const nextConfig = {
                 hostname: 'acom.pk',
                 port: '',
             },
+            {
+                protocol: 'https',
+                hostname: 'encrypted-tbn0.gstatic.com',
+                port: '',
+            },
         ],
     },
 };

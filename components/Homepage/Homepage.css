@@ -64,8 +64,8 @@ main {
 .services-lists a {
     text-decoration: none;
     padding: 10px;
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -203,7 +203,7 @@ main {
     align-items: center;
     justify-content: space-around;
     width: 80%;
-    margin: 50px auto;
+    margin: 100px auto 50px auto;
 }
 
 .homepage-totaldetails-infos {
@@ -225,43 +225,108 @@ main {
     font-size: 1.4rem;
 }
 
-.testimonials-section {
+.testimonial-slider-wrapper {
+    max-width: 1300px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    max-width: 1300px;
-    margin: 0px auto;
+    align-items: center;
+    row-gap: 20px;
+    margin: 0px auto 100px auto;
+    color: #363636;
 }
-
-.testimonials-slider-container {
+.testimonial-section-title{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.testimonial-slider {
     display: flex;
     position: relative;
-    /* flex-direction: column; */
-    margin: 0px auto;
     align-items: center;
     justify-content: center;
-    padding: 0px 0px 20px 0px;
-    overflow: hidden;   /* Center the slider vertically */
+    /* padding: 0px 0px 20px 0px; */
+    overflow: hidden;
 }
 
-.testimonials-slider {
+.testimonial-container {
     display: flex;
     width: 200%;
-    transform: translateX(0px);
     transition: transform 0.5s ease;
-
+    /* align-items: center; */
 }
 
-.testimonials-slides {
+.testimonial-card-wrapper {
     flex: 0 0 30%;
     padding: 20px;
-    opacity: 0.5;
+    opacity: 0.2;
     transform: scale(0.8);
     transition: transform 0.5s ease;
-    border: 2px solid black;
-    
 }
-.slide-active{
+
+.testimonial-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    /* background-color: #f2f6ff; */
+    box-shadow: 0px 0px 10px 0px rgba(55, 34, 1, 0.4);
+}
+.testimonial-card-top {
+   display: flex;
+   gap: 20px;
+   align-items: center;
+
+}
+.testimonial-card-profile{
+    border-radius: 50%;
+}
+.testimonial-card-infos{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+.testimonial-card-title{
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #363636;
+}
+.testimonial-card-about{
+    font-size: .95rem;
+    font-weight: 400;
+    color: #444444;
+}
+.testimonial-card-bottom{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+.testimonial-card-iconleft{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--theme-color2);
+}
+.testimonial-card-message{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #444444;
+}
+.testimonial-card-iconright{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--theme-color2);
+}
+.slide-active {
     flex: 0 0 40%;
     opacity: 1;
     transform: scale(1);
@@ -270,20 +335,20 @@ main {
 .left-arrow, .right-arrow {
     position: absolute;
     top: 50%;
-    transform: translate(0, -50%);
-    font-size: 40px;
-    color: black;
-    z-index: 1;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 40px;
+    color: #363636;
 }
 
 .left-arrow {
-    left: 30px;
+    left: 10px;
 }
 
 .right-arrow {
-    right: 30px;
+    right: 10px;
 }
 
 .dots-container {
@@ -294,10 +359,15 @@ main {
 .dots-item {
     margin: 0 5px;
     cursor: pointer;
-    font-size: 25px;
-    transition: transform 0.3s ease;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: background-color .3s ease-in-out;
+    background-color: rgba(192, 191, 191, 0.9);
+    background-color: rgba(255, 166, 0, 0.533);
 }
 
 .dots-item.active {
-    transform: scale(1.3);
+    background-color: rgba(94, 94, 94, 0.9);
+    background-color: var(--theme-color2);
 }

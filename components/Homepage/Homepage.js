@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from 'next/link';
 import "./Homepage.css"
 import data from "@/app/services.json"
-import { GoDotFill } from "react-icons/go";
+import { FaChevronCircleRight, FaCaretRight, FaCaretLeft, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { v4 as uuidv4 } from 'uuid';
 
 const Homepage = () => {
 
     const [services, setServices] = useState([])
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentIndex, setCurrentIndex] = useState(2)
 
     const slides = [
         {
@@ -41,6 +41,13 @@ const Homepage = () => {
             profileurl: "/electrician.png",
             comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
         },
+        {
+            name: "Ayush Pandey",
+            post: "CEO of NASA",
+            address: "Bharatpur-5, Chitwan",
+            profileurl: "/electrician.png",
+            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+        },
     ];
 
     useEffect(() => {
@@ -59,15 +66,15 @@ const Homepage = () => {
     }, [])
 
     const goToPrevious = () => {
-        const isFirstSlide = currentIndex === 0;
-        const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-        setCurrentIndex(newIndex);
+        let currentTestimonial = (currentIndex - 1 + slides.length) % slides.length;
+        console.log(currentTestimonial);
+        setCurrentIndex(currentTestimonial);
     }
 
     const goToNext = () => {
-        const isLastSlide = currentIndex === slides.length - 1;
-        const newIndex = isLastSlide ? 0 : currentIndex + 1;
-        setCurrentIndex(newIndex);
+        let currentTestimonial = (currentIndex + 1) % slides.length;
+        console.log(currentTestimonial);
+        setCurrentIndex(currentTestimonial);
     }
 
     const goToSlide = (slideIndex) => {
@@ -155,18 +162,33 @@ const Homepage = () => {
 
             <div className="homepage-separator"></div>
 
-            <div className="testimonials-section">
+            <div className="testimonial-slider-wrapper">
                 <h2 className="testimonial-section-title">Testimonials</h2>
-                <div className="testimonials-slider-container">
-                    <div className="left-arrow" onClick={goToPrevious}>{"<"}</div>
-                    <div className="right-arrow" onClick={goToNext}>{">"}</div>
-                    <div className="testimonials-slider" style={{ transform: `translateX(${(currentIndex * -30)}%)` }}>
+                <div className="testimonial-slider">
+                    <div className="testimonial-container" style={{ transform: `translateX(${(currentIndex - 1) * -30}%)` }}>
                         {slides.map((slide, slideIndex) => (
-                            <div key={slideIndex} className={`testimonials-slides ${currentIndex === slideIndex ? 'slide-active' : ''}`}>
-                                <div className="testimonials-card">{slide.name}</div>
+                            <div key={slideIndex} className={`testimonial-card-wrapper ${currentIndex === slideIndex ? 'slide-active' : ''}`}>
+                                <div className="testimonial-card">
+                                    <div className="testimonial-card-top">
+                                        <Image className='testimonial-card-profile' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKXlweUvXQxGkQr2Awr_l2Ia9fK-XEQINDug&usqp=CAU" width={80} height={80} alt="" />
+                                        <div className="testimonial-card-infos">
+                                            <h3 className="card-infos-title">Sudip Lamichhane</h3>
+                                            <p className='card-infos-about'>{slide.address}</p>
+                                        </div>
+                                    </div>
+                                    <div className="testimonial-card-bottom">
+                                        <div className="testimonial-card-iconleft"><FaQuoteLeft /></div>
+                                        <div className="testimonial-card-message">
+                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere exercitationem recusandae dicta molestiae fugiat numquam, nesciunt sint ratione ipsa aperiam!
+                                        </div>
+                                        <div className="testimonial-card-iconright"><FaQuoteRight /></div>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
+                    <div className="left-arrow" onClick={goToPrevious}><FaCaretLeft /></div>
+                    <div className="right-arrow" onClick={goToNext}><FaCaretRight /></div>
                 </div>
                 <div className="dots-container">
                     {slides.map((slide, slideIndex) => (
@@ -175,11 +197,12 @@ const Homepage = () => {
                             className={`dots-item ${currentIndex === slideIndex ? 'active' : ''}`}
                             onClick={() => goToSlide(slideIndex)}
                         >
-                            <GoDotFill />
                         </div>
                     ))}
                 </div>
             </div>
+
+            {/* <div className="homepage-separator"></div> */}
 
             <div className="homepage-totaldetails-section">
                 <div className="homepage-totaldetails-infos">
