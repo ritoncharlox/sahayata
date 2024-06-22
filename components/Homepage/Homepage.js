@@ -14,39 +14,39 @@ const Homepage = () => {
 
     const slides = [
         {
-            name: "Sudip Lamichhane",
-            post: "CEO of NASA",
-            address: "Bharatpur-5, Chitwan",
-            profileurl: "/electrician.png",
-            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+            name: "Ramesh Parsai",
+            address: "Bharatpur-16, Chitwan",
+            profileurl: "https://media.istockphoto.com/id/1182247394/photo/model-smiling-in-front-of-black-backdrop.jpg?s=612x612&w=0&k=20&c=I8AB-e-0Jwt0knPRNi9NRHZokDWcgS7LY9OEpNYSLjA=",
+            comment: "There Was Great Communication In Regards To What Happened To My Computer And What Could Be Done. I Was Informed Of Everything Before Hand In Regards To The Price. My Computer Got Fixed In A Reasonable Price And Reasonable Timeframe. Good Services. Would Highly Recommend For Any Electronic Problems.",
+            date: "October 25, 2022"
         },
         {
-            name: "Maddath Subedi",
-            post: "CEO of NASA",
-            address: "Bharatpur-5, Chitwan",
-            profileurl: "/electrician.png",
-            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+            name: "Shom Prasad Kami",
+            address: "Bharatpur-8, Chitwan",
+            profileurl: "https://media.istockphoto.com/id/538652087/photo/thinking-businessman-photo.jpg?s=612x612&w=0&k=20&c=j8ibqkUk1t6bOHYcmz0RumlKxNWF1iEv9WeLP3QBid4=",
+            comment: "My Laptop Works Perfectly Fine Now After The Repair By SMS Technicians..Good Communication, Delivery On Time , Skillful Technician,And Reasonable Price For The Repair Is What I Found After Getting The SMS Service. Thank You Guys For The Wonderful Work And Keep It Up.You Guys Are Doing Great .",
+            date: "January 1, 2024"
         },
         {
-            name: "Oasis Regmi",
-            post: "CEO of NASA",
-            address: "Bharatpur-5, Chitwan",
-            profileurl: "/electrician.png",
-            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+            name: "Apekshya Khatri",
+            address: "Bharatpur-1, Chitwan",
+            profileurl: "https://media.istockphoto.com/id/1471845315/photo/happy-portrait-or-business-woman-taking-a-selfie-in-office-building-for-a-social-media.jpg?s=612x612&w=0&k=20&c=AOylBL01joI0zphCAFr6YVrsOgp_jd2XtVUychLXYho=",
+            comment: "This Week I Truly Experienced The 'Sahayata' In Sahayata Marmat Sewa. I Had My Laptop Served By Them. Everything, From The Possible Servicing Options I Had To The Pick/Delivery Of Laptop And The Servicing Itself, Was Seamless. Thank You To The Computer Expert And The Entire Team",
+            date: "May 12, 2023"
         },
         {
-            name: "Ayush Pandey",
-            post: "CEO of NASA",
-            address: "Bharatpur-5, Chitwan",
-            profileurl: "/electrician.png",
-            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+            name: "Renu Dahal",
+            address: "Bharatpur-10, Chitwan",
+            profileurl: "https://media.istockphoto.com/id/1598311636/photo/thinking-face-and-a-black-woman-on-a-red-background-with-a-smile-for-fashion-style-or-ideas.jpg?s=612x612&w=0&k=20&c=gg73udkhjfIHhhh9mLiLPmxWl5_AGI0gviF17KHK9no=",
+            comment: "Getting Household Repair Work Done Is Becoming Very Hard These Days. I Find Sahayata Marmat Sewa (SMS) As A Blessing To Chitwan. This Young And Energetic Group Of Entrepreneurs React Quickly To Calls And Perform Quality Work In Reasonable Price. Kudos To You Guys, Keep Up With The Good Work.",
+            date: "August 4, 2022"
         },
         {
-            name: "Ayush Pandey",
-            post: "CEO of NASA",
+            name: "David Warner",
             address: "Bharatpur-5, Chitwan",
-            profileurl: "/electrician.png",
-            comment: "Yo sahayata vanni aauta home fixes sevice company riaxa, yo akdam dammi xaw, sabailey yesko prayod garna saknu hunxa.",
+            profileurl: "https://media.istockphoto.com/id/1520181504/photo/thinking-serious-and-profile-of-asian-man-in-studio-isolated-on-a-blue-background-idea-side.jpg?s=612x612&w=0&k=20&c=9ALLR47PYSIMptsRAXAPAOUBcyTaMEZh6Q7tSw9GgE8=",
+            comment: "I Had Our Solar Water Heating System Completely Serviced By SMS And Now It's Running Very Smoothly. Can Have Hot Water 2 Floors Down Within Minutes. It's Made Our Winter Very Comfortable. HIGHLY RECOMMENDED ?",
+            date: "June 7, 2023",
         },
     ];
 
@@ -170,35 +170,34 @@ const Homepage = () => {
                             <div key={slideIndex} className={`testimonial-card-wrapper ${currentIndex === slideIndex ? 'slide-active' : ''}`}>
                                 <div className="testimonial-card">
                                     <div className="testimonial-card-top">
-                                        <Image className='testimonial-card-profile' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKXlweUvXQxGkQr2Awr_l2Ia9fK-XEQINDug&usqp=CAU" width={80} height={80} alt="" />
+                                        <Image className='testimonial-card-profile' src={slide.profileurl} width={70} height={70} alt="" />
                                         <div className="testimonial-card-infos">
-                                            <h3 className="card-infos-title">Sudip Lamichhane</h3>
+                                            <h3 className="card-infos-name">{slide.name}</h3>
                                             <p className='card-infos-about'>{slide.address}</p>
                                         </div>
                                     </div>
                                     <div className="testimonial-card-bottom">
                                         <div className="testimonial-card-iconleft"><FaQuoteLeft /></div>
-                                        <div className="testimonial-card-message">
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere exercitationem recusandae dicta molestiae fugiat numquam, nesciunt sint ratione ipsa aperiam!
-                                        </div>
+                                        <div className="testimonial-card-message">{slide.comment}</div>
                                         <div className="testimonial-card-iconright"><FaQuoteRight /></div>
                                     </div>
+                                    <div className="testimonial-date">{slide.date && slide.date}</div>
                                 </div>
                             </div>
                         ))}
                     </div>
                     <div className="left-arrow" onClick={goToPrevious}><FaCaretLeft /></div>
                     <div className="right-arrow" onClick={goToNext}><FaCaretRight /></div>
-                </div>
-                <div className="dots-container">
-                    {slides.map((slide, slideIndex) => (
-                        <div
-                            key={slideIndex}
-                            className={`dots-item ${currentIndex === slideIndex ? 'active' : ''}`}
-                            onClick={() => goToSlide(slideIndex)}
-                        >
-                        </div>
-                    ))}
+                    <div className="dots-container">
+                        {slides.map((slide, slideIndex) => (
+                            <div
+                                key={slideIndex}
+                                className={`dots-item ${currentIndex === slideIndex ? 'active' : ''}`}
+                                onClick={() => goToSlide(slideIndex)}
+                            >
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 

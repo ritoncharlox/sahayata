@@ -29,7 +29,7 @@
     text-decoration: none;
 }
 .navbar-wrapper .nav-left .logo .logo-text {
-    font-size: 20px;
+    font-size: 1.2rem;
     color: #363636;
     font-weight: bolder;
 }
@@ -50,10 +50,6 @@
     font-weight: bold;
     color: var(--theme-color2);
     transform: scale(1.01);
-}
-
-.navbar-wrapper .nav-left .logo img {
-    width: 50px;
 }
 
 .navbar-wrapper .nav-right {
