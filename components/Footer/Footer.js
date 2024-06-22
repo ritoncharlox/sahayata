@@ -1,9 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image';
-import { IoIosMail } from "react-icons/io";
+import { FaFacebookF, FaInstagram, FaTiktok, FaLinkedinIn, FaYoutube, FaMailBulk } from "react-icons/fa";
 import { FaPhoneVolume } from "react-icons/fa6";
-import { FaFacebookF, FaInstagram, FaTiktok, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 
 import "./Footer.css";
 
@@ -27,17 +26,17 @@ const Footer = () => {
         </div>
         <ul className="footer-top-right">
           <li className="sahayata-details">
-            <div className="sahayta-details-icon"><FaPhoneVolume style={{ fontSize: "27px" }} /></div>
+            <div className="sahayta-details-icon"><FaPhoneVolume /></div>
             <div className="sahayata-infos">
               <h5 className="sahayata-infos-title">Contact Number</h5>
-              <p className="sahayata-infos-desc">9821253635</p>
+              <p className="sahayata-infos-desc">9824184175 | 9869021750</p>
             </div>
           </li>
           <li className="sahayata-details">
-            <div className="sahayta-details-icon"><IoIosMail style={{ fontSize: "34px" }} /></div>
+            <div className="sahayta-details-icon"><FaMailBulk /></div>
             <div className="sahayata-infos">
               <h5 className="sahayata-infos-title">Email Address</h5>
-              <p className="sahayata-infos-desc">contact@sahayata.com</p>
+              <Link href={"mailto: sahayata811@gmail.com"} className="sahayata-infos-desc">sahayata811@gmail.com</Link>
             </div>
           </li>
         </ul>
@@ -45,18 +44,18 @@ const Footer = () => {
       <div className="footer-separator"></div>
       <div className="footer-bottom">
         <div className="footer-bottom-upper">
-          <Link href="/" className="footer-bottom-logo">
-            <Image src="/transparent_logo.png" width={45} height={45} priority alt="Sahayata" />
-            <div className="footer-bottom-logo-text">Sahayata</div>
-          </Link>
-          <div className="footer-bottom-text">Copyright &copy; www.sahayata.com - 2024 | All Right Reserved</div>
+        <Link href="/" className="footer-bottom-logo">
+          <Image src="/logo_white_bg.jpeg" width={45} height={45} priority alt="sahayata footer" />
+          <div className="footer-bottom-logo-text">Sahayata</div>
+        </Link>
+          <div className="footer-bottom-text">Copyright &copy; | www.sahayata.com - 2024 | All Right Reserved</div>
         </div>
         <ul className="footer-bottom-platforms">
-          <Link href={"https://www.facebook.com/sudip.15622"} target='_blank'><li className="footer-platform-item"><FaFacebookF /></li></Link>
-          <Link href={"https://www.instagram.com/sudip.15622"} target='_blank'><li className="footer-platform-item"><FaInstagram /></li></Link>
-          <Link href={"/"} target='_blank'><li className="footer-platform-item"><FaTiktok /></li></Link>
-          <Link href={"https://www.linkedin.com/in/sudeep-lamichhane-a22613271"} target='_blank'><li className="footer-platform-item"><FaLinkedinIn /></li></Link>
-          <Link href={"https://www.youtube.com/@sunnyleone"} target='_blank'><li className="footer-platform-item"><FaYoutube /></li></Link>
+          <Link href={"https://www.facebook.com/profile.php?id=61558157289786"} target='_blank'><li className="footer-platform-item"><FaFacebookF /></li></Link>
+          <Link href={"https://www.instagram.com/sahayata811"} target='_blank'><li className="footer-platform-item"><FaInstagram /></li></Link>
+          {/* <Link href={"/"} target='_blank'><li className="footer-platform-item"><FaTiktok /></li></Link> */}
+          {/* <Link href={"https://www.linkedin.com/in/sudeep-lamichhane-a22613271"} target='_blank'><li className="footer-platform-item"><FaLinkedinIn /></li></Link> */}
+          {/* <Link href={"https://www.youtube.com/@sunnyleone"} target='_blank'><li className="footer-platform-item"><FaYoutube /></li></Link> */}
         </ul>
       </div>
     </footer>

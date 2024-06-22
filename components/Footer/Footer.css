@@ -64,7 +64,7 @@
     align-items: center;
     justify-content: center;
     color: var(--theme-color2);
-    /* font-size: 30px; */
+    font-size: 30px;
 }
 .sahayata-infos{
     display: flex;
@@ -75,7 +75,9 @@
     font-size: 1.01rem;
 }
 .sahayata-infos-desc{
+    text-decoration: none;
     font-size: .95rem;
+    color: inherit;
 }
 
 .footer-bottom{
@@ -98,12 +100,15 @@
     gap: 8px;
     color: rgb(225, 224, 224);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
 }
-.footer-bottom-text{
-    font-size: .95rem;
+.footer-bottom-logo img{
+    border-radius: 50%;
 }
+/* .footer-bottom-logo-text{
+    font-size: .95rem;
+} */
 .footer-bottom-platforms{
     display: flex;
     align-items: center;

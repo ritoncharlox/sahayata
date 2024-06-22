@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react'
 import Link from 'next/link';
-import logo from "./logo.png";
+import Image from 'next/image';
 import "./Navbar.css"
 import { FaSearch } from "react-icons/fa";
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
     <nav className='navbar-wrapper'>
       <div className="nav-left">
         <Link href="/" className="logo">
-          <img src={logo.src} alt="Sahayata" />
+          <Image src="/logo.png" width={50} height={50} priority alt="Sahayata" />
           <div className="logo-text">Sahayata</div>
         </Link>
         <div className="nav-left-item search" onClick={() => inputRef.current.focus()}>
