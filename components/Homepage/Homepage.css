@@ -4,8 +4,8 @@ main {
 
 .homepage-separator {
     width: 100%;
-    height: 6px;
-    background-color: rgba(193, 192, 168, 0.563);
+    height: 4px;
+    background-color: rgba(193, 192, 168, 0.363);
     margin: 50px auto;
 }
 
