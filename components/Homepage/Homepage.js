@@ -14,18 +14,18 @@ const Homepage = () => {
 
     const slides = [
         {
-            name: "Ramesh Parsai",
-            address: "Bharatpur-16, Chitwan",
-            profileurl: "https://media.istockphoto.com/id/1182247394/photo/model-smiling-in-front-of-black-backdrop.jpg?s=612x612&w=0&k=20&c=I8AB-e-0Jwt0knPRNi9NRHZokDWcgS7LY9OEpNYSLjA=",
-            comment: "There was great communication in regards to what happened to my computer and what could be done. I was informed of everything before hand in regards to the price. My computer got fixed in a reasonable price and reasonable timeframe. Good services. Would highly recommend for any electronic problems.",
-            date: "October 25, 2022"
-        },
-        {
             name: "Shom Prasad Kami",
             address: "Bharatpur-8, Chitwan",
             profileurl: "https://media.istockphoto.com/id/538652087/photo/thinking-businessman-photo.jpg?s=612x612&w=0&k=20&c=j8ibqkUk1t6bOHYcmz0RumlKxNWF1iEv9WeLP3QBid4=",
             comment: "My laptop works perfectly fine now after the repair by SMS technicians. Good communication, delivery on time, skillful technician, and reasonable price for the repair is what I found after getting the SMS service. Thank you guys for the wonderful work and keep it up. You guys are doing great.",
             date: "January 1, 2024"
+        },
+        {
+            name: "Ramesh Parsai",
+            address: "Bharatpur-16, Chitwan",
+            profileurl: "https://media.istockphoto.com/id/1182247394/photo/model-smiling-in-front-of-black-backdrop.jpg?s=612x612&w=0&k=20&c=I8AB-e-0Jwt0knPRNi9NRHZokDWcgS7LY9OEpNYSLjA=",
+            comment: "There was great communication in regards to what happened to my computer and what could be done. I was informed of everything before hand in regards to the price. My computer got fixed in a reasonable price. Would highly recommend for any electronic problems.",
+            date: "October 25, 2022"
         },
         {
             name: "Apekshya Khatri",
@@ -38,7 +38,7 @@ const Homepage = () => {
             name: "Renu Dahal",
             address: "Bharatpur-10, Chitwan",
             profileurl: "https://media.istockphoto.com/id/1598311636/photo/thinking-face-and-a-black-woman-on-a-red-background-with-a-smile-for-fashion-style-or-ideas.jpg?s=612x612&w=0&k=20&c=gg73udkhjfIHhhh9mLiLPmxWl5_AGI0gviF17KHK9no=",
-            comment: "Getting household repair work done is becoming very hard these days. I find Sahayata Marmat Sewa (SMS) as a blessing to Chitwan. This young and energetic group of entrepreneurs react quickly to calls and perform quality work at a reasonable price. Kudos to you guys, keep up with the good work.",
+            comment: "Getting household repair work done is becoming very hard these days. I find Sahayata as a blessing to Chitwan. This young and energetic group of entrepreneurs react quickly to calls and perform quality work at a reasonable price. Kudos to you guys, keep up with the good work.",
             date: "August 4, 2022"
         },
         {
@@ -188,16 +188,16 @@ const Homepage = () => {
                     </div>
                     <div className="left-arrow" onClick={goToPrevious}><FaCaretLeft /></div>
                     <div className="right-arrow" onClick={goToNext}><FaCaretRight /></div>
-                    <div className="dots-container">
-                        {slides.map((slide, slideIndex) => (
-                            <div
-                                key={slideIndex}
-                                className={`dots-item ${currentIndex === slideIndex ? 'active' : ''}`}
-                                onClick={() => goToSlide(slideIndex)}
-                            >
-                            </div>
-                        ))}
-                    </div>
+                </div>
+                <div className="dots-container">
+                    {slides.map((slide, slideIndex) => (
+                        <div
+                            key={slideIndex}
+                            className={`dots-item ${currentIndex === slideIndex ? 'active' : ''}`}
+                            onClick={() => goToSlide(slideIndex)}
+                        >
+                        </div>
+                    ))}
                 </div>
             </div>
 
