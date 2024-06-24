@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import data from "@/app/services.json";
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { FaChevronDown } from "react-icons/fa";
 import "./Service.css";
 
 const page = ({ params }) => {
@@ -48,7 +49,7 @@ const page = ({ params }) => {
         {showpopup && (
           <div className="overlay" style={{ animation: animate?.overlayOut }}>
             <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
-              <h2>{popupDetails.title}</h2>
+              <h3>{popupDetails.title}</h3>
               <p>{popupDetails.description}</p>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
             </div>
@@ -71,7 +72,6 @@ const page = ({ params }) => {
               <h2 className="service-categories-title">Related Services</h2>
               <ul className="service-categories">
                 {serviceDetails.subcategories.map((item, index) => {
-                  // console.log(serviceDetails.subcategories.length);
                   return (
                     <li key={item.id} className="service-category">
                       <div className="service-category-info">
@@ -89,6 +89,15 @@ const page = ({ params }) => {
                 </div>
               </ul>
             </div>
+          </div>
+          <div className="service-container-faqs">
+            <h2 className="faqs-title">Frequently Asked Qns</h2>
+            <ul className="faqs-container">
+              <li className="faqs-item">Sudip Lamichhane <FaChevronDown/></li>
+              <li className="faqs-item">Maddath Subedi <FaChevronDown/></li>
+              <li className="faqs-item">Oasis Regmi <FaChevronDown/></li>
+              <li className="faqs-item">Ayush Pandey <FaChevronDown/></li>
+            </ul>
           </div>
         </main>
       </>
