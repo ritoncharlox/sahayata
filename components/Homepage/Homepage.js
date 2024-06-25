@@ -11,6 +11,7 @@ const Homepage = () => {
 
     const [services, setServices] = useState([])
     const [currentIndex, setCurrentIndex] = useState(2)
+    const [orders, setOrders] = useState([]);
 
     const slides = [
         {
