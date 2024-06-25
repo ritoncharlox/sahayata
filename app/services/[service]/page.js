@@ -11,7 +11,7 @@ import "./Service.css";
 const page = ({ params }) => {
 
   const [serviceDetails, setServiceDetails] = useState();
-  const [popupDetails, setPopupDetails] = useState();
+  const [orders, setOrders] = useState([]);
   const [showpopup, setShowpopup] = useState(false);
   const [animate, setAnimate] = useState();
 
@@ -49,8 +49,22 @@ const page = ({ params }) => {
         {showpopup && (
           <div className="overlay" style={{ animation: animate?.overlayOut }}>
             <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
-              <h3>{popupDetails.title}</h3>
-              <p>{popupDetails.description}</p>
+              <form action="#" className="service-order-form">
+                <div className="date-section service-order-form-item">
+                  <label htmlFor="date"></label>
+                  <input name='date' id='date' type="date" />
+                </div>
+                <div className="time-section service-order-form-item">
+                  <label htmlFor="time"></label>
+                  <input type="time" name="time" id="time" />
+                </div>
+                <div className="photo-upload-section service-order-form-item">
+                  <label htmlFor="photo-upload"></label>
+                  <input multiple type="file" name="photo-upload" id="photo-upload" />
+                </div>
+                <div className="description-section service-order-form-item"></div>
+                <button type="submit">Confirm</button>
+              </form>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
             </div>
           </div>
@@ -75,15 +89,15 @@ const page = ({ params }) => {
                   return (
                     <li key={item.id} className="service-category">
                       <div className="service-category-info">
-                        <h2 className="service-category-title">{item.title}</h2>
+                        <h3 className="service-category-title">{item.title}</h3>
                         <p className="service-category-desc">{item.description}</p>
                       </div>
-                      <button className="learnmore-btn" onClick={(e) => { setShowpopup(true); setPopupDetails(item) }}>View More</button>
+                      <button className="learnmore-btn" onClick={(e) => { setShowpopup(true)}}>View More</button>
                       <Image className='service-category-image' src={item.imageAddress} width={300} height={450} priority alt="" />
                     </li>
                   )
                 })}
-                <div className="other-services">
+                <div className="other-services" onClick={(e) => { setShowpopup(true)}}>
                   Others
                   <FaArrowRightLong />
                 </div>
