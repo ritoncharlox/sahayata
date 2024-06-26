@@ -3,17 +3,23 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import data from "@/app/services.json";
+import DateSection from '@/components/DateSection/DateSection';
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaChevronDown } from "react-icons/fa";
 import "./Service.css";
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
 
   const [serviceDetails, setServiceDetails] = useState();
+  const [orderDate, setOrderDate] = useState('');
+  const [orderTime, setOrderTime] = useState('');
+  const [orderDescription, setOrderDescription] = useState('');
   const [orders, setOrders] = useState([]);
   const [showpopup, setShowpopup] = useState(false);
   const [animate, setAnimate] = useState();
+
+  const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
   useEffect(() => {
     const getDetails = () => {
@@ -51,18 +57,32 @@ const page = ({ params }) => {
             <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
               <form action="#" className="service-order-form">
                 <div className="date-section service-order-form-item">
-                  <label htmlFor="date"></label>
-                  <input name='date' id='date' type="date" />
+                  <div className="form-item-up">
+                    <h3 className="form-item-title">Date:</h3>
+                    <p className="form-item-selected">{orderDate}</p>
+                  </div>
+                  <DateSection orderDate={orderDate} setOrderDate={setOrderDate} />
                 </div>
                 <div className="time-section service-order-form-item">
-                  <label htmlFor="time"></label>
-                  <input type="time" name="time" id="time" />
+                  <div className="form-item-up">
+                    <h3 className="form-item-title">Time:</h3>
+                    <p className="order-form-item-desc">Team will arrive within the selected time.</p>
+                  </div>
+                  <div className="time-section-list">
+                    {timeList.map((item, index) => {
+                      return (
+                        <button key={index} type="button" className='time-section-list-item' onClick={(e) => { setOrderTime(item) }}>{item}</button>
+                      )
+                    })}
+                  </div>
                 </div>
-                <div className="photo-upload-section service-order-form-item">
-                  <label htmlFor="photo-upload"></label>
-                  <input multiple type="file" name="photo-upload" id="photo-upload" />
+                <div className="description-section service-order-form-item">
+                  <div className="form-item-up">
+                    <h3 className="form-item-title">Description:</h3>
+                    <p className="order-form-item-desc">Describe issue/information in your words.</p>
+                  </div>
+                  <textarea value={orderDescription} onChange={(e) => { setOrderDescription(e.target.value) }} required></textarea>
                 </div>
-                <div className="description-section service-order-form-item"></div>
                 <button type="submit">Confirm</button>
               </form>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
@@ -92,12 +112,12 @@ const page = ({ params }) => {
                         <h3 className="service-category-title">{item.title}</h3>
                         <p className="service-category-desc">{item.description}</p>
                       </div>
-                      <button className="learnmore-btn" onClick={(e) => { setShowpopup(true)}}>View More</button>
+                      <button className="learnmore-btn" onClick={(e) => { setShowpopup(true) }}>Book Now</button>
                       <Image className='service-category-image' src={item.imageAddress} width={300} height={450} priority alt="" />
                     </li>
                   )
                 })}
-                <div className="other-services" onClick={(e) => { setShowpopup(true)}}>
+                <div className="other-services" onClick={(e) => { setShowpopup(true) }}>
                   Others
                   <FaArrowRightLong />
                 </div>
@@ -107,10 +127,10 @@ const page = ({ params }) => {
           <div className="service-container-faqs">
             <h2 className="faqs-title">Frequently Asked Qns</h2>
             <ul className="faqs-container">
-              <li className="faqs-item">Sudip Lamichhane <FaChevronDown/></li>
-              <li className="faqs-item">Maddath Subedi <FaChevronDown/></li>
-              <li className="faqs-item">Oasis Regmi <FaChevronDown/></li>
-              <li className="faqs-item">Ayush Pandey <FaChevronDown/></li>
+              <li className="faqs-item">Sudip Lamichhane <FaChevronDown /></li>
+              <li className="faqs-item">Maddath Subedi <FaChevronDown /></li>
+              <li className="faqs-item">Oasis Regmi <FaChevronDown /></li>
+              <li className="faqs-item">Ayush Pandey <FaChevronDown /></li>
             </ul>
           </div>
         </main>
@@ -120,8 +140,6 @@ const page = ({ params }) => {
   else {
     return (<></>)
   }
-
-
 }
 
-export default page
+export default Page
