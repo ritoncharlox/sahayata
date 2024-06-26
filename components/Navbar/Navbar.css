@@ -130,14 +130,16 @@
     font-size: .9rem;
     font-weight: bold;
     border-radius: 10px;
-    background: linear-gradient(to bottom right, orange, orangered);
+    /* background: linear-gradient(to bottom right, orange, orangered); */
+    background-color: #F15B28;
     cursor: pointer;
     transition: all .3s ease-in-out;
 }
 
 .navbar-wrapper .nav-right .nav-right-item.signin:hover {
     color: #363636;
-    background: linear-gradient(to bottom right, orangered, orange);
+    /* background: linear-gradient(to bottom right, orangered, orange); */
+    background-color: #F15B28;
 }
 
 
