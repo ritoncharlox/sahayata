@@ -5,8 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import "./Navbar.css"
 import { FaSearch } from "react-icons/fa";
+import { useSession, signOut } from 'next-auth/react';
+
 const Navbar = () => {
-  // const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const [searchItem, setSearchItem] = useState("");
   const [showSearch, setShowSearch] = useState(true);
@@ -22,6 +24,8 @@ const Navbar = () => {
   const handleFocus = () => {
     setShowSearch(false);
   };
+
+  console.log(session);
 
   return (
     <nav className='navbar-wrapper'>
@@ -48,7 +52,15 @@ const Navbar = () => {
       <div className="nav-right">
         <Link href='/about-us' className='aboutus'>About Us</Link>
         <Link href='/' className="nav-right-item joinus">Become a professional</Link>
-        <Link href='/login' className="nav-right-item signin">Log In</Link>
+        {/* <Link href='/login' className="nav-right-item signin">Log In</Link> */}
+        {session ? (
+          <div className="nav-right-item user-info">
+            <span className="username">{session.user.name}</span>
+            <button className="signout" onClick={() => signOut()}>Sign Out</button>
+          </div>
+        ) : (
+          <Link href='/login' className="nav-right-item signin">Log In</Link>
+        )}
       </div>
     </nav>
   )
