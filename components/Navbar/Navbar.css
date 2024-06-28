@@ -5,7 +5,7 @@
     /* align-items: center; */
     padding: 15px;
     box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
-    background-color:rgb(252, 234, 210);
+    background-color: rgb(252, 234, 210);
     z-index: 1000;
     position: sticky;
     top: 0px;
@@ -28,6 +28,7 @@
     column-gap: 5px;
     text-decoration: none;
 }
+
 .navbar-wrapper .nav-left .logo .logo-text {
     font-size: 1.2rem;
     color: #363636;
@@ -46,6 +47,7 @@
     transition-duration: .2s;
     transition-property: transform;
 }
+
 .navbar-wrapper .nav-right .aboutus:hover {
     font-weight: bold;
     color: var(--theme-color2);
@@ -79,7 +81,7 @@
     align-items: center;
     /* justify-content: center; */
     gap: 10px;
-    height:40px;
+    height: 40px;
 }
 
 .navbar-wrapper .nav-left .nav-left-item.search input {
@@ -115,6 +117,7 @@
     transition-duration: .2s;
     transition-property: transform;
 }
+
 .navbar-wrapper .nav-right .nav-right-item.joinus:hover {
     font-weight: bold;
     color: var(--theme-color2);
@@ -166,6 +169,7 @@
         opacity: 0;
     }
 }
+
 @keyframes slideInput {
     from {
         left: -30px;
@@ -184,4 +188,81 @@
     to {
         left: -30px;
     }
+}
+
+.nav-right-item.user-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* background-color: gray; */
+}
+
+.user-avatar {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 5px 10px;
+    background-color: rgb(216, 186, 131);
+    border-radius: 10px;
+}
+
+.avatar-image {
+    border-radius: 50%;
+    /* margin-right: 8px; */
+    /* background-color: lightblue; */
+}
+
+.avatar-image-alt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    color: purple;
+}
+
+.avatar-image-alt svg {
+    width: 100%;
+    height: 100%;
+}
+
+.username {
+    /* background-color: lightcoral; */
+}
+
+.arrow-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.25s;
+}
+
+.arrow-icon.dropdownOpen {
+    transform: rotate(180deg);
+    /* transition: 0.25s; */
+    /* background-color: blue; */
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-item {
+    padding: 8px 16px;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
 }

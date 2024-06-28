@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { SessionProvider } from 'next-auth/react';
+import { auth } from "@/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,12 +13,13 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  const session = await auth();
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <SessionProvider>
-          <Navbar />
+        <SessionProvider session={session}>
+          <Navbar session={session} />
           {children}
           <Footer />
         </SessionProvider>
