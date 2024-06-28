@@ -1,22 +1,22 @@
 "use client"
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import "./Navbar.css"
-import { FaSearch } from "react-icons/fa";
-import { useSession, signOut } from 'next-auth/react';
+import { FaSearch, FaChevronDown, FaUserCircle } from "react-icons/fa";
+import { signOut } from 'next-auth/react';
+import "./Navbar.css";
 
-const Navbar = () => {
-  const { data: session, status } = useSession();
-
+const Navbar = ({ session }) => {
   const [searchItem, setSearchItem] = useState("");
   const [showSearch, setShowSearch] = useState(true);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const inputRef = useRef(null);
 
   const handleSearchChange = (e) => {
     setSearchItem(e.target.value);
   }
+
   const handleBlur = () => {
     setShowSearch(true);
   };
@@ -25,7 +25,13 @@ const Navbar = () => {
     setShowSearch(false);
   };
 
-  console.log(session);
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleSignOut = () => {
+    signOut();
+  };
 
   return (
     <nav className='navbar-wrapper'>
@@ -39,7 +45,7 @@ const Navbar = () => {
           <input
             ref={inputRef}
             type='text'
-            onChange={(e) => { handleSearchChange(e); }}
+            onChange={handleSearchChange}
             value={searchItem}
             placeholder='search services'
             onBlur={handleBlur}
@@ -47,23 +53,41 @@ const Navbar = () => {
             style={{ animation: showSearch ? "slideInput .4s forwards" : "slideOutput .4s forwards" }}
           />
         </div>
-
       </div>
       <div className="nav-right">
         <Link href='/about-us' className='aboutus'>About Us</Link>
         <Link href='/' className="nav-right-item joinus">Become a professional</Link>
-        {/* <Link href='/login' className="nav-right-item signin">Log In</Link> */}
         {session ? (
           <div className="nav-right-item user-info">
-            <span className="username">{session.user.name}</span>
-            <button className="signout" onClick={() => signOut()}>Sign Out</button>
+            <div className="user-avatar" onClick={toggleDropdown}>
+              {
+                session.user.image ?
+                  <Image src={session.user.image} width={30} height={30} alt="User Avatar" className="avatar-image" />
+                  :
+                  <div className="avatar-image-alt">
+                    <FaUserCircle />
+                  </div>
+              }
+              {/* <Image src={session.user.image} width={30} height={30} alt="User Avatar" className="avatar-image" /> */}
+              <span className="username">{session.user.name}</span>
+              <div className={`arrow-icon ${dropdownOpen ? `dropdownOpen` : ``}`}>
+                <FaChevronDown />
+              </div>
+            </div>
+            {dropdownOpen && (
+              <div className="dropdown-menu">
+                <Link href='/profile' className="dropdown-item">Profile</Link>
+                <Link href='/dashboard' className="dropdown-item">Dashboard</Link>
+                <button className="dropdown-item" onClick={handleSignOut}>Sign Out</button>
+              </div>
+            )}
           </div>
         ) : (
           <Link href='/login' className="nav-right-item signin">Log In</Link>
         )}
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

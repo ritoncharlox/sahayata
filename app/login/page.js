@@ -12,6 +12,7 @@ import { handleLoginSubmit } from '@/actions/handleLoginSubmit';
 import { MdError } from "react-icons/md";
 import { signIn } from '@/auth';
 import { ScaleLoader } from 'react-spinners';
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -28,6 +29,11 @@ export default function Register() {
 
     const [loginPending, setLoginPending] = useState(false);
     const [registerPending, setRegisterPending] = useState(false);
+
+    const [registerInfo, setRegisterInfo] = useState('');
+    const [loginInfo, setLoginInfo] = useState('');
+
+    const router = useRouter();
 
     const hasSpecialCharactersOrNumbers = (str) => {
         const regex = /[^a-zA-Z\s]/;
@@ -49,6 +55,7 @@ export default function Register() {
 
         setLoginPending(true);
 
+        setLoginInfo('');
         setLoginError('');
 
         if (!loginEmail || !loginPassword) {
@@ -65,12 +72,25 @@ export default function Register() {
 
         const loginUser = await handleLoginSubmit({
             loginEmail,
-            loginPassword
+            loginPassword,
+            redirect: false
         })
 
         setLoginPending(false);
 
         // console.log(loginUser);
+
+        if (loginUser?.success) {
+
+            setLoginInfo("Successfully logged in");
+
+            setTimeout(() => {
+                router.push('/');
+                router.refresh();
+            }, 1000);
+
+            return;
+        }
 
         if (loginUser?.error) {
             setLoginError(loginUser.error);
@@ -135,6 +155,7 @@ export default function Register() {
 
         setRegisterPending(true);
 
+        setRegisterInfo('');
         setRegisterError('');
 
         if (!name || !registerEmail || !registerPassword || !confirmPassword) {
@@ -170,12 +191,25 @@ export default function Register() {
             registerPassword,
             confirmPassword,
             name: trimmedName,
-            dateJoined
+            dateJoined,
+            redirect: false
         });
 
         setRegisterPending(false);
 
         // console.log(registerUser);
+        // router.push('/login');
+
+        if (registerUser?.success) {
+
+            setRegisterInfo("User successfully registered. Now, proceed to login");
+
+            setTimeout(() => {
+                setSignUpMode(false);
+            }, 1000);
+
+            return;
+        }
 
         if (registerUser?.error) {
             setRegisterError(registerUser.error);
@@ -220,6 +254,23 @@ export default function Register() {
                             <span>Password</span>
                             <i></i>
                         </div>
+                        {
+                            loginInfo ? (
+                                <>
+                                    <div className="info-field">
+                                        <div className="icon">
+                                            <FaCheckCircle />
+                                        </div>
+                                        <div className="text">
+                                            {loginInfo}
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                </>
+                            )
+                        }
                         {
                             loginError ? (
                                 <>
@@ -269,6 +320,23 @@ export default function Register() {
                             <span>Confirm Password</span>
                             <i></i>
                         </div>
+                        {
+                            registerInfo ? (
+                                <>
+                                    <div className="info-field">
+                                        <div className="icon">
+                                            <FaCheckCircle />
+                                        </div>
+                                        <div className="text">
+                                            {registerInfo}
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                </>
+                            )
+                        }
                         {
                             registerError ? (
                                 <>
