@@ -6,7 +6,8 @@ import data from "@/app/services.json";
 import DateSection from '@/components/DateSection/DateSection';
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { FaChevronDown } from "react-icons/fa";
+import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
+
 import "./Service.css";
 
 const Page = ({ params }) => {
@@ -55,23 +56,26 @@ const Page = ({ params }) => {
         {showpopup && (
           <div className="overlay" style={{ animation: animate?.overlayOut }}>
             <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
-              <form action="#" className="service-order-form">
+              <h3 className="popup-header-title">
+                <FaQuoteLeft style={{fontSize: "10px", color: "var(--theme-color2)"}}/> Fill to book this service <FaQuoteRight style={{fontSize: "10px", color: "var(--theme-color2)"}}/>
+              </h3>
+              <div action="#" className="service-order-form">
                 <div className="date-section service-order-form-item">
                   <div className="form-item-up">
                     <h3 className="form-item-title">Date:</h3>
-                    <p className="form-item-selected">{orderDate}</p>
+                    {orderDate !== "" ? <p className="form-item-selected">{orderDate}</p> : <p className="order-form-item-desc">Choose a date for the service.</p>}
                   </div>
                   <DateSection orderDate={orderDate} setOrderDate={setOrderDate} />
                 </div>
                 <div className="time-section service-order-form-item">
                   <div className="form-item-up">
                     <h3 className="form-item-title">Time:</h3>
-                    <p className="order-form-item-desc">Team will arrive within the selected time.</p>
+                    {orderTime !== "" ? <p className="form-item-selected">{orderTime}</p> : <p className="order-form-item-desc">Choose a time periods.</p>}
                   </div>
                   <div className="time-section-list">
                     {timeList.map((item, index) => {
                       return (
-                        <button key={index} type="button" className='time-section-list-item' onClick={(e) => { setOrderTime(item) }}>{item}</button>
+                        <button key={index} type="button" className='time-section-list-item date-day-btn' onClick={(e) => { setOrderTime(item) }}>{item}</button>
                       )
                     })}
                   </div>
@@ -83,8 +87,8 @@ const Page = ({ params }) => {
                   </div>
                   <textarea value={orderDescription} onChange={(e) => { setOrderDescription(e.target.value) }} required></textarea>
                 </div>
-                <button type="submit">Confirm</button>
-              </form>
+                <button type='button'>Confirm</button>
+              </div>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
             </div>
           </div>
