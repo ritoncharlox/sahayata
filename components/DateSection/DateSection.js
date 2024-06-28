@@ -38,7 +38,7 @@ const DateSection = ({orderDate, setOrderDate}) => {
         tomorrow4.setDate(today.getDate() + 4);
         tomorrow5.setDate(today.getDate() + 5);
 
-        setOrderDate(formatDate(today));
+        // setOrderDate(formatDate(today));
         setTodayLabel(formatDate(today));
         setTomorrow1Label(formatDate(tomorrow1));
         settomorrow2Label(formatDate(tomorrow2));
@@ -73,7 +73,6 @@ const DateSection = ({orderDate, setOrderDate}) => {
                 <div className="weekday">{tomorrow5Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow5Label.slice(-2)}</div>
             </button>
-
         </div>
     );
 };

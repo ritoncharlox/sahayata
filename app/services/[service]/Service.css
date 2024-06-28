@@ -283,7 +283,8 @@
 
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 12px;
+    color: #363636;
 }
 .popup-cross{
     display: flex;
@@ -304,6 +305,72 @@
 .popup-cross:hover{
     background-color: beige;
     transform: scale(1.1);
+}
+.popup-header-title{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #444444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.service-order-form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.service-order-form-item{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.form-item-up{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+.form-item-title{
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+.form-item-selected{
+    font-size: .9rem;
+    color: #363636;
+    font-weight: 600;
+    padding: 4px 8px 2px 8px;
+    border-radius: 6px;
+    box-shadow: inset 4px 4px 4px rgba(36, 4, 0, 0.4), 2px 3px 5px -1px rgba(55, 34, 1, 0.2);
+    color: var(--theme-color2);
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 2px;
+}
+.order-form-item-desc{
+    font-size: .9rem;
+    padding: 4px 8px 2px 8px;
+    border-radius: 6px;
+    box-shadow: inset 4px 4px 4px rgba(36, 4, 0, 0.4), 2px 3px 5px -1px rgba(55, 34, 1, 0.2);
+    color: #363636;
+    font-weight: 400;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 2px;
+}
+.time-section-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    align-items: center;
+}
+.time-section-list-item{
+    width: 170px;
+    height: 45px;
+
 }
 @keyframes slideUp {
     from {
