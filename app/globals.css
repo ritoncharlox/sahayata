@@ -26,13 +26,13 @@ main{
 /* Hide the default scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
-    border-radius: 10px;
+    
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: inherit; /* Dark background color */
-    /* border-radius: 5px; */
+    background: rgb(247, 195, 176); /* Dark background color */
+    border-radius: 10px;
 }
 
 /* Handle */
