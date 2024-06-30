@@ -49,27 +49,27 @@ const DateSection = ({orderDate, setOrderDate}) => {
 
     return (
         <div className='date-selector'>
-            <button type='button' className='date-day-btn' onClick={() => setDate(0)}>
+            <button type='button' className={orderDate ==todayLabel ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(0)}>
                 <div className="weekday">{todayLabel.slice(0, 3)}</div>
                 <div className="date-day">{todayLabel.slice(-2)}</div>
             </button>
-            <button type='button' className='date-day-btn' onClick={() => setDate(1)}>
+            <button type='button' className={orderDate ==tomorrow1Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(1)}>
                 <div className="weekday">{tomorrow1Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow1Label.slice(-2)}</div>
             </button>
-            <button type='button' className='date-day-btn' onClick={() => setDate(2)}>
+            <button type='button' className={orderDate ==tomorrow2Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(2)}>
                 <div className="weekday">{tomorrow2Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow2Label.slice(-2)}</div>
             </button>
-            <button type='button' className='date-day-btn' onClick={() => setDate(3)}>
+            <button type='button' className={orderDate ==tomorrow3Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(3)}>
                 <div className="weekday">{tomorrow3Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow3Label.slice(-2)}</div>
             </button>
-            <button type='button' className='date-day-btn' onClick={() => setDate(4)}>
+            <button type='button' className={orderDate ==tomorrow4Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(4)}>
                 <div className="weekday">{tomorrow4Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow4Label.slice(-2)}</div>
             </button>
-            <button type='button' className='date-day-btn' onClick={() => setDate(5)}>
+            <button type='button' className={orderDate ==tomorrow5Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(5)}>
                 <div className="weekday">{tomorrow5Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow5Label.slice(-2)}</div>
             </button>
