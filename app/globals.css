@@ -22,3 +22,26 @@ main{
     --text-light : rgb(243, 243, 243);
     --slogan-width : 420px;
 }
+
+/* Hide the default scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: inherit; /* Dark background color */
+    /* border-radius: 5px; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(249, 143, 104); /* Darker color for the handle */
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(250, 104, 51); /* Lighter color on hover */
+}
