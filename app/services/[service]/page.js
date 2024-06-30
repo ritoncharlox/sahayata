@@ -20,7 +20,7 @@ const Page = ({ params }) => {
   const [showpopup, setShowpopup] = useState(false);
   const [animate, setAnimate] = useState();
 
-  const [orderedService, setOrderedService] = useState();
+  const [clickedService, setClickedService] = useState();
 
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
@@ -46,7 +46,7 @@ const Page = ({ params }) => {
   const popupcrossClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
     setTimeout(() => {
-      setShowpopup(false);
+      setClickedService();
       setAnimate();
     }, 800);
   }
@@ -55,19 +55,20 @@ const Page = ({ params }) => {
   if (serviceDetails) {
     return (
       <>
-        {showpopup && (
+        {clickedService && (
           <div className="overlay" style={{ animation: animate?.overlayOut }}>
             <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
               <h3 className="popup-header-title">
                 <div className="popup-title-top">
-                  <FaQuoteLeft style={{ fontSize: "10px", color: "var(--theme-color2)" }} /> {orderedService && orderedService} <FaQuoteRight style={{ fontSize: "10px", color: "var(--theme-color2)" }} />
+                  <FaQuoteLeft style={{ fontSize: "10px", color: "var(--theme-color2)" }} /> {clickedService && clickedService} <FaQuoteRight style={{ fontSize: "10px", color: "var(--theme-color2)" }} />
                 </div>
                 <div className="popup-title-bottom"></div>
               </h3>
               <div action="#" className="service-order-form">
+                <div className="order-note-section"><i><span style={{ fontWeight: "bold", fontSize: ".95rem" }}>Note:</span> Fill the details and click on next for further process.</i></div>
                 <div className="date-section service-order-form-item">
                   <div className="form-item-up">
-                    <h3 className="form-item-title">Date:</h3>
+                    <h3 className="form-item-title">Date (AD):</h3>
                     {orderDate !== "" ? <p className="form-item-selected">{orderDate}</p> : <p className="order-form-item-desc">Choose a date for the service.</p>}
                   </div>
                   <DateSection orderDate={orderDate} setOrderDate={setOrderDate} />
@@ -75,12 +76,12 @@ const Page = ({ params }) => {
                 <div className="time-section service-order-form-item">
                   <div className="form-item-up">
                     <h3 className="form-item-title">Time:</h3>
-                    {orderTime !== "" ? <p className="form-item-selected">{orderTime}</p> : <p className="order-form-item-desc">Choose a time periods.</p>}
+                    {orderTime !== "" ? <p className="form-item-selected">{orderTime}</p> : <p className="order-form-item-desc">Choose a time period.</p>}
                   </div>
-                  <div className="time-section-list">
+                  <div className="time-section-list date-time-containers">
                     {timeList.map((item, index) => {
                       return (
-                        <button key={index} type="button" className={orderTime == item ? "time-section-list-item date-day-btn selected-btn" : "time-section-list-item date-day-btn"} onClick={(e) => { setOrderTime(item) }}>{item}</button>
+                        <button key={index} type="button" className={orderTime == item ? "time-section-list-item date-day-btn selected-btn" : "time-section-list-item date-day-btn"} onClick={(e) => { orderTime ? setOrderTime("") : setOrderTime(item) }}>{item}</button>
                       )
                     })}
                   </div>
@@ -92,8 +93,9 @@ const Page = ({ params }) => {
                   </div>
                   <textarea className='order-description-box' value={orderDescription} onChange={(e) => { setOrderDescription(e.target.value) }} required></textarea>
                 </div>
+
                 <div className="next-btn-container">
-                  <button type='button' className='order-next-btn'>Next</button>
+                  <button type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
                 </div>
               </div>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
@@ -123,12 +125,12 @@ const Page = ({ params }) => {
                         <h3 className="service-category-title">{item.title}</h3>
                         <p className="service-category-desc">{item.description}</p>
                       </div>
-                      <button className="learnmore-btn" onClick={(e) => { setShowpopup(true); setOrderedService(item.title) }}>Book Now</button>
+                      <button className="learnmore-btn" onClick={(e) => { setClickedService(item.title) }}>Book Now</button>
                       <Image className='service-category-image' src={item.imageAddress} width={300} height={450} priority alt="" />
                     </li>
                   )
                 })}
-                <div className="other-services" onClick={(e) => { setShowpopup(true); setOrderedService("Others") }}>
+                <div className="other-services" onClick={(e) => { setClickedService("Others") }}>
                   Others
                   <FaArrowRightLong />
                 </div>

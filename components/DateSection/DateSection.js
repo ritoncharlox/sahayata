@@ -21,7 +21,12 @@ const DateSection = ({orderDate, setOrderDate}) => {
     const setDate = (offset) => {
         const date = new Date();
         date.setDate(date.getDate() + offset);
-        setOrderDate(formatDate(date));
+        if(orderDate){
+            setOrderDate("");
+        }
+        else{
+            setOrderDate(formatDate(date));
+        }
         // setSelectedDate(formatDate(date));
     };
 
@@ -48,7 +53,7 @@ const DateSection = ({orderDate, setOrderDate}) => {
     }, []);
 
     return (
-        <div className='date-selector'>
+        <div className='date-selector date-time-containers'>
             <button type='button' className={orderDate ==todayLabel ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(0)}>
                 <div className="weekday">{todayLabel.slice(0, 3)}</div>
                 <div className="date-day">{todayLabel.slice(-2)}</div>
