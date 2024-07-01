@@ -21,7 +21,7 @@ const DateSection = ({orderDate, setOrderDate}) => {
     const setDate = (offset) => {
         const date = new Date();
         date.setDate(date.getDate() + offset);
-        if(orderDate){
+        if(orderDate == formatDate(date)){
             setOrderDate("");
         }
         else{

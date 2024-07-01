@@ -16,8 +16,6 @@ const Page = ({ params }) => {
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
   const [orderDescription, setOrderDescription] = useState('');
-  const [orders, setOrders] = useState([]);
-  const [showpopup, setShowpopup] = useState(false);
   const [animate, setAnimate] = useState();
 
   const [clickedService, setClickedService] = useState();
@@ -48,7 +46,14 @@ const Page = ({ params }) => {
     setTimeout(() => {
       setClickedService();
       setAnimate();
+      resetOrderDetails();
     }, 800);
+  }
+
+  const resetOrderDetails = () => {
+    setOrderDate("");
+    setOrderTime("");
+    setOrderDescription("");
   }
 
 
@@ -81,7 +86,7 @@ const Page = ({ params }) => {
                   <div className="time-section-list date-time-containers">
                     {timeList.map((item, index) => {
                       return (
-                        <button key={index} type="button" className={orderTime == item ? "time-section-list-item date-day-btn selected-btn" : "time-section-list-item date-day-btn"} onClick={(e) => { orderTime ? setOrderTime("") : setOrderTime(item) }}>{item}</button>
+                        <button key={index} type="button" className={orderTime == item ? "time-section-list-item date-day-btn selected-btn" : "time-section-list-item date-day-btn"} onClick={(e) => { orderTime == item ? setOrderTime("") : setOrderTime(item) }}>{item}</button>
                       )
                     })}
                   </div>
@@ -93,10 +98,9 @@ const Page = ({ params }) => {
                   </div>
                   <textarea className='order-description-box' value={orderDescription} onChange={(e) => { setOrderDescription(e.target.value) }} required></textarea>
                 </div>
-
-                <div className="next-btn-container">
-                  <button type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
-                </div>
+              </div>
+              <div className="next-btn-container">
+                <button type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
               </div>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
             </div>
