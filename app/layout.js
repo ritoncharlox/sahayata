@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { SessionProvider } from 'next-auth/react';
 import { auth } from "@/auth";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default async function RootLayout({ children }) {
       <body className={inter.className}>
         <SessionProvider session={session}>
           <Navbar session={session} />
+          <NextTopLoader color="#EE7214" showSpinner={false} />
           {children}
           <Footer />
         </SessionProvider>

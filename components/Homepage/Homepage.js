@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from 'next/link';
-import "./Homepage.css"
-import data from "@/app/services.json"
+import "./Homepage.css";
+import data from "@/app/services.json";
 import { FaChevronCircleRight, FaCaretRight, FaCaretLeft, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { v4 as uuidv4 } from 'uuid';
 
