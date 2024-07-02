@@ -1,0 +1,7 @@
+.order-details-container{
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+    z-index: 2000;
+    background-color: antiquewhite;
+}
