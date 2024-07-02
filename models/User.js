@@ -6,6 +6,7 @@ const userSchema = new Schema(
         userName: {
             type: String,
             required: false,
+            unique: true,
         },
         name: {
             type: String,
@@ -13,9 +14,15 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
-            required: false,
+            required: true,
+            unique: true,
         },
         number: {
+            type: String,
+            required: false,
+            unique: true,
+        },
+        location: {
             type: String,
             required: false,
         },
@@ -43,6 +50,10 @@ const userSchema = new Schema(
         isVerified: {
             type: Boolean,
             default: false
+        },
+        avatar: {
+            type: String,
+            required: false,
         }
     },
     { timestamps: true }
