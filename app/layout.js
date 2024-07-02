@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import { auth } from "@/auth";
 import OrderProvider from "@/contexts/orderContext";
 import Order from "@/components/Order/Order";
+import NextTopLoader from 'nextjs-toploader';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default async function RootLayout({ children }) {
           <OrderProvider>
             <Order />
             <Navbar session={session} />
+              <NextTopLoader color="#EE7214" showSpinner={false} />
             {children}
             <Footer />
           </OrderProvider>

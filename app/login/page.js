@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation'
 import "./Login.css";
 import User from '@/models/User';
 import { hash } from 'bcryptjs';
@@ -34,6 +35,9 @@ export default function Register() {
     const [loginInfo, setLoginInfo] = useState('');
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const redirectTo = searchParams.get('redirectTo') || '/';
 
     const hasSpecialCharactersOrNumbers = (str) => {
         const regex = /[^a-zA-Z\s]/;
@@ -85,7 +89,7 @@ export default function Register() {
             setLoginInfo("Successfully logged in");
 
             setTimeout(() => {
-                router.push('/');
+                router.push(redirectTo);
                 router.refresh();
             }, 1000);
 
