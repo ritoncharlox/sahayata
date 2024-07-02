@@ -7,11 +7,13 @@ import DateSection from '@/components/DateSection/DateSection';
 import { RxCross2 } from "react-icons/rx";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
+import { useOrders } from '@/contexts/orderContext';
 
 import "./Service.css";
 
 const Page = ({ params }) => {
 
+  const { addOrder } = useOrders();
   const [serviceDetails, setServiceDetails] = useState();
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
@@ -54,6 +56,15 @@ const Page = ({ params }) => {
     setOrderDate("");
     setOrderTime("");
     setOrderDescription("");
+  }
+
+  const handleOrderNext = () => {
+    addOrder({
+      orderService: clickedService,
+      orderDate: orderDate,
+      orderTime: orderTime,
+      orderDescription: orderDescription,
+    });
   }
 
 
@@ -100,7 +111,7 @@ const Page = ({ params }) => {
                 </div>
               </div>
               <div className="next-btn-container">
-                <button type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
+                <button onClick={(e) => { handleOrderNext(); }} type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
               </div>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
             </div>
