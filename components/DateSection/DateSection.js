@@ -9,6 +9,7 @@ const DateSection = ({orderDate, setOrderDate}) => {
     const [tomorrow3Label, settomorrow3Label] = useState('');
     const [tomorrow4Label, settomorrow4Label] = useState('');
     const [tomorrow5Label, settomorrow5Label] = useState('');
+    const [tomorrow6Label, settomorrow6Label] = useState('');
 
     const formatDate = (date) => {
         return date.toLocaleDateString('en-US', {
@@ -37,11 +38,13 @@ const DateSection = ({orderDate, setOrderDate}) => {
         const tomorrow3 = new Date();
         const tomorrow4 = new Date();
         const tomorrow5 = new Date();
+        const tomorrow6 = new Date();
         tomorrow1.setDate(today.getDate() + 1);
         tomorrow2.setDate(today.getDate() + 2);
         tomorrow3.setDate(today.getDate() + 3);
         tomorrow4.setDate(today.getDate() + 4);
         tomorrow5.setDate(today.getDate() + 5);
+        tomorrow6.setDate(today.getDate() + 6);
 
         // setOrderDate(formatDate(today));
         setTodayLabel(formatDate(today));
@@ -50,6 +53,7 @@ const DateSection = ({orderDate, setOrderDate}) => {
         settomorrow3Label(formatDate(tomorrow3));
         settomorrow4Label(formatDate(tomorrow4));
         settomorrow5Label(formatDate(tomorrow5));
+        settomorrow6Label(formatDate(tomorrow6));
     }, []);
 
     return (
@@ -77,6 +81,10 @@ const DateSection = ({orderDate, setOrderDate}) => {
             <button type='button' className={orderDate ==tomorrow5Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(5)}>
                 <div className="weekday">{tomorrow5Label.slice(0, 3)}</div>
                 <div className="date-day">{tomorrow5Label.slice(-2)}</div>
+            </button>
+            <button type='button' className={orderDate ==tomorrow6Label ? "date-day-btn selected-btn" : "date-day-btn"} onClick={() => setDate(6)}>
+                <div className="weekday">{tomorrow6Label.slice(0, 3)}</div>
+                <div className="date-day">{tomorrow6Label.slice(-2)}</div>
             </button>
         </div>
     );
