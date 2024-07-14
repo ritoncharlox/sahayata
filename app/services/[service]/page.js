@@ -79,7 +79,7 @@ const Page = ({ params }) => {
     const currentService = orders.filter(item=>{
       return item.orderService == service;
     })
-    console.log(currentService);
+    // console.log(currentService);
     if(currentService.length == 0){
       setClickedService(service)
     }
@@ -139,7 +139,10 @@ const Page = ({ params }) => {
         </div>
         )}
         {alreadyBooked && <div className="overlay" style={{ animation: animate?.overlayOut }}>
-          <div className="popup-for-service" style={{ animation: animate?.popupOut }}></div>
+          <div className="popup-for-service already-booked-container" style={{ animation: animate?.popupOut }}>
+            <div className="already-booked-text">You have already booked this service.</div>
+            <button className='already-booked-ok-btn' onClick={(e)=>{popupcrossClick();}}>OK</button>
+          </div>
         </div>}
         <main className="service-container">
           <div className="service-container-first">
