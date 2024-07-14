@@ -1,7 +1,7 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./Order.css";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaMinus } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useOrders } from '@/contexts/orderContext';
 
@@ -15,6 +15,11 @@ const Order = () => {
   const handleRemove = (id) => {
     removeOrder(id);
   }
+
+  useEffect(() => {
+    setShowBig(true);
+  }, [orders])
+  
 
   const popupcrossClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
@@ -31,16 +36,19 @@ const Order = () => {
               {orders.map((item, index)=>{
                 return (
                   <div key={index} className="orders-item">
-                    <div className="orders-item-left">
-
-                    </div>
+                    <form action="#" className="order-confirmation-form">
+                      <div className="order-confirmation-form-item">
+                        <label htmlFor="address">Address</label>
+                        <input type="text" required/>
+                      </div>
+                    </form>
                     <div className="orders-item-right">
                       
                     </div>
                   </div>
                 )
               })}
-              <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
+              <button className='popup-cross' onClick={() => { popupcrossClick(); }}><FaMinus /></button>
             </div>
           </div>}
       {(orders.length !== 0 && !showBig) && <div className='order-details-container-small' onClick={(e)=>{setShowBig(true)}}>
