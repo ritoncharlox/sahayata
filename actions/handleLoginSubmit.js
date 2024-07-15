@@ -1,12 +1,9 @@
 "use server"
 
-import { redirect } from 'next/navigation';
-import User from '@/models/User';
-import { compare, hash } from 'bcryptjs';
-import connectDB from '@/config/db';
-import { generateUniqueUsername } from '@/utils/usernameGenerator';
 import { signIn } from '@/auth';
-import { CredentialsSignin } from 'next-auth';
+import { compare } from 'bcryptjs';
+import { redirect } from 'next/navigation';
+import prisma from '@/config/prisma';
 
 const handleLogin = async (credentials) => {
     // e.preventDefault();
@@ -37,9 +34,13 @@ const handleLogin = async (credentials) => {
             })
         }
 
-        await connectDB();
+        // await connectDB();
 
-        const user = await User.findOne({ email: credentials.loginEmail }).select("+password");
+        const user = await prisma.user.findUnique({
+            where: { email: credentials.loginEmail }
+          });
+
+        //   console.log(user);
 
         if (!user) {
             return ({

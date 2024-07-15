@@ -6,12 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:generate": "npx dotenv -e .env.local -- prisma generate",
+    "prisma:studio": "npx dotenv -e .env.local -- prisma studio",
+    "migrate:dev": "npx dotenv -e .env.local -- prisma migrate dev",
+    "migrate": "npx dotenv -e .env.local -- prisma migrate deploy"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.4.1",
+    "@prisma/client": "^5.16.2",
     "bcryptjs": "^2.4.3",
     "flatpickr": "^4.6.13",
-    "mongoose": "^8.4.1",
+    "mongoose": "^8.5.1",
     "nepali-datepicker-reactjs": "^1.1.7",
     "next": "14.2.3",
     "next-auth": "^5.0.0-beta.19",
@@ -24,7 +30,9 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.4.2",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "prisma": "^5.16.2"
   }
 }
