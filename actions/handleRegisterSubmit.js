@@ -1,10 +1,10 @@
 "use server"
 
-import { redirect } from 'next/navigation';
-import User from '@/models/User';
-import { hash } from 'bcryptjs';
-import connectDB from '@/config/db';
+// import connectDB from '@/config/db';
+import prisma from '@/config/prisma';
 import { generateUniqueUsername } from '@/utils/usernameGenerator';
+import { hash } from 'bcryptjs';
+import { redirect } from 'next/navigation';
 
 const handleRegister = async (credentials) => {
     // e.preventDefault();
@@ -46,9 +46,11 @@ const handleRegister = async (credentials) => {
             })
         }
 
-        await connectDB();
+        // await connectDB();
 
-        const user = await User.findOne({ email: credentials.registerEmail });
+        const user = await prisma.user.findUnique({
+            where: { email: credentials.registerEmail },
+        });
 
         if (user) {
             return ({
@@ -60,13 +62,15 @@ const handleRegister = async (credentials) => {
 
         const hashedPassword = await hash(credentials.registerPassword, 10);
 
-        await User.create({
-            name: credentials.name,
-            email: credentials.registerEmail,
-            password: hashedPassword,
-            userName: userName, // Set the generated username
-            dateJoined: credentials.dateJoined
-        })
+        await prisma.user.create({
+            data: {
+                name: credentials.name,
+                email: credentials.registerEmail,
+                password: hashedPassword,
+                userName: userName,
+                dateJoined: new Date(),
+            },
+        });
 
         return {
             success: true

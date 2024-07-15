@@ -7,7 +7,6 @@ import { FaSearch, FaChevronDown, FaUserCircle } from "react-icons/fa";
 import { FaSignOutAlt } from "react-icons/fa";
 import { signOut } from 'next-auth/react';
 import "./Navbar.css";
-import mongoose from 'mongoose';
 import { getUserByEmail } from '@/utils/getUser';
 
 const Navbar = ({ session }) => {

@@ -1,18 +1,13 @@
 "use client"
 
-import { useState, useEffect } from 'react';
-import { redirect, useRouter } from 'next/navigation';
-import Image from 'next/image';
-import "./Register.css";
-import User from '@/models/User';
-import { hash } from 'bcryptjs';
-import connectDB from '@/config/db';
-import { handleRegisterSubmit } from '@/actions/handleRegisterSubmit';
 import { handleLoginSubmit } from '@/actions/handleLoginSubmit';
-import { MdError } from "react-icons/md";
-import { signIn } from '@/auth';
-import { ScaleLoader } from 'react-spinners';
+import { handleRegisterSubmit } from '@/actions/handleRegisterSubmit';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { FaCheckCircle } from "react-icons/fa";
+import { MdError } from "react-icons/md";
+import { ScaleLoader } from 'react-spinners';
+import "./Register.css";
 
 export default function Register() {
     const [username, setUsername] = useState('');
@@ -295,7 +290,7 @@ export default function Register() {
                                     "Login"
                             }
                         </button>
-                        <p className="account-text">Don't have an account? <a href="#" id="sign-up-btn2" onClick={signUpTwoHandler}>Sign up</a></p>
+                        <p className="account-text">Don&apos;t have an account? <a href="#" id="sign-up-btn2" onClick={signUpTwoHandler}>Sign up</a></p>
                     </form>
                     <form action="" className="sign-up-form" onSubmit={(e) => handleRegister(e)}>
                         <h2 className="title">Sign up</h2>
