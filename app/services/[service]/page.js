@@ -126,7 +126,7 @@ const Page = ({ params }) => {
               <div className="description-section service-order-form-item">
                 <div className="form-item-up">
                   <h3 className="form-item-title">Description:</h3>
-                  <p style={{fontSize: ".9rem", fontWeight: "400", color: "#363636"}}><i>Describe issue/information in your words.</i></p>
+                  <p style={{fontSize: ".9rem", fontWeight: "400", color: "#363636"}}><i>Describe issue/information in your words below.</i></p>
                 </div>
                 <textarea className='order-description-box' value={orderDescription} onChange={(e) => { setOrderDescription(e.target.value) }} required></textarea>
               </div>
