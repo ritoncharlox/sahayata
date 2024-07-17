@@ -11,7 +11,7 @@ import NextTopLoader from 'nextjs-toploader';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Sahayata - Quick Home Fixes At your Fingertips",
+  title: "Sahayata - Expert Home Fixes & Trusted Solution",
   description: "Yo description vanni chiz aaila sudip randi ko baan ley akxin ma halxa, aaila chai tyo muji tai na tui sga kk ho kk herirako xaw. And I want to say that to Sudip Lamichhane vanni damno fuck you bitch.",
 };
 
