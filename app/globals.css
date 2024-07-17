@@ -35,12 +35,14 @@ main{
 ::-webkit-scrollbar-track {
     background: rgb(247, 195, 176); /* Dark background color */
     border-radius: 10px;
+    cursor: pointer;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: rgb(249, 143, 104); /* Darker color for the handle */
     border-radius: 10px;
+    cursor: pointer;
 }
 
 /* Handle on hover */
