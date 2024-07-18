@@ -4,9 +4,10 @@ import { auth } from '@/auth';
 import prisma from '@/config/prisma';
 import { redirect } from 'next/navigation';
 import "./Profile.css";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import Image from 'next/image';
+import { FaEdit } from "react-icons/fa";
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -50,10 +51,34 @@ export default async function ProfilePage() {
         </div>
         <div className="line"></div>
         <div className="content">
+          <div className="content-heading">
+            Personal Details
+          </div>
           <div className="user-card">
-            <Image className="profile-avatar-image" width={100} height={100} src={user.avatar} alt="sahayata cover" />
-            <div className="label">admin</div>
-            <div className="name">Name</div>
+            <div className="profile-avatar">
+              {
+                user?.avatar ?
+                  // <Image src={user?.avatar} width={30} height={30} quality={100} unoptimized alt="User Avatar" className="avatar-image" />
+                  <Image className="profile-avatar-image" width={100} height={100} src={user.avatar} alt="sahayata cover" />
+                  :
+                  <div className="profile-avatar-image-alt">
+                    <FaUserCircle />
+                  </div>
+              }
+              <div className="profile-avatar-edit-button">
+              <FaEdit />
+              </div>
+            </div>
+            <div className="name">
+              {
+                user.name
+              }
+            </div>
+            <div className="role">
+              {
+                role
+              }
+            </div>
           </div>
         </div>
       </div>
