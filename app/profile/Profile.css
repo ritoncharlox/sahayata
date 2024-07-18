@@ -3,117 +3,58 @@ main.profile {
     /* background-color: red; */
 }
 
-.breadcrumb {
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-.breadcrumb a {
-    color: #EE7214;
-    text-decoration: none;
-}
-
-h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.profile-container {
+.profile .profile-section {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 10px;
+    /* background-color: red; */
 }
 
-.profile-left {
+.profile .profile-section .sidebar {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 30%;
-    background: #f4f4f4;
-    padding: 20px;
-    border-radius: 8px;
+    row-gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    /* white-space: nowrap; */
+    /* background-color: #e1bea6; */
+    /* border: 2px solid #e1bea6; */
 }
 
-.profile-avatar {
-    margin-bottom: 20px;
-}
-
-.profile-info {
-    text-align: center;
-}
-
-.profile-info h2 {
-    margin: 0 0 10px 0;
-    font-size: 22px;
-}
-
-.profile-info p {
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-.profile-info .add-location-button {
-    background-color: #EE7214;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.profile-right {
-    width: 65%;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.profile-details h3 {
-    font-size: 22px;
-    margin-bottom: 20px;
-}
-
-.detail-item {
-    margin-bottom: 15px;
+.profile .profile-section .sidebar .sidebar-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.detail-item label {
-    font-weight: bold;
-    font-size: 16px;
-    width: 30%;
-}
-
-.detail-item span {
-    font-size: 16px;
-    width: 70%;
-    text-align: right;
-}
-
-.address-book {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.address-book h3 {
-    font-size: 22px;
-    margin: 0;
-}
-
-.add-button {
-    background-color: #EE7214;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
+    flex-direction: row;
+    column-gap: 10px;
+    padding: 10px;
     border-radius: 5px;
+    white-space: nowrap;
     cursor: pointer;
+    background-color: lightgray;
+}
+
+.profile .profile-section .sidebar .sidebar-item .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.profile .profile-section .sidebar .sidebar-item .text {
+    /* background-color: blue; */
+}
+
+.profile .profile-section .line {
+    width: 2px;
+    border-radius: 20px;
+    background-color: #e1bea6;
+}
+
+.profile .profile-section .content {
+    padding: 10px;
+    border-radius: 10px;
+    /* border: 2px solid #e1bea6; */
+    /* background-color: #e1bea6; */
+    /* flex-grow: 1; */
+    /* width: 100%; */
 }
