@@ -2,7 +2,7 @@
 
 import { handleLoginSubmit } from '@/actions/handleLoginSubmit';
 import { handleRegisterSubmit } from '@/actions/handleRegisterSubmit';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
@@ -29,6 +29,9 @@ export default function Register() {
     const [loginInfo, setLoginInfo] = useState('');
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const redirectTo = searchParams.get('redirectTo') || '/';
 
     const hasSpecialCharactersOrNumbers = (str) => {
         const regex = /[^a-zA-Z\s]/;
@@ -80,7 +83,8 @@ export default function Register() {
             setLoginInfo("Successfully logged in");
 
             setTimeout(() => {
-                router.push('/');
+                router.push(redirectTo);
+                router.refresh();
             }, 1000);
 
             return;
