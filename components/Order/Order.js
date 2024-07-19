@@ -1,9 +1,12 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import "./Order.css";
+import Link from 'next/link';
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
+import { FaPlus } from "react-icons/fa";
+
 
 import { useOrders } from '@/contexts/orderContext';
 
@@ -40,6 +43,7 @@ const Order = () => {
             <div className="form-item-up">
               <h3 className="form-item-title">Orders:</h3>
               <p className="selected-order-count">{orders.length}</p>
+              <Link href={"/"} className='order-addmore-btn' onClick={(e)=>{popupcrossClick()}}><FaPlus /></Link>
             </div>
             <div className="orders-details-container-details">
               {orders.map((item, index) => {
@@ -61,7 +65,7 @@ const Order = () => {
             </div>
           </div>
           <div className="order-confirmation-form-container">
-            <div className="form-item-title">Confirm Details:</div>
+            <div className="form-item-title">Confirm Orders:</div>
             <form action="#" className="order-confirmation-form">
               <div className="order-input-field">
                 <input type="text" className={`titleInput ${orderAddress !== '' ? `valid-order-input` : ''}`} name="orderaddress" onChange={(e) => setOrderAddress(e.target.value)} required />
