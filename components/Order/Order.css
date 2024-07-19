@@ -192,14 +192,18 @@
     flex-direction: column;
     gap: 12px;
 }
+.order-confirm-section{
+    display: flex;
+    gap: 10px;
+    padding-left: 10px;
+}
 .order-confirmation-form{
+    width: calc(50% - 10px);
     display: flex;
     flex-direction: column;
     gap: 0px;
-    padding-left: 10px;
 }
 .order-input-field {
-    width: 50%;
     height: 50px;
     position: relative;
     margin: 18px 0;
@@ -267,7 +271,6 @@
     z-index: 10;
 }
 .order-submit-btn-container{
-    width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -298,4 +301,36 @@
 }
 .order-pending:hover{
     background: #FFA836;
+}
+.order-error-field{
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: brown;
+    border: 2px solid brown;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0px auto;
+}
+.order-info-field{
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: brown;
+    border: 2px solid brown;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0px auto;
+}
+.error-icon, .info-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+.error-text, .info-text{
+    font-size: 1rem;
+    font-weight: 500;
 }
