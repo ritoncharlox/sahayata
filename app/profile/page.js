@@ -4,9 +4,11 @@ import { auth } from '@/auth';
 import prisma from '@/config/prisma';
 import { redirect } from 'next/navigation';
 import "./Profile.css";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUserCircle } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 import Image from 'next/image';
+import { FaEdit } from "react-icons/fa";
+import Profile from '@/components/Profile/Profile';
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -27,36 +29,20 @@ export default async function ProfilePage() {
 
   const role = user.isAdmin ? "Admin" : user.isFreelancer ? "Freelancer" : "User";
 
+  const handleAvatarChange = async ( user, avatarUrl ) => {
+    "use server"
+
+    console.log(user, avatarUrl);
+    return "Hello";
+  }
+
+  const data = {
+    user: user,
+    role: role,
+    handleAvatarChange: handleAvatarChange,
+  }
+
   return (
-    <main className="profile">
-      <div className="profile-section">
-        <div className="sidebar">
-          <div className="sidebar-item">
-            <div className="icon">
-              <FaUser />
-            </div>
-            <div className="text">
-              Personal Details
-            </div>
-          </div>
-          <div className="sidebar-item">
-            <div className="icon">
-              <FaGear />
-            </div>
-            <div className="text">
-              Settings
-            </div>
-          </div>
-        </div>
-        <div className="line"></div>
-        <div className="content">
-          <div className="user-card">
-            <Image className="profile-avatar-image" width={100} height={100} src={user.avatar} alt="sahayata cover" />
-            <div className="label">admin</div>
-            <div className="name">Name</div>
-          </div>
-        </div>
-      </div>
-    </main>
+    <Profile data={data} />
   );
 }
