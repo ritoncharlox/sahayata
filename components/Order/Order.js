@@ -5,18 +5,25 @@ import Link from 'next/link';
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaCheckCircle } from "react-icons/fa";
+import { MdError } from 'react-icons/md';
 
 
 import { useOrders } from '@/contexts/orderContext';
+import { validate } from 'uuid';
 
 const Order = () => {
   const { orders, removeOrder } = useOrders();
   const [showBig, setShowBig] = useState(true);
   const [animate, setAnimate] = useState();
+
   const [orderAddress, setOrderAddress] = useState("");
   const [orderContact, setOrderContact] = useState("");
+
   const [orderPending, setOrderPending] = useState(false);
+
+  const [orderError, setOrderError] = useState("");
+  const [orderInfo, setOrderInfo] = useState("");
 
   const handleRemove = (id) => {
     removeOrder(id);
@@ -35,6 +42,44 @@ const Order = () => {
     }, 800);
   }
 
+  const isValidNumber = (input) => {
+    if (typeof input !== 'string' || input.length !== 10) {
+      return false;
+    }
+
+    if (!input.startsWith('97') && !input.startsWith('98')) {
+      return false;
+    }
+
+    const digitRegex = /^\d{10}$/;
+    return digitRegex.test(input);
+  }
+
+  const handleConfirmOrder = async (e) => {
+    e.preventDefault();
+
+    if (orderPending) {
+      return;
+    }
+
+    setOrderPending(true);
+    setOrderError("");
+    setOrderInfo("");
+
+    if (!orderAddress || !orderContact) {
+      setOrderError("Please provide all the fields");
+      setOrderPending(false);
+      return;
+    }
+
+    if(!isValidNumber(orderContact)){
+      setOrderError("Please provide all the fields");
+      setOrderPending(false);
+      return;
+    }
+
+  }
+
   return (
     <>
       {(orders.length !== 0 && showBig) && <div className="order-details-overlay" style={{ animation: animate?.overlayOut }}>
@@ -43,7 +88,7 @@ const Order = () => {
             <div className="form-item-up">
               <h3 className="form-item-title">Orders:</h3>
               <p className="selected-order-count">{orders.length}</p>
-              <Link href={"/"} className='order-addmore-btn' onClick={(e)=>{popupcrossClick()}}><FaPlus /></Link>
+              <button className='order-addmore-btn' onClick={(e) => { popupcrossClick(); }}><FaPlus /></button>
             </div>
             <div className="orders-details-container-details">
               {orders.map((item, index) => {
@@ -66,28 +111,64 @@ const Order = () => {
           </div>
           <div className="order-confirmation-form-container">
             <div className="form-item-title">Confirm Orders:</div>
-            <form action="#" className="order-confirmation-form">
-              <div className="order-input-field">
-                <input type="text" className={`titleInput ${orderAddress !== '' ? `valid-order-input` : ''}`} name="orderaddress" onChange={(e) => setOrderAddress(e.target.value)} required />
-                <span>Address</span>
-                <i></i>
-              </div>
-              <div className="order-input-field">
-                <input type="text" className={`titleInput ${orderContact !== '' ? `valid-order-input` : ''}`} name="ordercontact" onChange={(e) => setOrderContact(e.target.value)} required />
-                <span>Phone No.</span>
-                <i></i>
-              </div>
-              <div className="order-submit-btn-container">
-                <button type="submit" className={`order-submit-btn ${orderPending ? `order-pending` : ``}`} disabled={orderPending}>
-                  {
-                    orderPending ?
-                      <ScaleLoader height={20} color={"#fff"} />
-                      :
-                      "Confirm"
-                  }
-                </button>
-              </div>
-            </form>
+            <div className="order-confirm-section">
+              <form action="#" className="order-confirmation-form" onSubmit={(e) => { handleConfirmOrder(e); }}>
+                <div className="order-input-field">
+                  <input type="text" className={`titleInput ${orderAddress !== '' ? `valid-order-input` : ''}`} name="orderaddress" onChange={(e) => setOrderAddress(e.target.value)} required />
+                  <span>Address</span>
+                  <i></i>
+                </div>
+                <div className="order-input-field">
+                  <input type="text" className={`titleInput ${orderContact !== '' ? `valid-order-input` : ''}`} name="ordercontact" onChange={(e) => setOrderContact(e.target.value)} required />
+                  <span>Phone No.</span>
+                  <i></i>
+                </div>
+                {
+                  orderError ? (
+                    <>
+                      <div className="order-error-field">
+                        <div className="error-icon">
+                          <MdError />
+                        </div>
+                        <div className="error-text">
+                          {orderError}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                    </>
+                  )
+                }
+                {
+                  orderInfo ? (
+                    <>
+                      <div className="order-info-field">
+                        <div className="info-icon">
+                          <FaCheckCircle />
+                        </div>
+                        <div className="info-text">
+                          {orderInfo}
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                    </>
+                  )
+                }
+                <div className="order-submit-btn-container">
+                  <button type="submit" className={`order-submit-btn ${orderPending ? `order-pending` : ``}`} disabled={orderPending}>
+                    {
+                      orderPending ?
+                        <ScaleLoader height={20} color={"#fff"} />
+                        :
+                        "Confirm"
+                    }
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
           <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
         </div>
