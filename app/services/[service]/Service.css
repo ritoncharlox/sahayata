@@ -310,10 +310,10 @@
     transform: perspective(1px) translateZ(0);
     transition-duration: .2s;
     transition-property: transform;
+    background-color: beige;
 }
 
 .popup-cross:hover {
-    background-color: beige;
     transform: scale(1.1);
 }
 
