@@ -51,6 +51,7 @@ main.profile {
 }
 
 .profile .profile-section .content {
+    min-width: 500px;
     padding: 10px;
     border-radius: 10px;
     /* border: 2px solid #e1bea6; */
@@ -67,7 +68,7 @@ main.profile {
 .profile .profile-section .content .user-card {
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 50px;
     /* row-gap: 10px; */
     /* background-color: red; */
 }
@@ -148,6 +149,10 @@ main.profile {
     border: 2px solid lightslategray;
     border-radius: 20px;
     background-color: lightblue;
+}
+
+.profile .profile-section .content .user-info {
+    margin-top: 20px;
 }
 
 .profile-avatar-popup-container {

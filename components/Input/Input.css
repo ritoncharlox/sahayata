@@ -1,0 +1,58 @@
+.input-main {
+    /* min-width: 500px; */
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    /* background-color: red; */
+    background-color: white;
+}
+
+.input-main .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    /* background-color: red; */
+}
+
+.input-main .title .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--theme-color2);
+    /* background-color: red; */
+}
+
+.input-main .input-line {
+    height: 2px;
+    border-radius: 20px;
+    background-color: gray;
+}
+
+.input-main .input {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    column-gap: 10px;
+    /* background-color: red; */
+}
+
+.input-main .input .value {
+    font-weight: 500;
+    color: #363636;
+}
+
+.input-main .input .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    color: var(--theme-color2);
+    background-color: transparent;
+    cursor: pointer;
+}

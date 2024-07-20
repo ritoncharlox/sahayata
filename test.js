@@ -1,23 +1,19 @@
-function convertStringToObject(jsonString) {
-    try {
-      // Attempt to parse the JSON string
-      const jsonObject = JSON.parse(jsonString);
-      return jsonObject;
-    } catch (error) {
-      // Return an error message if the string is not valid JSON
-    //   return { error: "Invalid JSON string", details: error.message };
-    }
+const isValidImageUrl = async (url) => {
+  try {
+    const res = await fetch(url);
+    const contentType = res.headers.get('content-type');
+    return res.ok && contentType && contentType.startsWith('image/');
+  } catch (error) {
+    return false;
   }
-  
-  // Example usage
-  const jsonString = '{"name": "John", "age": 30, "city": "New York"}';
-  const invalidJsonString = '{name: "John", age: 30, city: "New York"}';
-  const result = convertStringToObject(jsonString);
-  const invalidResult = convertStringToObject(invalidJsonString);
-  
-  console.log(result);  // { name: 'John', age: 30, city: 'New York' }
-  console.log(invalidResult);  // { error: 'Invalid JSON string', details: 'Unexpected token n in JSON at position 1' }
-  
-  // Example with an invalid JSON string
-  
-  
+};
+
+const avatarUrl = "https://scontent.fsif1-1.fna.fbcdn.net/v/t39.30808-1/374734159_1480647582711305_3023156510724626670_n.jpg?stp=dst-jpg_s200x200&_nc_cat=106&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=QPDysQLAaeEQ7kNvgE-Irle&_nc_ht=scontent.fsif1-1.fna&oh=00_AYDDS7SelEXX7EG2mxFSdnheDcamD6OF8m0G2nuNtltA2Q&oe=66A18792"
+
+const test = async () => {
+  const isValid = await isValidImageUrl(avatarUrl);
+
+  console.log(isValid);
+}
+
+test();
