@@ -26,8 +26,12 @@ export default function OrderProvider({ children }) {
         setOrders((prevOrders) => prevOrders.filter((order) => order.id !== id));
     };
 
+    const cancelOrder = ()=>{
+        setOrders([]);
+    }
+
     return (
-        <OrderContext.Provider value={{ orders, addOrder, removeOrder }}>
+        <OrderContext.Provider value={{ orders, addOrder, removeOrder, cancelOrder }}>
             {children}
         </OrderContext.Provider>
     );

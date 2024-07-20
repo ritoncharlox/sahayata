@@ -7,14 +7,15 @@ import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
 import { FaPlus, FaCheckCircle } from "react-icons/fa";
 import { MdError } from 'react-icons/md';
-import { TiMinus } from "react-icons/ti";
-
+import { FiMinus } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 
 import { useOrders } from '@/contexts/orderContext';
+import OtpSection from '../OtpSection/OtpSection';
 import { validate } from 'uuid';
 
 const Order = () => {
-  const { orders, removeOrder } = useOrders();
+  const { orders, removeOrder, cancelOrder } = useOrders();
   const [showBig, setShowBig] = useState(true);
   const [animate, setAnimate] = useState();
 
@@ -22,19 +23,18 @@ const Order = () => {
   const [orderContact, setOrderContact] = useState("");
 
   const [orderPending, setOrderPending] = useState(false);
+  const [cancelPending, setCancelPending] = useState(false);
 
   const [orderError, setOrderError] = useState("");
   const [orderInfo, setOrderInfo] = useState("");
 
-  const [otpFirst, setOtpFirst] = useState("");
-  const [otpSecond, setOtpSecond] = useState("");
-  const [otpThird, setOtpThird] = useState("");
-  const [otpFourth, setOtpFourth] = useState("");
-  const [otpFifth, setOtpFifth] = useState("");
-  const [otpSixth, setOtpSixth] = useState("");
-
   const handleRemove = (id) => {
-    removeOrder(id);
+    if(orders.length <= 1){
+      popupcrossClick()
+    }
+    else{
+      removeOrder(id);
+    }
   }
 
   useEffect(() => {
@@ -42,11 +42,17 @@ const Order = () => {
   }, [orders])
 
 
-  const popupcrossClick = () => {
+  const popupminusClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
     setTimeout(() => {
       setAnimate();
       setShowBig(false);
+    }, 800);
+  }
+  const popupcrossClick = () => {
+    popupminusClick();
+    setTimeout(() => {
+      cancelOrder();
     }, 800);
   }
 
@@ -86,14 +92,6 @@ const Order = () => {
 
   }
 
-  const handleOtpInput = (e) => {
-    e.target.value = e.target.value.replace(/\D/g, '');
-
-    if (e.target.value.length > 1) {
-      e.target.value = e.target.value.slice(0, 1);
-    }
-  }
-
   return (
     <>
       {(orders.length !== 0 && showBig) && <div className="order-details-overlay" style={{ animation: animate?.overlayOut }}>
@@ -102,7 +100,7 @@ const Order = () => {
             <div className="form-item-up">
               <h3 className="form-item-title">Orders:</h3>
               <p className="selected-order-count">{orders.length}</p>
-              <button className='order-addmore-btn' onClick={(e) => { popupcrossClick(); }}><FaPlus /></button>
+              <button className='order-addmore-btn' onClick={(e) => { popupminusClick(); }}><FaPlus /></button>
             </div>
             <div className="orders-details-container-details">
               {orders.map((item, index) => {
@@ -186,87 +184,11 @@ const Order = () => {
               </form>
             </div>
 
-            <div className="verify-otp-section">
-              <h4 className="form-item-title">Enter OTP:</h4>
-              <form action="" className="otp-verification-form">
-                <div className="otp-container">
-                  <div className="order-otp-field">
-                    <input
-                      type="text"
-                      className={`titleInput ${otpFirst !== '' ? 'valid-otp-input' : ''}`}
-                      onChange={(e) => setOtpFirst(e.target.value)}
-                      onInput={(e) => { handleOtpInput(e); }}
-                      pattern="\d"
-                      maxLength="1"
-                      required
-                    />                    <i></i>
-                  </div>
-                  <div className="order-otp-field">
-                    <input
-                      type="text"
-                      className={`titleInput ${otpSecond !== '' ? 'valid-otp-input' : ''}`}
-                      onChange={(e) => setOtpSecond(e.target.value)}
-                      onInput={(e) => { handleOtpInput(e); }}
-                      pattern="\d"
-                      maxLength="1"
-                      required
-                    />                    <i></i>
-                  </div>
-                  <div className="order-otp-field">
-                    <input
-                      type="text"
-                      className={`titleInput ${otpThird !== '' ? 'valid-otp-input' : ''}`}
-                      onChange={(e) => setOtpThird(e.target.value)}
-                      onInput={(e) => { handleOtpInput(e); }}
-                      pattern="\d"
-                      maxLength="1"
-                      required
-                    />                    <i></i>
-                  </div>
+            <OtpSection />
 
-                  <div className="otp-mid-line"><TiMinus /></div>
-
-                  <div className="order-otp-field">
-                    <input
-                      type="text"
-                      className={`titleInput ${otpFourth !== '' ? 'valid-otp-input' : ''}`}
-                      onChange={(e) => setOtpFourth(e.target.value)}
-                      onInput={(e) => { handleOtpInput(e); }}
-                      pattern="\d"
-                      maxLength="1"
-                      required
-                    />                    <i></i>
-                  </div>
-                  <div className="order-otp-field">
-                    <input
-                      type="text"
-                      className={`titleInput ${otpFifth !== '' ? 'valid-otp-input' : ''}`}
-                      onChange={(e) => setOtpFifth(e.target.value)}
-                      onInput={(e) => { handleOtpInput(e); }}
-                      pattern="\d"
-                      maxLength="1"
-                      required
-                    />                    <i></i>
-                  </div>
-                  <div className="order-otp-field">
-                    <input
-                      type="text"
-                      className={`titleInput ${otpSixth !== '' ? 'valid-otp-input' : ''}`}
-                      onChange={(e) => setOtpSixth(e.target.value)}
-                      onInput={(e) => { handleOtpInput(e); }}
-                      pattern="\d"
-                      maxLength="1"
-                      required
-                    />                    <i></i>
-                  </div>
-                </div>
-                <div className="otp-verify-btn-container">
-
-                </div>
-              </form>
-            </div>
           </div>
-          <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
+          <button className='popup-minus' onClick={() => { popupminusClick(); }}><FiMinus /></button>
+          <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
         </div>
       </div>}
       {(orders.length !== 0 && !showBig) && <div className='order-details-container-small' onClick={(e) => { setShowBig(true) }}>

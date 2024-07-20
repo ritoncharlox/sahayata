@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import data from "@/app/services.json";
 import DateSection from '@/components/DateSection/DateSection';
-import { RxCross2 } from "react-icons/rx";
+import { IoClose } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { useOrders } from '@/contexts/orderContext';
@@ -134,7 +134,7 @@ const Page = ({ params }) => {
             <div className="next-btn-container">
               <button onClick={(e) => { handleOrderNext(); }} type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
             </div>
-            <button className='popup-cross' onClick={() => { popupcrossClick(); }}><RxCross2 /></button>
+            <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
           </div>
         </div>
         )}
