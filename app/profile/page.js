@@ -29,11 +29,24 @@ export default async function ProfilePage() {
 
   const role = user.isAdmin ? "Admin" : user.isFreelancer ? "Freelancer" : "User";
 
-  const handleAvatarChange = async ( user, avatarUrl ) => {
+  const handleAvatarChange = async (user, avatarUrl) => {
     "use server"
 
-    console.log(user, avatarUrl);
-    return "Hello";
+    try {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { avatar: avatarUrl },
+      });
+
+      return {
+        success: true
+      }
+    } catch (error) {
+      return {
+        error: true,
+        message: error.message
+      }
+    }
   }
 
   const data = {

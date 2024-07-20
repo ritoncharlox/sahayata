@@ -101,7 +101,7 @@ const Navbar = ({ session }) => {
                     <FaUserCircle />
                   </div>
               }
-              <span className="username">{session.user.name}</span>
+              <span className="username">{session.user.userName}</span>
               <div className={`arrow-icon ${dropdownOpen ? `dropdownOpen` : ``}`}>
                 <FaChevronDown />
               </div>
