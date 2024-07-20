@@ -7,6 +7,7 @@ import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
 import { FaPlus, FaCheckCircle } from "react-icons/fa";
 import { MdError } from 'react-icons/md';
+import { TiMinus } from "react-icons/ti";
 
 
 import { useOrders } from '@/contexts/orderContext';
@@ -24,6 +25,13 @@ const Order = () => {
 
   const [orderError, setOrderError] = useState("");
   const [orderInfo, setOrderInfo] = useState("");
+
+  const [otpFirst, setOtpFirst] = useState("");
+  const [otpSecond, setOtpSecond] = useState("");
+  const [otpThird, setOtpThird] = useState("");
+  const [otpFourth, setOtpFourth] = useState("");
+  const [otpFifth, setOtpFifth] = useState("");
+  const [otpSixth, setOtpSixth] = useState("");
 
   const handleRemove = (id) => {
     removeOrder(id);
@@ -46,11 +54,9 @@ const Order = () => {
     if (typeof input !== 'string' || input.length !== 10) {
       return false;
     }
-
     if (!input.startsWith('97') && !input.startsWith('98')) {
       return false;
     }
-
     const digitRegex = /^\d{10}$/;
     return digitRegex.test(input);
   }
@@ -72,12 +78,20 @@ const Order = () => {
       return;
     }
 
-    if(!isValidNumber(orderContact)){
-      setOrderError("Please provide all the fields");
+    if (!isValidNumber(orderContact)) {
+      setOrderError("Please provide valid Phone no.");
       setOrderPending(false);
       return;
     }
 
+  }
+
+  const handleOtpInput = (e) => {
+    e.target.value = e.target.value.replace(/\D/g, '');
+
+    if (e.target.value.length > 1) {
+      e.target.value = e.target.value.slice(0, 1);
+    }
   }
 
   return (
@@ -110,18 +124,20 @@ const Order = () => {
             </div>
           </div>
           <div className="order-confirmation-form-container">
-            <div className="form-item-title">Confirm Orders:</div>
             <div className="order-confirm-section">
-              <form action="#" className="order-confirmation-form" onSubmit={(e) => { handleConfirmOrder(e); }}>
-                <div className="order-input-field">
-                  <input type="text" className={`titleInput ${orderAddress !== '' ? `valid-order-input` : ''}`} name="orderaddress" onChange={(e) => setOrderAddress(e.target.value)} required />
-                  <span>Address</span>
-                  <i></i>
-                </div>
-                <div className="order-input-field">
-                  <input type="text" className={`titleInput ${orderContact !== '' ? `valid-order-input` : ''}`} name="ordercontact" onChange={(e) => setOrderContact(e.target.value)} required />
-                  <span>Phone No.</span>
-                  <i></i>
+              <div className="form-item-title">Confirm Orders:</div>
+              <form action="" className="order-confirmation-form" onSubmit={(e) => { handleConfirmOrder(e); }}>
+                <div className="order-confirmation-form-inputs">
+                  <div className="order-input-field">
+                    <input type="text" className={`titleInput ${orderAddress !== '' ? `valid-order-input` : ''}`} name="orderaddress" onChange={(e) => setOrderAddress(e.target.value)} required />
+                    <span>Address</span>
+                    <i></i>
+                  </div>
+                  <div className="order-input-field">
+                    <input type="text" className={`titleInput ${orderContact !== '' ? `valid-order-input` : ''}`} name="ordercontact" onChange={(e) => setOrderContact(e.target.value)} required />
+                    <span>Phone No.</span>
+                    <i></i>
+                  </div>
                 </div>
                 {
                   orderError ? (
@@ -166,6 +182,86 @@ const Order = () => {
                         "Confirm"
                     }
                   </button>
+                </div>
+              </form>
+            </div>
+
+            <div className="verify-otp-section">
+              <h4 className="form-item-title">Enter OTP:</h4>
+              <form action="" className="otp-verification-form">
+                <div className="otp-container">
+                  <div className="order-otp-field">
+                    <input
+                      type="text"
+                      className={`titleInput ${otpFirst !== '' ? 'valid-otp-input' : ''}`}
+                      onChange={(e) => setOtpFirst(e.target.value)}
+                      onInput={(e) => { handleOtpInput(e); }}
+                      pattern="\d"
+                      maxLength="1"
+                      required
+                    />                    <i></i>
+                  </div>
+                  <div className="order-otp-field">
+                    <input
+                      type="text"
+                      className={`titleInput ${otpSecond !== '' ? 'valid-otp-input' : ''}`}
+                      onChange={(e) => setOtpSecond(e.target.value)}
+                      onInput={(e) => { handleOtpInput(e); }}
+                      pattern="\d"
+                      maxLength="1"
+                      required
+                    />                    <i></i>
+                  </div>
+                  <div className="order-otp-field">
+                    <input
+                      type="text"
+                      className={`titleInput ${otpThird !== '' ? 'valid-otp-input' : ''}`}
+                      onChange={(e) => setOtpThird(e.target.value)}
+                      onInput={(e) => { handleOtpInput(e); }}
+                      pattern="\d"
+                      maxLength="1"
+                      required
+                    />                    <i></i>
+                  </div>
+
+                  <div className="otp-mid-line"><TiMinus /></div>
+
+                  <div className="order-otp-field">
+                    <input
+                      type="text"
+                      className={`titleInput ${otpFourth !== '' ? 'valid-otp-input' : ''}`}
+                      onChange={(e) => setOtpFourth(e.target.value)}
+                      onInput={(e) => { handleOtpInput(e); }}
+                      pattern="\d"
+                      maxLength="1"
+                      required
+                    />                    <i></i>
+                  </div>
+                  <div className="order-otp-field">
+                    <input
+                      type="text"
+                      className={`titleInput ${otpFifth !== '' ? 'valid-otp-input' : ''}`}
+                      onChange={(e) => setOtpFifth(e.target.value)}
+                      onInput={(e) => { handleOtpInput(e); }}
+                      pattern="\d"
+                      maxLength="1"
+                      required
+                    />                    <i></i>
+                  </div>
+                  <div className="order-otp-field">
+                    <input
+                      type="text"
+                      className={`titleInput ${otpSixth !== '' ? 'valid-otp-input' : ''}`}
+                      onChange={(e) => setOtpSixth(e.target.value)}
+                      onInput={(e) => { handleOtpInput(e); }}
+                      pattern="\d"
+                      maxLength="1"
+                      required
+                    />                    <i></i>
+                  </div>
+                </div>
+                <div className="otp-verify-btn-container">
+
                 </div>
               </form>
             </div>
