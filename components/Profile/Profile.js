@@ -12,6 +12,7 @@ import { IoClose } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { ScaleLoader } from 'react-spinners';
+import Input from '../Input/Input';
 
 const Profile = ({ data }) => {
 
@@ -31,7 +32,7 @@ const Profile = ({ data }) => {
 
         const avatarChange = await data.handleAvatarChange(data.user, avatarUrl);
 
-        console.log(avatarChange);
+        // console.log(avatarChange);
 
         if (avatarChange.success) {
             setAvatarInfo("Avatar updated successfully");
@@ -45,11 +46,22 @@ const Profile = ({ data }) => {
         }
 
         if (avatarChange.error) {
-            setAvatarError("Something went wrong, please try with different url");
+            setAvatarError("Something went wrong, please try again after a while");
 
-            setTimeout(() => {
-                setAvatarModalOpen(false);
-            }, 1000);
+            // setTimeout(() => {
+            //     setAvatarModalOpen(false);
+            // }, 1000);
+
+            setAvatarLoading(false);
+            return;
+        }
+
+        if (avatarChange.avatarError) {
+            setAvatarError(avatarChange.avatarError);
+
+            // setTimeout(() => {
+            //     setAvatarModalOpen(false);
+            // }, 1000);
 
             setAvatarLoading(false);
             return;
@@ -192,6 +204,18 @@ const Profile = ({ data }) => {
                                 data.role
                             }
                         </div>
+                    </div>
+                    <div className="user-info">
+                        <Input data={
+                            {
+                                value: data.user.name,
+                                name: "nameInput",
+                                className: "nameInput",
+                                placeholder: "name",
+                                icon: <FaUser />,
+                                title: "Name"
+                            }
+                        } />
                     </div>
                 </div>
             </div>

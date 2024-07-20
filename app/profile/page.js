@@ -29,10 +29,31 @@ export default async function ProfilePage() {
 
   const role = user.isAdmin ? "Admin" : user.isFreelancer ? "Freelancer" : "User";
 
+  const isValidImageUrl = async (url) => {
+    "use server"
+
+    try {
+      const res = await fetch(url);
+      const contentType = res.headers.get('content-type');
+      return res.ok && contentType && contentType.startsWith('image/');
+    } catch (error) {
+      return false;
+    }
+  };
+
   const handleAvatarChange = async (user, avatarUrl) => {
     "use server"
 
     try {
+
+      const isValid = await isValidImageUrl(avatarUrl);
+
+      if (!isValid) {
+        return {
+          avatarError: "Avatar URL is not valid, please use a valid URL",
+        };
+      }
+
       await prisma.user.update({
         where: { id: user.id },
         data: { avatar: avatarUrl },
@@ -43,8 +64,7 @@ export default async function ProfilePage() {
       }
     } catch (error) {
       return {
-        error: true,
-        message: error.message
+        error: error.message
       }
     }
   }
