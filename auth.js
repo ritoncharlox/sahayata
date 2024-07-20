@@ -60,6 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         name: user.name,
                         email: user.email,
                         id: user.id,
+                        userName: user.userName,
                     };
 
                 } catch (error) {
@@ -84,6 +85,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             }
             return true;
         },
+        async jwt({ token, user }) {
+            if (user) {
+              token.id = user.id;
+              token.userName = user.userName;
+            }
+            return token;
+          },
+          async session({ session, token }) {
+            if (token) {
+              session.user.id = token.id;
+              session.user.userName = token.userName;
+            }
+            return session;
+          },
     },
     pages: {
         signIn: "/login",

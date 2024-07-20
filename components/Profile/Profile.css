@@ -160,8 +160,8 @@ main.profile {
     top: 0px;
     left: 0px;
     z-index: 1000;
-    /* background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px); */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
     /* background-color: red; */
 }
 
@@ -250,8 +250,11 @@ main.profile {
 }
 
 .profile-avatar-popup-container .profile-avatar-popup .submit-button {
+    min-width: 85px;
+    min-height: 40px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     align-items: center;
     column-gap: 10px;
     font-size: 1rem;
@@ -264,6 +267,21 @@ main.profile {
     /* background-color: blue; */
 }
 
+.profile-avatar-popup-container .profile-avatar-popup .submit-button:hover {
+    background: var(--theme-color2);
+}
+
+.profile-avatar-popup-container .profile-avatar-popup .submit-button.loading {
+    padding: 0px;
+    cursor: not-allowed;
+    background: #FFA836;
+    /* background-color: red; */
+}
+
+.profile-avatar-popup-container .profile-avatar-popup .submit-button.loading:hover {
+    background: #FFA836;
+}
+
 .profile-avatar-popup-container .profile-avatar-popup .submit-button .icon {
     display: flex;
     justify-content: center;
@@ -271,8 +289,7 @@ main.profile {
     /* background-color: red; */
 }
 
-.profile-avatar-popup-container .profile-avatar-popup .submit-button .text {
-}
+.profile-avatar-popup-container .profile-avatar-popup .submit-button .text {}
 
 .profile-avatar-popup-container .profile-avatar-popup .close-button {
     width: fit-content;
@@ -284,8 +301,9 @@ main.profile {
     right: 10px;
     font-size: 1.5rem;
     /* border-radius: 5px; */
-    /* background-color: var(--theme-light); */
     cursor: pointer;
+    background-color: transparent;
+    /* background-color: red; */
 }
 
 .profile-avatar-popup-container .profile-avatar-popup .close-button svg {
