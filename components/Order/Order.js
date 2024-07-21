@@ -1,8 +1,8 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import "./Order.css";
-import Link from 'next/link';
-import { RxCross2 } from "react-icons/rx";
+// import Link from 'next/link';
+// import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
 import { FaPlus, FaCheckCircle } from "react-icons/fa";
@@ -12,10 +12,13 @@ import { IoClose } from "react-icons/io5";
 
 import { useOrders } from '@/contexts/orderContext';
 import OtpSection from '../OtpSection/OtpSection';
-import { validate } from 'uuid';
+// import { validate } from 'uuid';
 
 const Order = () => {
+
   const { orders, removeOrder, cancelOrder } = useOrders();
+
+  const [user, setUser] = useState(null);
   const [showBig, setShowBig] = useState(true);
   const [animate, setAnimate] = useState();
 
@@ -29,18 +32,18 @@ const Order = () => {
   const [orderInfo, setOrderInfo] = useState("");
 
   const handleRemove = (id) => {
-    if(orders.length <= 1){
+    if (orders.length <= 1) {
       popupcrossClick()
     }
-    else{
+    else {
       removeOrder(id);
     }
   }
 
   useEffect(() => {
     setShowBig(true);
-  }, [orders])
 
+  }, [orders])
 
   const popupminusClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
