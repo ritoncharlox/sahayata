@@ -88,7 +88,7 @@ const Navbar = ({ session }) => {
       </div>
       <div className="nav-right">
         <Link href='/about-us' className='aboutus'>About Us</Link>
-        <Link href='/' className="nav-right-item joinus">Become a professional</Link>
+        <Link href='/join-us' className="nav-right-item joinus">Become a professional</Link>
         {session ? (
           <div className="nav-right-item user-info" ref={dropdownRef}>
             <div className="user-avatar" onClick={toggleDropdown}>

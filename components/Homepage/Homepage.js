@@ -11,7 +11,6 @@ const Homepage = () => {
 
     const [services, setServices] = useState([])
     const [currentIndex, setCurrentIndex] = useState(2)
-    const [orders, setOrders] = useState([]);
 
     const slides = [
         {
@@ -68,13 +67,11 @@ const Homepage = () => {
 
     const goToPrevious = () => {
         let currentTestimonial = (currentIndex - 1 + slides.length) % slides.length;
-        console.log(currentTestimonial);
         setCurrentIndex(currentTestimonial);
     }
 
     const goToNext = () => {
         let currentTestimonial = (currentIndex + 1) % slides.length;
-        console.log(currentTestimonial);
         setCurrentIndex(currentTestimonial);
     }
 

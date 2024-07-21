@@ -7,6 +7,7 @@ import DateSection from '@/components/DateSection/DateSection';
 import { IoClose } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
+import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
 import { useRouter } from 'next/navigation';
 
@@ -25,6 +26,8 @@ const Service = ({ params, session }) => {
 
   const [clickedService, setClickedService] = useState();
   const [alreadyBooked, setAlreadyBooked] = useState(false);
+
+  const [nextPending, setNextPending] = useState(false);
 
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
@@ -77,7 +80,8 @@ const Service = ({ params, session }) => {
   }
 
   const handleOrderNext = () => {
-    if(!user){
+    setNextPending(true);
+    if (!user) {
       router.push("/login");
       return;
     }
@@ -93,6 +97,7 @@ const Service = ({ params, session }) => {
       });
     }
     popupcrossClick();
+    setNextPending(false);
   }
 
   const handleBookNow = (service) => {
@@ -152,7 +157,14 @@ const Service = ({ params, session }) => {
                 </div>
               </div>
               <div className="next-btn-container">
-                <button onClick={(e) => { handleOrderNext(); }} type='button' className='order-next-btn' disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>Next</button>
+                <button onClick={(e) => { handleOrderNext(); }} type='button' className={`order-next-btn ${nextPending ? `next-pending` : ``}`} disabled={nextPending || orderDate == "" || orderTime == "" || orderDescription == ""}>
+                  {
+                    nextPending ?
+                      <ScaleLoader height={20} color={"#fff"} />
+                      :
+                      "Next"
+                  }
+                </button>
               </div>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
             </div>

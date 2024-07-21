@@ -102,3 +102,26 @@
 .otp-pending:hover{
     background: #FFA836;
 }
+
+.resend-otp-section{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 20px 0px 0px 10px;
+}
+.resend-text{
+    font-size: .95rem;
+}
+.resend-otp-btn{
+    background: inherit;
+    color: var(--theme-color2);
+    font-family: sans-serif;
+    font-size: 1.07rem;
+    cursor: pointer;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .1s;
+    transition-property: transform;
+}
+.resend-otp-btn:hover{
+    transform: scale(1.01);
+}
