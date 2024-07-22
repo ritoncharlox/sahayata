@@ -36,7 +36,7 @@ const handleRegister = async (credentials) => {
 
         if (hasSpecialCharactersOrNumbers(credentials.name)) {
             return ({
-                error: "Name cannnot contain special characters or nubmers"
+                error: "Name cannnot contain special characters or numbers"
             })
         }
 

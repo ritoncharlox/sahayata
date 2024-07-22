@@ -69,10 +69,42 @@ export default async function ProfilePage() {
     }
   }
 
+  const handleNameChange = async (user, name) => {
+    "use server"
+
+    const hasSpecialCharactersOrNumbers = (str) => {
+      const regex = /[^a-zA-Z\s]/;
+      return regex.test(str);
+    };
+
+    try {
+
+      if (hasSpecialCharactersOrNumbers(name)) {
+        return {
+          nameChangeError: "Name cannnot contain special characters or numbers",
+        };
+      }
+
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { name: name },
+      });
+
+      return {
+        success: true
+      }
+    } catch (error) {
+      return {
+        error: error.message
+      }
+    }
+  }
+
   const data = {
     user: user,
     role: role,
     handleAvatarChange: handleAvatarChange,
+    handleNameChange: handleNameChange,
   }
 
   return (
