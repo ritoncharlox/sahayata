@@ -208,12 +208,14 @@ const Profile = ({ data }) => {
                     <div className="user-info">
                         <Input data={
                             {
+                                user: data.user,
                                 value: data.user.name,
                                 name: "nameInput",
                                 className: "nameInput",
                                 placeholder: "name",
                                 icon: <FaUser />,
-                                title: "Name"
+                                title: "Name",
+                                saveFunction: data.handleNameChange
                             }
                         } />
                     </div>

@@ -163,7 +163,7 @@ export default function Register() {
         }
 
         if (hasSpecialCharactersOrNumbers(name)) {
-            setRegisterError("Name cannnot contain special characters or nubmers");
+            setRegisterError("Name cannnot contain special characters or numbers");
             setRegisterPending(false);
             return;
         }
