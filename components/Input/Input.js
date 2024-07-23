@@ -4,13 +4,63 @@ import { FaCheckCircle, FaEdit } from "react-icons/fa";
 import { FaSave } from "react-icons/fa";
 import { FadeLoader } from 'react-spinners';
 import { MdError } from 'react-icons/md';
+import Link from 'next/link';
 
 const Input = ({ data }) => {
-    const [value, setValue] = useState(data.value);
+    const [value, setValue] = useState(data.value || '');
     const [editMode, setEditMode] = useState(false);
     const [loading, setLoading] = useState(false);
     const [inputInfo, setInputInfo] = useState('');
     const [inputError, setInputError] = useState('');
+    const [addMode, setAddMode] = useState(false);
+
+    let dataCheck = {
+        check: data.check,
+    }
+
+    if (data.check && data.check === "number") {
+
+        if (!data.user.number) {
+            dataCheck.notSet = true;
+        }
+        
+        if (!data.user.isNumberVerified) {
+            dataCheck.notVerified = true;
+            dataCheck.verifyLink = '/verify-number'
+        }
+
+        if (data.user.number && data.user.isNumberVerified) {
+            dataCheck.showVerified = true;
+        }
+
+    }
+
+    if (data.check && data.check === "email") {
+
+        if (!data.user.email) {
+            dataCheck.notSet = true;
+        }
+
+        if (!data.user.isEmailVerified) {
+            dataCheck.notVerified = true;
+            dataCheck.verifyLink = '/verify-email'
+        }
+
+        if (data.user.email && data.user.isEmailVerified) {
+            dataCheck.showVerified = true;
+        }
+
+    }
+
+    if (data.check && data.check === "location") {
+
+        if (!data.user.location) {
+            dataCheck.notSet = true;
+        }
+
+    }
+
+    // console.log(dataCheck);
 
     const inputRef = useRef();
     // console.log(value);
@@ -34,7 +84,7 @@ const Input = ({ data }) => {
         // console.log(dataChange);
 
         if (dataChange.success) {
-            setInputInfo("Name updated successfully");
+            setInputInfo(`${data.referenceText} updated successfully`);
 
             setTimeout(() => {
                 setLoading(false);
@@ -55,8 +105,8 @@ const Input = ({ data }) => {
             return;
         }
 
-        if (dataChange.nameChangeError) {
-            setInputError(dataChange.nameChangeError);
+        if (dataChange.changeError) {
+            setInputError(dataChange.changeError);
 
             setTimeout(() => {
                 setLoading(false);
@@ -75,11 +125,107 @@ const Input = ({ data }) => {
         setInputError('');
     }
 
+    const addSaveHandler = async () => {
+        if (loading) {
+            return;
+        }
+
+        setLoading(true);
+
+        const dataChange = await data.saveFunction(data.user, value);
+
+        // console.log(dataChange);
+
+        if (dataChange.success) {
+            setInputInfo(`${data.referenceText} updated successfully`);
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000);
+
+            setAddMode(false);
+            return;
+        }
+
+        if (dataChange.error) {
+            setInputError("Something went wrong, please try again after a while");
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000);
+
+            setAddMode(false);
+            return;
+        }
+
+        if (dataChange.changeError) {
+            setInputError(dataChange.changeError);
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 2000);
+
+            setAddMode(false);
+            return;
+        }
+
+        setLoading(false);
+    }
+
+    const addClickHandler = async () => {
+        setAddMode(true);
+        setInputInfo('');
+        setInputError('');
+    }
+
+    // console.log(dataCheck);
+
     return (
         <div className={`input-main ${data.className}`}>
             <div className="title">
                 <div className="icon">{data.icon}</div>
                 <div className="text">{data.title}</div>
+                {
+                    dataCheck.check && dataCheck.notSet ?
+                        <>
+                            <div className="title-line"></div>
+                            <div className="info">
+                                Not Set
+                            </div>
+                        </>
+                        :
+                        <>
+                            {
+                                dataCheck.check && dataCheck.notVerified ?
+                                    <>
+                                        <div className="title-line"></div>
+                                        {/* <div className="info">
+                                            Not Verified
+                                        </div> */}
+                                        <Link href={`${dataCheck.verifyLink}?redirectTo=/profile`} className='verify-link'>Verify</Link>
+                                    </>
+                                    :
+                                    <>
+                                        {
+                                            dataCheck.check && dataCheck.showVerified ?
+                                                <>
+                                                    <div className="title-line verified"></div>
+                                                    <div className="info verified">
+                                                        <div className="verify-icon">
+                                                        <FaCheckCircle />
+                                                        </div>
+                                                        <div className="text">
+                                                            Verified
+                                                        </div>
+                                                    </div>
+                                                </>
+                                                :
+                                                <></>
+                                        }
+                                    </>
+                            }
+                        </>
+                }
             </div>
             {
                 loading ?
@@ -118,24 +264,43 @@ const Input = ({ data }) => {
                     <></>
             }
             <div className="input-line"></div>
-            <div className="input">
-                {
-                    editMode ?
-                        <input type="text" className='value-input' value={value} ref={inputRef} onChange={(e) => setValue(e.target.value)} />
-                        :
-                        <div className="value">{data.value}</div>
-                }
-                {
-                    editMode ?
-                        <button className="button" onClick={saveHandler}>
-                            <FaSave />
-                        </button>
-                        :
-                        <button className="button" onClick={editHandler}>
-                            <FaEdit />
-                        </button>
-                }
-            </div>
+            {
+                dataCheck.check && dataCheck.notSet ?
+                    <>
+                        {
+                            addMode ?
+                                <div className="input">
+                                    <input type="text" className='value-input' value={value} ref={inputRef} placeholder={data.placeholder} onChange={(e) => setValue(e.target.value)} />
+                                    <button className="button" onClick={addSaveHandler}>
+                                        <FaSave />
+                                    </button>
+                                </div>
+                                :
+                                <button className='add-button' onClick={addClickHandler}>
+                                    Add {data.referenceText}
+                                </button>
+                        }
+                    </>
+                    :
+                    <div className="input">
+                        {
+                            editMode ?
+                                <input type="text" className='value-input' value={value} ref={inputRef} placeholder={data.placeholder} onChange={(e) => setValue(e.target.value)} />
+                                :
+                                <div className="value">{data.value}</div>
+                        }
+                        {
+                            editMode ?
+                                <button className="button" onClick={saveHandler}>
+                                    <FaSave />
+                                </button>
+                                :
+                                <button className="button" onClick={editHandler}>
+                                    <FaEdit />
+                                </button>
+                        }
+                    </div>
+            }
         </div>
     )
 }

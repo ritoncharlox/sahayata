@@ -13,6 +13,8 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { ScaleLoader } from 'react-spinners';
 import Input from '../Input/Input';
+import { FaRegUser } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
 
 const Profile = ({ data }) => {
 
@@ -210,12 +212,41 @@ const Profile = ({ data }) => {
                             {
                                 user: data.user,
                                 value: data.user.name,
-                                name: "nameInput",
+                                name: "name",
                                 className: "nameInput",
-                                placeholder: "name",
+                                placeholder: "Name",
                                 icon: <FaUser />,
                                 title: "Name",
+                                referenceText: "Name",
                                 saveFunction: data.handleNameChange
+                            }
+                        } />
+                        <Input data={
+                            {
+                                user: data.user,
+                                value: data.user.userName,
+                                name: "userName",
+                                className: "userNameInput",
+                                placeholder: "Username",
+                                icon: <FaRegUser />,
+                                title: "Username",
+                                referenceText: "Username",
+                                saveFunction: data.handleUsernameChange
+                            }
+                        } />
+                        <Input data={
+                            {
+                                user: data.user,
+                                value: data.user.number,
+                                name: "number",
+                                className: "numberInput",
+                                placeholder: "Number",
+                                icon: <FaPhoneAlt />,
+                                title: "Number",
+                                check: "number",
+                                referenceText: "Number",
+                                // checkIsNumberVerified: true,
+                                saveFunction: data.handleNumberChange
                             }
                         } />
                     </div>

@@ -79,9 +79,15 @@ export default async function ProfilePage() {
 
     try {
 
+      if (!name.trim()) {
+        return {
+          changeError: "Name cannot be empty",
+        };
+      }
+
       if (hasSpecialCharactersOrNumbers(name)) {
         return {
-          nameChangeError: "Name cannnot contain special characters or numbers",
+          changeError: "Name cannnot contain special characters or numbers",
         };
       }
 
@@ -100,11 +106,118 @@ export default async function ProfilePage() {
     }
   }
 
+  const handleUsernameChange = async (user, userName) => {
+    "use server"
+
+    const hasInvalidCharacters = (str) => {
+      const regex = /[^a-zA-Z0-9_]/;
+      return regex.test(str);
+    };
+
+    try {
+
+      if (!userName.trim()) {
+        return {
+          changeError: "Username cannot be empty",
+        };
+      }
+
+      if (hasInvalidCharacters(userName)) {
+        return {
+          changeError: "Username can only contain letters, numbers, and underscores, and cannot contain spaces",
+        };
+      }
+
+      if (user.userName === userName) {
+        return {
+          success: true,
+        };
+      }
+
+      const existingUser = await prisma.user.findUnique({
+        where: { userName: userName },
+      });
+
+      if (existingUser) {
+        return {
+          changeError: "Username already taken",
+        };
+      }
+
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { userName: userName },
+      });
+
+      return {
+        success: true
+      }
+    } catch (error) {
+      return {
+        error: error.message
+      }
+    }
+  }
+
+  const handleNumberChange = async (user, number) => {
+    "use server"
+  
+    const isValidNumber = (str) => {
+      const regex = /^(98|97)\d{8}$/;
+      return regex.test(str);
+    };
+  
+    try {
+      if (!number.trim()) {
+        return {
+          changeError: "Number cannot be empty",
+        };
+      }
+      
+      if (!isValidNumber(number)) {
+        return {
+          changeError: "Invalid number format. Number must be 10 digits and start with 98 or 97",
+        };
+      }
+  
+      if (user.number === number) {
+        return {
+          success: true,
+        };
+      }
+  
+      const existingUser = await prisma.user.findUnique({
+        where: { number: number },
+      });
+  
+      if (existingUser && existingUser.id !== user.id) {
+        return {
+          changeError: "Number already in use",
+        };
+      }
+  
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { number: number },
+      });
+  
+      return {
+        success: true,
+      };
+    } catch (error) {
+      return {
+        error: error.message,
+      };
+    }
+  }
+
   const data = {
     user: user,
     role: role,
     handleAvatarChange: handleAvatarChange,
     handleNameChange: handleNameChange,
+    handleUsernameChange: handleUsernameChange,
+    handleNumberChange: handleNumberChange,
   }
 
   return (

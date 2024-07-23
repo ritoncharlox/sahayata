@@ -28,6 +28,79 @@
     /* background-color: red; */
 }
 
+.input-main .title .title-line {
+    width: 2px;
+    /* height: 100%; */
+    align-self: stretch;
+    border-radius: 20px;
+    background-color: var(--theme-color2);
+}
+
+.input-main .title .info {
+    font-size: 1rem;
+    /* border-radius: 5px; */
+    color: var(--theme-color2);
+    /* background-color: lightgray; */
+    /* background-color: red; */
+}
+
+.input-main .title .title-line.verified {
+    background-color: green;
+}
+
+.input-main .input-info .info-field {
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: green;
+    border: 2px solid green;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px 0px;
+    /* background-color: red; */
+}
+
+.input-main .input-info .info-field .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.input-main .input-info .info-field .text {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.input-main .title .info.verified {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    /* color: green; */
+    background-color: green;
+}
+
+.input-main .title .info.verified .verify-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    /* background-color: red; */
+}
+
+.input-main .title .verify-link {
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--theme-color2);
+    text-decoration: none;
+}
+
 .input-main .input-line {
     height: 2px;
     border-radius: 20px;
@@ -66,6 +139,16 @@
     font-size: 1.3rem;
     color: var(--theme-color2);
     background-color: transparent;
+    cursor: pointer;
+}
+
+.input-main .add-button {
+    width: fit-content;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    background-color: var(--theme-color);
     cursor: pointer;
 }
 
