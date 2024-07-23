@@ -243,12 +243,12 @@ export default function Register() {
                     <form action="" className="sign-in-form" onSubmit={(e) => handleLogin(e)}>
                         <h2 className="title">Log in</h2>
                         <div className="input-field">
-                            <input type="email" className={`titleInput ${loginEmail !== '' ? `valid` : ''}`} name="loginemail" onChange={(e) => setLoginEmail(e.target.value)} required />
+                            <input type="email" className={`emailInput ${loginEmail !== '' ? `valid` : ''}`} name="loginemail" onChange={(e) => setLoginEmail(e.target.value)} required />
                             <span>Email</span>
                             <i></i>
                         </div>
                         <div className="input-field">
-                            <input type="password" className={`titleInput ${loginPassword !== '' ? `valid` : ''}`} name="loginpassword" onChange={(e) => setLoginPassword(e.target.value)} required />
+                            <input type="password" className={`passwordInput ${loginPassword !== '' ? `valid` : ''}`} name="loginpassword" onChange={(e) => setLoginPassword(e.target.value)} required />
                             <span>Password</span>
                             <i></i>
                         </div>
@@ -299,22 +299,22 @@ export default function Register() {
                     <form action="" className="sign-up-form" onSubmit={(e) => handleRegister(e)}>
                         <h2 className="title">Sign up</h2>
                         <div className="input-field">
-                            <input type="text" className={`titleInput ${name !== '' ? `valid` : ''}`} name="name" onChange={(e) => setName(e.target.value)} required />
+                            <input type="text" className={`nameInput ${name !== '' ? `valid` : ''}`} name="name" onChange={(e) => setName(e.target.value)} required />
                             <span>Name</span>
                             <i></i>
                         </div>
                         <div className="input-field">
-                            <input type="email" className={`titleInput ${registerEmail !== '' ? `valid` : ''}`} name="email" onChange={(e) => setRegisterEmail(e.target.value)} required />
+                            <input type="email" className={`emailInput ${registerEmail !== '' ? `valid` : ''}`} name="email" onChange={(e) => setRegisterEmail(e.target.value)} required />
                             <span>Email</span>
                             <i></i>
                         </div>
                         <div className="input-field">
-                            <input type="password" className={`titleInput ${registerPassword !== '' ? `valid` : ''}`} name="registerpassword" onChange={(e) => setRegisterPassword(e.target.value)} required />
+                            <input type="password" className={`passwordInput ${registerPassword !== '' ? `valid` : ''}`} name="registerpassword" onChange={(e) => setRegisterPassword(e.target.value)} required />
                             <span>Password</span>
                             <i></i>
                         </div>
                         <div className="input-field">
-                            <input type="password" className={`titleInput ${confirmPassword !== '' ? `valid` : ''}`} name="registerpassword" onChange={(e) => setConfirmPassword(e.target.value)} required />
+                            <input type="password" className={`passwordInput ${confirmPassword !== '' ? `valid` : ''}`} name="registerpassword" onChange={(e) => setConfirmPassword(e.target.value)} required />
                             <span>Confirm Password</span>
                             <i></i>
                         </div>
