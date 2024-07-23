@@ -272,7 +272,7 @@ const Order = () => {
                     </form>
 
                     <div className="resend-otp-section">
-                      <p className="resend-text">Didn't get code?</p>
+                      <p className="resend-text">Didn&apos;t get code?</p>
                       <button className='resend-otp-btn'>Resend code</button>
                     </div>
                   </div>
