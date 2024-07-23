@@ -24,3 +24,21 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model Service {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  subcategories Subcategory[]
+  icon          String  
+  imageAddress  String
+}
+
+model Subcategory {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String       
+  imageAddress  String
+  service       Service  @relation(fields: [serviceId], references: [id])
+  serviceId     String   @db.ObjectId
+}

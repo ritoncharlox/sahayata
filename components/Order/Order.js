@@ -112,7 +112,7 @@ const Order = () => {
     setOtp(newOtp);
 
     // Focus next field even if current field isn't full
-    if (value.length > 0 && index < otpRefs.current.length - 1) {
+    if (value.length > 0 && index < otpRefs.current.length - 1 && /^\d+$/.test(value)) {
       otpRefs.current[index + 1].focus();
     }
   };
@@ -131,6 +131,7 @@ const Order = () => {
       console.log("OTP entered:", otp.join(''));
       setOtpPending(false)
       setOtp(["", "", "", "", "", ""]);
+      otpRefs.current[0].focus();
     }, 1000);
   };
 
