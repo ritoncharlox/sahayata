@@ -198,7 +198,96 @@ export default async function ProfilePage() {
   
       await prisma.user.update({
         where: { id: user.id },
-        data: { number: number },
+        data: {
+          number: number,
+          isNumberVerified: false
+        },
+      });
+  
+      return {
+        success: true,
+      };
+    } catch (error) {
+      return {
+        error: error.message,
+      };
+    }
+  }
+
+  const handleEmailChange = async (user, email) => {
+    "use server"
+  
+    const isValidEmail = (email) => {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+  };
+  
+    try {
+      if (!email.trim()) {
+        return {
+          changeError: "Email cannot be empty",
+        };
+      }
+      
+      if (!isValidEmail(email)) {
+        return {
+          changeError: "Invalid email format. please use valid email",
+        };
+      }
+  
+      if (user.email === email) {
+        return {
+          success: true,
+        };
+      }
+  
+      const existingUser = await prisma.user.findUnique({
+        where: { email: email },
+      });
+  
+      if (existingUser && existingUser.id !== user.id) {
+        return {
+          changeError: "Email already in use",
+        };
+      }
+  
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          email: email,
+          isEmailVerified: false
+        },
+      });
+  
+      return {
+        success: true,
+      };
+    } catch (error) {
+      return {
+        error: error.message,
+      };
+    }
+  }
+
+  const handleLocationChange = async (user, location) => {
+    "use server"
+  
+    try {
+      if (!location.trim()) {
+        return {
+          changeError: "Location cannot be empty",
+        };
+      }
+  
+      if (user.location === location) {
+        return {
+          success: true,
+        };
+      }
+  
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { location: location },
       });
   
       return {
@@ -218,6 +307,8 @@ export default async function ProfilePage() {
     handleNameChange: handleNameChange,
     handleUsernameChange: handleUsernameChange,
     handleNumberChange: handleNumberChange,
+    handleEmailChange: handleEmailChange,
+    handleLocationChange: handleLocationChange,
   }
 
   return (

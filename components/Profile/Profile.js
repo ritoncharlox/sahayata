@@ -15,6 +15,8 @@ import { ScaleLoader } from 'react-spinners';
 import Input from '../Input/Input';
 import { FaRegUser } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { FaLocationDot } from "react-icons/fa6";
 
 const Profile = ({ data }) => {
 
@@ -23,6 +25,7 @@ const Profile = ({ data }) => {
     const [avatarError, setAvatarError] = useState("");
     const [avatarModalOpen, setAvatarModalOpen] = useState(false);
     const [avatarLoading, setAvatarLoading] = useState(false);
+    const [activeSection, setActiveSection] = useState('personalDetails');
 
     const handleAvatarChange = async () => {
 
@@ -159,7 +162,7 @@ const Profile = ({ data }) => {
             }
             <div className="profile-section">
                 <div className="sidebar">
-                    <div className="sidebar-item">
+                    <div className={`sidebar-item ${activeSection === 'personalDetails' ? 'active' : ''}`} onClick={() => setActiveSection('personalDetails')}>
                         <div className="icon">
                             <FaUser />
                         </div>
@@ -167,7 +170,7 @@ const Profile = ({ data }) => {
                             Personal Details
                         </div>
                     </div>
-                    <div className="sidebar-item">
+                    <div className={`sidebar-item ${activeSection === 'settings' ? 'active' : ''}`} onClick={() => setActiveSection('settings')}>
                         <div className="icon">
                             <FaGear />
                         </div>
@@ -178,78 +181,107 @@ const Profile = ({ data }) => {
                 </div>
                 <div className="line"></div>
                 <div className="content">
-                    <div className="content-heading">
-                        Personal Details
-                    </div>
-                    <div className="user-card">
-                        <div className="profile-avatar">
-                            {
-                                data.user?.avatar ?
-                                    // <Image src={user?.avatar} width={30} height={30} quality={100} unoptimized alt="User Avatar" className="avatar-image" />
-                                    <Image className="profile-avatar-image" width={100} height={100} src={data.user.avatar} alt="sahayata cover" />
-                                    :
-                                    <div className="profile-avatar-image-alt">
-                                        <FaUserCircle />
+                    {
+                        activeSection === 'personalDetails' ?
+                            <>
+                                <div className="content-heading">
+                                    Personal Details
+                                </div>
+                                <div className="user-card">
+                                    <div className="profile-avatar">
+                                        {data.user?.avatar ? (
+                                            <Image className="profile-avatar-image" width={160} height={160} src={data.user.avatar} alt="User Avatar" />
+                                        ) : (
+                                            <div className="profile-avatar-image-alt">
+                                                <FaUserCircle />
+                                            </div>
+                                        )}
+                                        <div className="profile-avatar-edit-button" onClick={(e) => handleAvatarEditClick(e, true)}>
+                                            <FaEdit />
+                                        </div>
                                     </div>
-                            }
-                            <div className="profile-avatar-edit-button" onClick={(e) => handleAvatarEditClick(e, true)}>
-                                <FaEdit />
+                                    <div className="name">
+                                        {data.user.name}
+                                    </div>
+                                    <div className="role">
+                                        {data.role}
+                                    </div>
+                                </div>
+                                <div className="user-info">
+                                    <Input data={{
+                                        user: data.user,
+                                        value: data.user.name,
+                                        name: "name",
+                                        className: "nameInput",
+                                        placeholder: "Name",
+                                        icon: <FaUser />,
+                                        title: "Name",
+                                        referenceText: "Name",
+                                        saveFunction: data.handleNameChange
+                                    }} />
+                                    <Input data={{
+                                        user: data.user,
+                                        value: data.user.userName,
+                                        name: "userName",
+                                        className: "userNameInput",
+                                        placeholder: "Username",
+                                        icon: <FaRegUser />,
+                                        title: "Username",
+                                        referenceText: "Username",
+                                        saveFunction: data.handleUsernameChange
+                                    }} />
+                                    <Input data={{
+                                        user: data.user,
+                                        value: data.user.number,
+                                        name: "number",
+                                        className: "numberInput",
+                                        placeholder: "Number",
+                                        icon: <FaPhoneAlt />,
+                                        title: "Number",
+                                        check: "number",
+                                        referenceText: "Number",
+                                        saveFunction: data.handleNumberChange
+                                    }} />
+                                    <Input data={{
+                                        user: data.user,
+                                        value: data.user.email,
+                                        name: "email",
+                                        className: "emailInput",
+                                        placeholder: "Email",
+                                        icon: <MdEmail />,
+                                        title: "Email",
+                                        check: "email",
+                                        referenceText: "Email",
+                                        saveFunction: data.handleEmailChange
+                                    }} />
+                                    <Input data={{
+                                        user: data.user,
+                                        value: data.user.location,
+                                        name: "location",
+                                        className: "locationInput",
+                                        placeholder: "Location",
+                                        icon: <FaLocationDot />,
+                                        title: "Location",
+                                        check: "location",
+                                        referenceText: "Location",
+                                        saveFunction: data.handleLocationChange
+                                    }} />
+                                </div>
+                            </>
+                            :
+                            <></>
+                    }
+                    {
+                        activeSection === 'settings' ?
+                            <div className="settings">
+                                <div className="content-heading">
+                                    Settings
+                                </div>
+                                {/* Add your settings content here */}
                             </div>
-                        </div>
-                        <div className="name">
-                            {
-                                data.user.name
-                            }
-                        </div>
-                        <div className="role">
-                            {
-                                data.role
-                            }
-                        </div>
-                    </div>
-                    <div className="user-info">
-                        <Input data={
-                            {
-                                user: data.user,
-                                value: data.user.name,
-                                name: "name",
-                                className: "nameInput",
-                                placeholder: "Name",
-                                icon: <FaUser />,
-                                title: "Name",
-                                referenceText: "Name",
-                                saveFunction: data.handleNameChange
-                            }
-                        } />
-                        <Input data={
-                            {
-                                user: data.user,
-                                value: data.user.userName,
-                                name: "userName",
-                                className: "userNameInput",
-                                placeholder: "Username",
-                                icon: <FaRegUser />,
-                                title: "Username",
-                                referenceText: "Username",
-                                saveFunction: data.handleUsernameChange
-                            }
-                        } />
-                        <Input data={
-                            {
-                                user: data.user,
-                                value: data.user.number,
-                                name: "number",
-                                className: "numberInput",
-                                placeholder: "Number",
-                                icon: <FaPhoneAlt />,
-                                title: "Number",
-                                check: "number",
-                                referenceText: "Number",
-                                // checkIsNumberVerified: true,
-                                saveFunction: data.handleNumberChange
-                            }
-                        } />
-                    </div>
+                            :
+                            <></>
+                    }
                 </div>
             </div>
         </main>

@@ -13,6 +13,7 @@ const Input = ({ data }) => {
     const [inputInfo, setInputInfo] = useState('');
     const [inputError, setInputError] = useState('');
     const [addMode, setAddMode] = useState(false);
+    const [updatedValue, setUpdatedValue] = useState('');
 
     let dataCheck = {
         check: data.check,
@@ -26,7 +27,7 @@ const Input = ({ data }) => {
         
         if (!data.user.isNumberVerified) {
             dataCheck.notVerified = true;
-            dataCheck.verifyLink = '/verify-number'
+            dataCheck.verifyLink = '/number-verification'
         }
 
         if (data.user.number && data.user.isNumberVerified) {
@@ -43,7 +44,7 @@ const Input = ({ data }) => {
 
         if (!data.user.isEmailVerified) {
             dataCheck.notVerified = true;
-            dataCheck.verifyLink = '/verify-email'
+            dataCheck.verifyLink = '/email-verification'
         }
 
         if (data.user.email && data.user.isEmailVerified) {
@@ -91,6 +92,7 @@ const Input = ({ data }) => {
             }, 2000);
 
             setEditMode(false);
+            setUpdatedValue(value);
             return;
         }
 
@@ -287,7 +289,7 @@ const Input = ({ data }) => {
                             editMode ?
                                 <input type="text" className='value-input' value={value} ref={inputRef} placeholder={data.placeholder} onChange={(e) => setValue(e.target.value)} />
                                 :
-                                <div className="value">{data.value}</div>
+                                <div className="value">{updatedValue || data.value}</div>
                         }
                         {
                             editMode ?
