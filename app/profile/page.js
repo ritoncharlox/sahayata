@@ -1,5 +1,3 @@
-// app/profile/page.js
-
 import { auth } from '@/auth';
 import prisma from '@/config/prisma';
 import { redirect } from 'next/navigation';

@@ -24,22 +24,33 @@ model User {
   avatar           String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+  otps             Otp[]
 }
 
 model Service {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
   title         String
   description   String
   subcategories Subcategory[]
-  icon          String  
+  icon          String
   imageAddress  String
 }
 
 model Subcategory {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  title         String
-  description   String       
-  imageAddress  String
-  service       Service  @relation(fields: [serviceId], references: [id])
-  serviceId     String   @db.ObjectId
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  description  String
+  imageAddress String
+  service      Service @relation(fields: [serviceId], references: [id])
+  serviceId    String  @db.ObjectId
+}
+
+model Otp {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  otp       String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
