@@ -1,8 +1,5 @@
-const isValidNumber = (str) => {
-  const regex = /^(98|97)\d{8}$/;
-  return regex.test(str);
+const generateRandomOtp = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString(); // Generates a random 6-digit number
 };
 
-const number = "983456_891";
-
-console.log(isValidNumber(number));
+console.log(generateRandomOtp());
