@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
-import data from "@/app/services.json";
 import DateSection from '@/components/DateSection/DateSection';
 import { IoClose } from "react-icons/io5";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -10,6 +9,8 @@ import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
 import { useRouter } from 'next/navigation';
+
+import { handleGetServiceDetails } from '@/actions/handleGetServiceDetails';
 
 const Service = ({ params, session }) => {
 
@@ -32,21 +33,25 @@ const Service = ({ params, session }) => {
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
   useEffect(() => {
-    const getDetails = () => {
-      let newdata = [...data];
-      let index = newdata.findIndex((item) => {
-        return item.title === decodeURIComponent(params.service);
-      })
-      let newService = newdata[index];
-      for (let i = 0; i < newService.subcategories.length; i++) {
-        let item = newService.subcategories[i];
-        item.id = uuidv4();
+    const getDetails = async() => {
+
+      const title = decodeURIComponent(params.service);
+
+      const service = await handleGetServiceDetails(title);
+
+      if(!service){
+        console.log("Error getting service.");
       }
-      setServiceDetails(newService);
+      if(service?.error){
+        console.log(service.error);
+      }
+      if(service?.success){
+        setServiceDetails(service?.data);
+      }
     }
 
-    return () => {
-      getDetails();
+    return async() => {
+      await getDetails();
     }
   }, [])
 
