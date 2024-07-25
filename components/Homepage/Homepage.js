@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from 'next/link';
 import "./Homepage.css";
-import data from "@/app/services.json";
 import { FaChevronCircleRight, FaCaretRight, FaCaretLeft, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { v4 as uuidv4 } from 'uuid';
+import { handleGetService } from '@/actions/handleGetService';
 
 const Homepage = () => {
 
@@ -51,17 +51,23 @@ const Homepage = () => {
     ];
 
     useEffect(() => {
-        const getdata = () => {
-            let newdata = [...data];
-            for (let i = 0; i < newdata.length; i++) {
-                let service = newdata[i];
-                service.id = uuidv4();
+        const getdata = async() => {
+            const service = await handleGetService();
+
+            if(!service){
+              console.log("Error getting service.");
             }
-            setServices(newdata);
+            if(service?.error){
+              console.log(service.error);
+            }
+            if(service?.success){
+            //   console.log(service.data);
+              setServices(service.data);
+            }
         }
 
-        return () => {
-            getdata();
+        return async() => {
+            await getdata();
         }
     }, [])
 
