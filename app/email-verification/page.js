@@ -17,7 +17,7 @@ export default async function ProfilePage() {
     }
 
     const user = await prisma.user.findUnique({
-        where: { email: session?.user?.email },
+        where: { id: session?.user?.id },
     });
 
     if (!user) {
@@ -87,7 +87,7 @@ export default async function ProfilePage() {
 
             return {
                 success: true,
-                otp: otp,
+                // otp: otp,
             }
 
         } catch (error) {
@@ -98,9 +98,66 @@ export default async function ProfilePage() {
         }
     }
 
+    const verifyOtp = async (user, otp) => {
+        "use server"
+
+        try {
+
+            // Find the most recent OTP for the user
+            const otpRecord = await prisma.otp.findFirst({
+                where: {
+                    userId: user.id,
+                    otp: otp,
+                    used: false, // Check if OTP has not been used
+                },
+                orderBy: {
+                    createdAt: 'desc',
+                },
+            });
+
+            // Check if OTP was found
+            if (!otpRecord) {
+                return {
+                    otpError: "No valid OTP found or OTP has expired",
+                };
+            }
+
+            // Check if OTP is expired
+            if (new Date() > otpRecord.expiresAt) {
+                return {
+                    otpError: "OTP has expired. Please request a new one",
+                };
+            }
+
+            // Mark the OTP as used
+            await prisma.otp.update({
+                where: { id: otpRecord.id },
+                data: { used: true },
+            });
+
+            // Optionally update the user's email verification status
+            await prisma.user.update({
+                where: { id: user.id },
+                data: { isEmailVerified: true },
+            });
+
+
+            return {
+                success: true,
+            }
+
+        } catch (error) {
+            // console.log(error);
+            return {
+                error: error.message,
+            };
+        }
+    }
+
     const data = {
         user: user,
-        sendOtp: sendOtp
+        sendOtp: sendOtp,
+        verifyOtp: verifyOtp
     }
 
     return (

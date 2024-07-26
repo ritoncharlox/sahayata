@@ -17,7 +17,7 @@ export default async function ProfilePage() {
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session?.user?.email },
+    where: { id: session?.user?.id },
   });
 
   if (!user) {
@@ -159,41 +159,41 @@ export default async function ProfilePage() {
 
   const handleNumberChange = async (user, number) => {
     "use server"
-  
+
     const isValidNumber = (str) => {
       const regex = /^(98|97)\d{8}$/;
       return regex.test(str);
     };
-  
+
     try {
       if (!number.trim()) {
         return {
           changeError: "Number cannot be empty",
         };
       }
-      
+
       if (!isValidNumber(number)) {
         return {
           changeError: "Invalid number format. Number must be 10 digits and start with 98 or 97",
         };
       }
-  
+
       if (user.number === number) {
         return {
           success: true,
         };
       }
-  
+
       const existingUser = await prisma.user.findUnique({
         where: { number: number },
       });
-  
+
       if (existingUser && existingUser.id !== user.id) {
         return {
           changeError: "Number already in use",
         };
       }
-  
+
       await prisma.user.update({
         where: { id: user.id },
         data: {
@@ -201,7 +201,7 @@ export default async function ProfilePage() {
           isNumberVerified: false
         },
       });
-  
+
       return {
         success: true,
       };
@@ -214,41 +214,41 @@ export default async function ProfilePage() {
 
   const handleEmailChange = async (user, email) => {
     "use server"
-  
+
     const isValidEmail = (email) => {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return regex.test(email);
-  };
-  
+    };
+
     try {
       if (!email.trim()) {
         return {
           changeError: "Email cannot be empty",
         };
       }
-      
+
       if (!isValidEmail(email)) {
         return {
           changeError: "Invalid email format. please use valid email",
         };
       }
-  
+
       if (user.email === email) {
         return {
           success: true,
         };
       }
-  
+
       const existingUser = await prisma.user.findUnique({
         where: { email: email },
       });
-  
+
       if (existingUser && existingUser.id !== user.id) {
         return {
           changeError: "Email already in use",
         };
       }
-  
+
       await prisma.user.update({
         where: { id: user.id },
         data: {
@@ -256,7 +256,7 @@ export default async function ProfilePage() {
           isEmailVerified: false
         },
       });
-  
+
       return {
         success: true,
       };
@@ -269,25 +269,25 @@ export default async function ProfilePage() {
 
   const handleLocationChange = async (user, location) => {
     "use server"
-  
+
     try {
       if (!location.trim()) {
         return {
           changeError: "Location cannot be empty",
         };
       }
-  
+
       if (user.location === location) {
         return {
           success: true,
         };
       }
-  
+
       await prisma.user.update({
         where: { id: user.id },
         data: { location: location },
       });
-  
+
       return {
         success: true,
       };

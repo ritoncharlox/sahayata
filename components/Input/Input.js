@@ -5,6 +5,7 @@ import { FaSave } from "react-icons/fa";
 import { FadeLoader } from 'react-spinners';
 import { MdError } from 'react-icons/md';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Input = ({ data }) => {
     const [value, setValue] = useState(data.value || '');
@@ -15,6 +16,8 @@ const Input = ({ data }) => {
     const [addMode, setAddMode] = useState(false);
     const [updatedValue, setUpdatedValue] = useState('');
 
+    const router = useRouter();
+
     let dataCheck = {
         check: data.check,
     }
@@ -24,7 +27,7 @@ const Input = ({ data }) => {
         if (!data.user.number) {
             dataCheck.notSet = true;
         }
-        
+
         if (!data.user.isNumberVerified) {
             dataCheck.notVerified = true;
             dataCheck.verifyLink = '/number-verification'
@@ -88,6 +91,7 @@ const Input = ({ data }) => {
             setInputInfo(`${data.referenceText} updated successfully`);
 
             setTimeout(() => {
+                router.refresh();
                 setLoading(false);
             }, 2000);
 
@@ -214,7 +218,7 @@ const Input = ({ data }) => {
                                                     <div className="title-line verified"></div>
                                                     <div className="info verified">
                                                         <div className="verify-icon">
-                                                        <FaCheckCircle />
+                                                            <FaCheckCircle />
                                                         </div>
                                                         <div className="text">
                                                             Verified
