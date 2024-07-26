@@ -19,6 +19,8 @@ const Service = ({ params, session }) => {
 
   const [user, setUser] = useState(null);
 
+  const [pageLoader, setPageLoader] = useState(true);
+
   const [serviceDetails, setServiceDetails] = useState();
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
@@ -30,27 +32,50 @@ const Service = ({ params, session }) => {
 
   const [nextPending, setNextPending] = useState(false);
 
+  const [faqs, setFaqs] = useState([
+    {
+      question: "How to book any service?",
+      answer: "Click on the desired service and fill up the required details and verify. Then after you will get a call from Sahayata about your order.",
+      showAnswer: false,
+    },
+    {
+      question: "What is the pricing for any service?",
+      answer: "After you book the service, The price will be discussed later according to the work done and time.",
+      showAnswer: false,
+    },
+    {
+      question: "What payment method you provide?",
+      answer: "The payment will be done physically at your home either on cash or via online face to face with Sahayata member.",
+      showAnswer: false,
+    },
+  ])
+
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
   useEffect(() => {
-    const getDetails = async() => {
+    const getDetails = async () => {
 
       const title = decodeURIComponent(params.service);
 
       const service = await handleGetServiceDetails(title);
 
-      if(!service){
+      if (!service) {
         console.log("Error getting service.");
       }
-      if(service?.error){
+      if (service?.error) {
         console.log(service.error);
       }
-      if(service?.success){
+      if (service?.success) {
         setServiceDetails(service?.data);
       }
+
+      if (serviceDetails) {
+        setPageLoader(false);
+      }
+      console.log(service.data);
     }
 
-    return async() => {
+    return async () => {
       await getDetails();
     }
   }, [])
@@ -116,6 +141,12 @@ const Service = ({ params, session }) => {
     else {
       setAlreadyBooked(true);
     }
+  }
+
+  const handleFaqClick = (index)=>{
+    let newFaq = [...faqs];
+    newFaq[index].showAnswer = !newFaq[index].showAnswer;
+    setFaqs(newFaq);
   }
 
 
@@ -197,7 +228,7 @@ const Service = ({ params, session }) => {
             <div className="service-container-second-inner">
               <h2 className="service-categories-title">Related Services</h2>
               <ul className="service-categories">
-                {serviceDetails.subcategories.map((item, index) => {
+                {serviceDetails.subcategories.map((item) => {
                   return (
                     <li key={item.id} className="service-category">
                       <div className="service-category-info">
@@ -219,10 +250,20 @@ const Service = ({ params, session }) => {
           <div className="service-container-faqs">
             <h2 className="faqs-title">Frequently Asked Qns</h2>
             <ul className="faqs-container">
-              <li className="faqs-item">Sudip Lamichhane <FaChevronDown /></li>
-              <li className="faqs-item">Maddath Subedi <FaChevronDown /></li>
-              <li className="faqs-item">Oasis Regmi <FaChevronDown /></li>
-              <li className="faqs-item">Ayush Pandey <FaChevronDown /></li>
+              {faqs.map((item, index) => {
+                return (
+                  <li className="faqs-item" key={index} style={{animation: item.showAnswer ? "showAns .4s forwards" : "hideAns .4s forwards"}}>
+                    <div className="fa-question" onClick={(e)=>{handleFaqClick(index);}}>
+                      <div className="fa-question-text">{item.question}</div>
+                      <div className="fa-question-icon" style={{animation: item.showAnswer ? "rotateUp .3s forwards" : "rotateDown .3s forwards"}}><FaChevronDown /></div>
+                    </div>
+                    <div className="fa-answer">
+                      <div className="fa-answer-line"></div>
+                      <div className="fa-answer-text">{item.answer}</div>
+                    </div>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         </main>
