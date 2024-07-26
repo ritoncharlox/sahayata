@@ -8,6 +8,7 @@ import { FaCheckCircle, FaSave } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { MdError } from 'react-icons/md';
 import { TiMinus } from 'react-icons/ti';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const NumberVerification = ({ data }) => {
 
@@ -23,8 +24,62 @@ const NumberVerification = ({ data }) => {
 
   const otpRefs = useRef([]);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const redirectTo = searchParams.get('redirectTo') || '/';
+
   const verifyOtpClickHandler = async () => {
-    console.log("Hello");
+
+    const otpString = otp.join('');
+
+    if (loading) {
+      return;
+    }
+
+    setOtpLoading(true);
+
+    setOtpInfo('');
+    setOtpError('');
+
+    const verifyOtp = await data.verifyOtp(data.user, otpString);
+
+    // console.log(verifyOtp);
+
+    if (verifyOtp.success) {
+      setOtpInfo(`Email verified successfully`);
+
+      setTimeout(() => {
+        router.push(redirectTo);
+        router.refresh();
+        setOtpLoading(false);
+        // setOtpInputMode(true);
+      }, 2000);
+
+      return;
+    }
+
+    if (verifyOtp.error) {
+
+      setOtpError("Something went wrong, please try again after a while");
+
+      setOtpLoading(false);
+
+      return;
+
+    }
+
+    if (verifyOtp.otpError) {
+
+      setOtpError(verifyOtp.otpError);
+
+      setOtpLoading(false);
+
+      return;
+
+    }
+
+    setOtpLoading(false);
   }
 
   const verifyClickHandler = async () => {
@@ -70,7 +125,7 @@ const NumberVerification = ({ data }) => {
       setLoading(false);
 
       return;
-      
+
     }
 
     setLoading(false);

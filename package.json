@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.4.1",
-    "@prisma/client": "^5.16.2",
+    "@prisma/client": "^5.17.0",
     "bcryptjs": "^2.4.3",
     "flatpickr": "^4.6.13",
     "nepali-datepicker-reactjs": "^1.1.7",
