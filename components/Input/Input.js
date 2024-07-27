@@ -153,7 +153,7 @@ const Input = ({ data }) => {
         setLoading(false);
     }
 
-    console.log(session);
+    // console.log(session);
 
     const editHandler = () => {
         setEditMode(true);
