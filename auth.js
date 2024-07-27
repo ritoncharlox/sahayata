@@ -3,7 +3,17 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/config/prisma";
 import { compare } from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { getuserById } from "./utils/getUser";
+import { getUserByEmail, getUserById } from "./utils/getUser";
+
+// Utility functions
+async function fetchUserById(id) {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user?id=${id}`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch user by ID');
+    }
+    const user = await response.json();
+    return user;
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     adapter: PrismaAdapter(prisma),
@@ -88,22 +98,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
         async jwt({ token, user, trigger, session }) {
 
-            console.log(user);
-
             if (!token.sub) {
                 return token;
             }
-            
-            // const existingUser = await getuserById(token.sub);
 
-            // if (!existingUser) {
-            //     return token;
+            // const response = await fetch(`${process.env.NEXTAUTH_URL}/api/user?id=${token.sub}`);
+            // const existingUser = await response.json();
+
+            // if (response.ok && existingUser) {
+            //     token = {
+            //         ...token,
+            //         user: {
+            //             id: existingUser.id,
+            //             name: existingUser.name,
+            //             userName: existingUser.userName,
+            //             email: existingUser.email
+            //         }
+            //     }
             // }
+
+            // console.log(session);
 
             if (user) {
                 token.user = user;
             }
-            // token.user = user;
+
             if (trigger === "update" && session) {
                 token = { ...token, user: session.user }
                 return token;
