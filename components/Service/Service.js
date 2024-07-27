@@ -10,8 +10,6 @@ import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
 import { useRouter } from 'next/navigation';
 
-import { handleGetServiceDetails } from '@/actions/handleGetServiceDetails';
-
 const Service = ({ params, session }) => {
 
   const { orders, addOrder } = useOrders();
@@ -53,32 +51,17 @@ const Service = ({ params, session }) => {
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
   useEffect(() => {
-    const getDetails = async () => {
-
-      const title = decodeURIComponent(params.service);
-
-      const service = await handleGetServiceDetails(title);
-
-      if (!service) {
-        console.log("Error getting service.");
-      }
-      if (service?.error) {
-        console.log(service.error);
-      }
-      if (service?.success) {
-        setServiceDetails(service?.data);
-      }
-
-      if (serviceDetails) {
-        setPageLoader(false);
-      }
-      console.log(service.data);
+    if (params.service) {
+      fetch(`/api/service?title=${params.service}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && !data.error) {
+            setServiceDetails(data);
+          }
+        })
+        .catch((error) => console.error('Error fetching service details:', error));
     }
-
-    return async () => {
-      await getDetails();
-    }
-  }, [])
+  }, [params]);
 
   useEffect(() => {
     if (session?.user?.email) {

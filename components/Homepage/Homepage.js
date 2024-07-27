@@ -5,7 +5,6 @@ import Link from 'next/link';
 import "./Homepage.css";
 import { FaChevronCircleRight, FaCaretRight, FaCaretLeft, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { v4 as uuidv4 } from 'uuid';
-import { handleGetService } from '@/actions/handleGetService';
 
 const Homepage = () => {
 
@@ -51,25 +50,20 @@ const Homepage = () => {
     ];
 
     useEffect(() => {
-        const getdata = async() => {
-            const service = await handleGetService();
-
-            if(!service){
-              console.log("Error getting service.");
-            }
-            if(service?.error){
-              console.log(service.error);
-            }
-            if(service?.success){
-            //   console.log(service.data);
-              setServices(service.data);
-            }
+        const getService = ()=> {
+          fetch(`/api/allservice`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data && !data.error) {
+                setServices(data);
+              }
+            })
+            .catch((error) => console.error('Error fetching services:', error));
         }
-
-        return async() => {
-            await getdata();
+        return ()=>{
+            getService();
         }
-    }, [])
+      }, []);
 
     const goToPrevious = () => {
         let currentTestimonial = (currentIndex - 1 + slides.length) % slides.length;
