@@ -6,6 +6,7 @@ import { FadeLoader } from 'react-spinners';
 import { MdError } from 'react-icons/md';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
 
 const Input = ({ data }) => {
     const [value, setValue] = useState(data.value || '');
@@ -15,8 +16,17 @@ const Input = ({ data }) => {
     const [inputError, setInputError] = useState('');
     const [addMode, setAddMode] = useState(false);
     const [updatedValue, setUpdatedValue] = useState('');
+    const [user, setUser] = useState({});
 
     const router = useRouter();
+
+    const { data: session, update } = useSession();
+
+    useEffect(() => {
+        if (session && session.user) {
+            setUser(session.user);
+        }
+    }, [session]);
 
     let dataCheck = {
         check: data.check,
@@ -90,9 +100,27 @@ const Input = ({ data }) => {
         if (dataChange.success) {
             setInputInfo(`${data.referenceText} updated successfully`);
 
-            setTimeout(() => {
+            setTimeout(async () => {
                 router.refresh();
                 setLoading(false);
+
+                if (data.updateSession) {
+                    // await update({
+                    //     ...session,
+                    //     user: {
+                    //         ...session?.user,
+                    //         [data.updateSession]: value
+                    //     }
+                    // })
+                    await update({
+                        ...session,
+                        user: {
+                            ...session?.user,
+                            userName: "Hi"
+                        }
+                    })
+                }
+
             }, 2000);
 
             setEditMode(false);
@@ -124,6 +152,8 @@ const Input = ({ data }) => {
 
         setLoading(false);
     }
+
+    console.log(session);
 
     const editHandler = () => {
         setEditMode(true);
