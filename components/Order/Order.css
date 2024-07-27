@@ -393,3 +393,35 @@
     font-size: 1rem;
     font-weight: 500;
 }
+.form-item-up-second{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+}
+.form-item-up-left{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.next-previous-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    border-radius: 5px;
+    background: inherit;
+    cursor: pointer;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: .2s;
+    transition-property: transform;
+    background: inherit;
+    color: var(--theme-color2);
+}
+.next-previous-btn:hover {
+    transform: scale(1.05);
+}
+.next-previous-btn:disabled{
+    color: gray;
+}
