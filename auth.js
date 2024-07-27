@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/config/prisma";
 import { compare } from "bcryptjs";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { getuserById } from "./utils/getUser";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
     adapter: PrismaAdapter(prisma),
@@ -85,20 +86,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             }
             return true;
         },
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
+
+            console.log(user);
+
+            if (!token.sub) {
+                return token;
+            }
+            
+            // const existingUser = await getuserById(token.sub);
+
+            // if (!existingUser) {
+            //     return token;
+            // }
+
             if (user) {
-              token.id = user.id;
-              token.userName = user.userName;
+                token.user = user;
             }
+            // token.user = user;
+            if (trigger === "update" && session) {
+                token = { ...token, user: session.user }
+                return token;
+            };
             return token;
-          },
-          async session({ session, token }) {
+        },
+        async session({ session, token }) {
             if (token) {
-              session.user.id = token.id;
-              session.user.userName = token.userName;
+                session.user.id = token.user.id;
+                session.user.userName = token.user.userName;
             }
+            // console.log(session);
             return session;
-          },
+        },
     },
     pages: {
         signIn: "/login",

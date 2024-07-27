@@ -17,6 +17,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
+import { useRouter } from 'next/navigation';
 
 const Profile = ({ data }) => {
 
@@ -26,6 +27,8 @@ const Profile = ({ data }) => {
     const [avatarModalOpen, setAvatarModalOpen] = useState(false);
     const [avatarLoading, setAvatarLoading] = useState(false);
     const [activeSection, setActiveSection] = useState('personalDetails');
+
+    const router = useRouter();
 
     const handleAvatarChange = async () => {
 
@@ -44,6 +47,7 @@ const Profile = ({ data }) => {
 
             setTimeout(() => {
                 setAvatarModalOpen(false);
+                router.refresh();
             }, 1000);
 
             setAvatarLoading(false);
@@ -228,6 +232,7 @@ const Profile = ({ data }) => {
                                         icon: <FaRegUser />,
                                         title: "Username",
                                         referenceText: "Username",
+                                        updateSession: "userName",
                                         saveFunction: data.handleUsernameChange
                                     }} />
                                     <Input data={{

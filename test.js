@@ -1,5 +1,13 @@
-const generateRandomOtp = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString(); // Generates a random 6-digit number
-};
+const obj = {
+  name1: "Hello",
+  name2: "Hi",
+}
 
-console.log(generateRandomOtp());
+const name = "Hello";
+
+const obj2 = {
+  ...obj,
+  [name]: "name2"
+}
+
+console.log(obj2);
