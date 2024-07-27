@@ -11,6 +11,7 @@ import { MdError } from 'react-icons/md';
 import { FiMinus } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { TiMinus } from "react-icons/ti";
+import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import { useOrders } from '@/contexts/orderContext';
 // import { validate } from 'uuid';
@@ -27,6 +28,7 @@ const Order = () => {
   const [orderContact, setOrderContact] = useState("");
 
   const [orderPending, setOrderPending] = useState(false);
+  const [allowNext, setAllowNext] = useState(false);
 
   const [orderError, setOrderError] = useState("");
   const [orderInfo, setOrderInfo] = useState("");
@@ -64,6 +66,11 @@ const Order = () => {
     setTimeout(() => {
       cancelOrder();
     }, 800);
+    setCurrentIndex(0);
+    setAllowNext(false);
+    setOtp(["", "", "", "", "", ""]);
+    setOrderAddress("");
+    setOrderContact("");
   }
 
   const isValidNumber = (input) => {
@@ -103,6 +110,7 @@ const Order = () => {
     // Example usage below
     setOrderPending(false);
     setCurrentIndex(currentIndex + 1);
+    setAllowNext(true);
 
   }
 
@@ -170,9 +178,12 @@ const Order = () => {
               <div className="orderbox-container" style={{ transform: `translateX(${(currentIndex) * -100}%)` }}>
                 <div className={`orderbox-card-wrapper`}>
                   <div className="order-confirm-section">
-                    <div className="form-item-up">
-                      <div className="form-item-title">Confirm Orders:</div>
-                      <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Example address: | Pragati Marga, Hakimchwok, Bharatpur-11 |</i></p>
+                    <div className="form-item-up-second">
+                      <div className="form-item-up-left">
+                        <div className="form-item-title">Confirm Orders:</div>
+                        <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Provide below details.</i></p>
+                      </div>
+                      <button className="next-previous-btn" disabled={!allowNext} onClick={(e)=>{setCurrentIndex(1)}}><GrFormNextLink /></button>
                     </div>
                     <form action="" className="order-confirmation-form" onSubmit={(e) => { handleConfirmOrder(e); }}>
                       <div className="order-confirmation-form-inputs">
@@ -236,9 +247,12 @@ const Order = () => {
                 </div>
                 <div className={`orderbox-card-wrapper`}>
                   <div className="verify-otp-section">
-                    <div className="form-item-up">
-                      <div className="form-item-title">Enter Code:</div>
-                      <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Provide OTP that we have sent to - {orderContact}</i></p>
+                    <div className="form-item-up-second">
+                      <div className="form-item-up-left">
+                        <div className="form-item-title">Enter Code:</div>
+                        <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Provide OTP that we have sent to - {orderContact}</i></p>
+                      </div>
+                      <button className="next-previous-btn" onClick={(e)=>{setCurrentIndex(0)}}><GrFormPreviousLink /></button>
                     </div>
                     <form className="otp-verification-form" onSubmit={handleVerifyOtp}>
                       <div className="otp-container">

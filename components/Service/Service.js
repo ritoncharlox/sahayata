@@ -17,8 +17,6 @@ const Service = ({ params, session }) => {
 
   const [user, setUser] = useState(null);
 
-  const [pageLoader, setPageLoader] = useState(true);
-
   const [serviceDetails, setServiceDetails] = useState();
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
@@ -93,11 +91,6 @@ const Service = ({ params, session }) => {
   }
 
   const handleOrderNext = () => {
-    setNextPending(true);
-    if (!user) {
-      router.push("/login");
-      return;
-    }
     const currentService = orders.find(item => {
       return item.orderService == clickedService;
     })
@@ -110,10 +103,14 @@ const Service = ({ params, session }) => {
       });
     }
     popupcrossClick();
-    setNextPending(false);
   }
 
   const handleBookNow = (service) => {
+    setNextPending(true);
+    if (!user) {
+      router.push("/login");
+      return;
+    }
     const currentService = orders.filter(item => {
       return item.orderService == service;
     })
@@ -124,9 +121,10 @@ const Service = ({ params, session }) => {
     else {
       setAlreadyBooked(true);
     }
+    setNextPending(false);
   }
 
-  const handleFaqClick = (index)=>{
+  const handleFaqClick = (index) => {
     let newFaq = [...faqs];
     newFaq[index].showAnswer = !newFaq[index].showAnswer;
     setFaqs(newFaq);
@@ -176,13 +174,8 @@ const Service = ({ params, session }) => {
                 </div>
               </div>
               <div className="next-btn-container">
-                <button onClick={(e) => { handleOrderNext(); }} type='button' className={`order-next-btn ${nextPending ? `next-pending` : ``}`} disabled={nextPending || orderDate == "" || orderTime == "" || orderDescription == ""}>
-                  {
-                    nextPending ?
-                      <ScaleLoader height={20} color={"#fff"} />
-                      :
-                      "Next"
-                  }
+                <button onClick={(e) => { handleOrderNext(); }} type='button' className={`order-next-btn`} disabled={orderDate == "" || orderTime == "" || orderDescription == ""}>
+                  Next
                 </button>
               </div>
               <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
@@ -218,7 +211,15 @@ const Service = ({ params, session }) => {
                         <h3 className="service-category-title">{item.title}</h3>
                         <p className="service-category-desc">{item.description}</p>
                       </div>
-                      <button className="learnmore-btn" onClick={(e) => { handleBookNow(item.title); }}>Book Now</button>
+                      {/* <button className="learnmore-btn" onClick={(e) => { handleBookNow(item.title); }}>Book Now</button> */}
+                      <button onClick={(e) => { handleBookNow(item.title); }} type='button' className={`learnmore-btn ${nextPending ? `next-pending` : ``}`} disabled={nextPending}>
+                        {
+                          nextPending ?
+                            <ScaleLoader height={15} color={"#fff"} />
+                            :
+                            "Book Now"
+                        }
+                      </button>
                       <Image className='service-category-image' src={item.imageAddress} width={300} height={450} priority alt="" />
                     </li>
                   )
@@ -235,10 +236,10 @@ const Service = ({ params, session }) => {
             <ul className="faqs-container">
               {faqs.map((item, index) => {
                 return (
-                  <li className="faqs-item" key={index} style={{animation: item.showAnswer ? "showAns .4s forwards" : "hideAns .4s forwards"}}>
-                    <div className="fa-question" onClick={(e)=>{handleFaqClick(index);}}>
+                  <li className="faqs-item" key={index} style={{ animation: item.showAnswer ? "showAns .4s forwards" : "hideAns .4s forwards" }}>
+                    <div className={`fa-question ${item.showAnswer && `fa-question-mini`}`} onClick={(e) => { handleFaqClick(index); }}>
                       <div className="fa-question-text">{item.question}</div>
-                      <div className="fa-question-icon" style={{animation: item.showAnswer ? "rotateUp .3s forwards" : "rotateDown .3s forwards"}}><FaChevronDown /></div>
+                      <div className="fa-question-icon" style={{ animation: item.showAnswer ? "rotateUp .3s forwards" : "rotateDown .3s forwards" }}><FaChevronDown /></div>
                     </div>
                     <div className="fa-answer">
                       <div className="fa-answer-line"></div>

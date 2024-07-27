@@ -153,7 +153,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 25px;
+    height: 35px;
+    width: 120px;
     font-size: .9rem;
     font-weight: bold;
     border-radius: 10px;
@@ -170,13 +171,6 @@
     background: linear-gradient(to bottom right, orangered, orange);
 }
 
-/* .service-category-image-wrapper{
-    height: 50%;
-    width: 100%; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
 .service-category-image {
     height: 100%;
     width: 100%;
@@ -265,7 +259,9 @@
     /* border: 2px solid black; */
     padding: 20px 20px 20px 20px;
     cursor: pointer;
-
+}
+.fa-question-mini{
+    padding: 20px 20px 10px 20px;
 }
 .fa-question-text{
     font-size: 1.12rem;
