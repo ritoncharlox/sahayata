@@ -16,17 +16,10 @@ const Input = ({ data }) => {
     const [inputError, setInputError] = useState('');
     const [addMode, setAddMode] = useState(false);
     const [updatedValue, setUpdatedValue] = useState('');
-    const [user, setUser] = useState({});
 
     const router = useRouter();
 
     const { data: session, update } = useSession();
-
-    useEffect(() => {
-        if (session && session.user) {
-            setUser(session.user);
-        }
-    }, [session]);
 
     let dataCheck = {
         check: data.check,
@@ -105,18 +98,11 @@ const Input = ({ data }) => {
                 setLoading(false);
 
                 if (data.updateSession) {
-                    // await update({
-                    //     ...session,
-                    //     user: {
-                    //         ...session?.user,
-                    //         [data.updateSession]: value
-                    //     }
-                    // })
                     await update({
                         ...session,
                         user: {
                             ...session?.user,
-                            userName: "Hi"
+                            [data.updateSession]: value
                         }
                     })
                 }
@@ -152,8 +138,6 @@ const Input = ({ data }) => {
 
         setLoading(false);
     }
-
-    // console.log(session);
 
     const editHandler = () => {
         setEditMode(true);

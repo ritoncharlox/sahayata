@@ -18,6 +18,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
 
 const Profile = ({ data }) => {
 
@@ -29,6 +30,8 @@ const Profile = ({ data }) => {
     const [activeSection, setActiveSection] = useState('personalDetails');
 
     const router = useRouter();
+
+    const { data: session, update } = useSession();
 
     const handleAvatarChange = async () => {
 
@@ -221,6 +224,7 @@ const Profile = ({ data }) => {
                                         icon: <FaUser />,
                                         title: "Name",
                                         referenceText: "Name",
+                                        updateSession: "name",
                                         saveFunction: data.handleNameChange
                                     }} />
                                     <Input data={{
@@ -257,6 +261,7 @@ const Profile = ({ data }) => {
                                         title: "Email",
                                         check: "email",
                                         referenceText: "Email",
+                                        updateSession: "email",
                                         saveFunction: data.handleEmailChange
                                     }} />
                                     <Input data={{
