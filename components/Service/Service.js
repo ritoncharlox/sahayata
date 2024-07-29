@@ -55,6 +55,10 @@ const Service = ({ params, session }) => {
         .then((data) => {
           if (data && !data.error) {
             setServiceDetails(data);
+            console.log(data);
+          }
+          if(data.error){
+            console.log(data.error)
           }
         })
         .catch((error) => console.error('Error fetching service details:', error));
@@ -204,9 +208,9 @@ const Service = ({ params, session }) => {
             <div className="service-container-second-inner">
               <h2 className="service-categories-title">Related Services</h2>
               <ul className="service-categories">
-                {serviceDetails.subcategories.map((item) => {
+                {serviceDetails.subcategories.map((item, index) => {
                   return (
-                    <li key={item.id} className="service-category">
+                    <li key={index} className="service-category">
                       <div className="service-category-info">
                         <h3 className="service-category-title">{item.title}</h3>
                         <p className="service-category-desc">{item.description}</p>

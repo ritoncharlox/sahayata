@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react'
 import "./JoinUs.css";
 
-import { handleAddService } from '@/actions/handleAddService';
+// import { handleAddService } from '@/actions/handleAddService';
 
 const page = () => {
 
-  const handleBtnClick = async () => {
+  const handleBtnClick = () => {
 
     const details = [
       {
@@ -416,12 +416,40 @@ const page = () => {
       }
     ]
 
+    const mydetails = {
+      "title": "Home Painting Service",
+      "description": "Transform your home with our professional painting services. Whether you need interior or exterior painting, our skilled painters deliver high-quality results with meticulous attention to detail. From choosing the perfect color to ensuring a flawless finish, we make your home look fresh, vibrant, and inviting. Enhance the beauty and value of your property with our reliable and efficient painting services.",
+      "imageAddress": "https://media.istockphoto.com/id/519251233/photo/3d-interor-of-orange-white-bedroom.jpg?s=612x612&w=0&k=20&c=rD0VlSzhEilfLVPk0v94FxhjSATvaKaKuWexXYW5hTc=",
+      "subcategories": [
+          {
+            "title": "Interior Painting",
+            "description": "Professional house inner wall painting for fresh, vibrant interiors.",
+            "imageAddress": "https://images.unsplash.com/photo-1516962080544-eac695c93791?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG9tZSUyMHBhaW50aW5nfGVufDB8MXwwfHx8Mg%3D%3D"
+          },
+          {
+            "title": "Exterior Painting",
+            "description": "Expert house outer wall painting for durable, attractive exteriors.",
+            "imageAddress": "https://images.unsplash.com/photo-1687069241293-152f51173d04?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fGhvdXNlJTIwcGFpbnRpbmd8ZW58MHwxfDB8fHwy"
+          }
+        ],
+      "icon": "https://cdn-icons-png.flaticon.com/128/1815/1815785.png"
+    };
+
     // const addedService = await handleAddService(details);
     // if (addedService.success) {
     //   console.log("done");
     //   console.log(addedService.data);
     // }
-    console.log("hello");
+
+    fetch(`/api/addservice`, { method: "POST", body: JSON.stringify(mydetails), headers: {'Content-type': 'application/json; charset=UTF-8',}})
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          console.log(data);
+        }
+      })
+      .catch((error) => console.error('Error fetching services:', error));
+    // console.log("hello");
 
   };
 

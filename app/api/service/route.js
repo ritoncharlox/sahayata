@@ -4,6 +4,7 @@ import { getServiceByTitle } from '@/utils/getServices';
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const title = searchParams.get('title');
+  // console.log(title);
 
   if (!title) {
     return NextResponse.json({ error: 'Title is required' }, { status: 400 });
