@@ -10,14 +10,13 @@ import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
 import { useRouter } from 'next/navigation';
 
-const Service = ({ params, session }) => {
+const Service = ({ session, serviceDetails }) => {
 
   const { orders, addOrder } = useOrders();
   const router = useRouter();
 
   const [user, setUser] = useState(null);
 
-  const [serviceDetails, setServiceDetails] = useState();
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
   const [orderDescription, setOrderDescription] = useState('');
@@ -48,22 +47,6 @@ const Service = ({ params, session }) => {
 
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
-  useEffect(() => {
-    if (params.service) {
-      fetch(`/api/service?title=${params.service}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data && !data.error) {
-            setServiceDetails(data);
-            console.log(data);
-          }
-          if(data.error){
-            console.log(data.error)
-          }
-        })
-        .catch((error) => console.error('Error fetching service details:', error));
-    }
-  }, [params]);
 
   useEffect(() => {
     if (session?.user?.email) {
@@ -118,7 +101,7 @@ const Service = ({ params, session }) => {
     const currentService = orders.filter(item => {
       return item.orderService == service;
     })
-    // console.log(currentService);
+    
     if (currentService.length == 0) {
       setClickedService(service)
     }
