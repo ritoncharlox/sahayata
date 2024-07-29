@@ -428,6 +428,7 @@ const page = () => {
   return (
     <main className="joinus-container">
       <button className='addservice-btn' onClick={(e) => { handleBtnClick(); }}>Add Service</button>
+      <button>Hello</button>
     </main>
   )
 }
