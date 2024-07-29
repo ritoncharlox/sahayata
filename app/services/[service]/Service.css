@@ -108,11 +108,8 @@
     transition-property: transform;
 }
 
-/* .service-category:hover {
-    transform: scale(1.02);
-}
-
 .service-category:hover {
+    transform: scale(1.02);
     .learnmore-btn {
         animation: slideUp .25s forwards;
     }
