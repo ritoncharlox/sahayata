@@ -110,19 +110,20 @@
 
 .service-category:hover {
     transform: scale(1.02);
-}
-
-.service-category:hover {
     .learnmore-btn {
         animation: slideUp .25s forwards;
     }
 }
 
-.service-category:not(:hover) {
+/* .service-category:hover {
+    
+} */
+
+/* .service-category:not(:hover) {
     .learnmore-btn {
         animation: slideDown .25s forwards;
     }
-}
+} */
 
 .service-category-info {
     position: absolute;
