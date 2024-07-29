@@ -25,7 +25,7 @@ export default async function ProfilePage() {
         return null;
     }
 
-    const sendOtp = async (user) => {
+    const sendOtp = async (user, type) => {
         "use server"
 
         const generateRandomOtp = () => {
@@ -38,6 +38,7 @@ export default async function ProfilePage() {
             const lastOtp = await prisma.otp.findFirst({
                 where: {
                     userId: user.id,
+                    type: type, // Ensure you only consider OTPs of the same type
                 },
                 orderBy: {
                     createdAt: 'desc',
@@ -54,6 +55,7 @@ export default async function ProfilePage() {
             await prisma.otp.deleteMany({
                 where: {
                     userId: user.id,
+                    type: type,
                 },
             });
 
@@ -67,6 +69,7 @@ export default async function ProfilePage() {
                     otp,
                     expiresAt,
                     userId: user.id,
+                    type: type, // Set the type of OTP
                 },
             });
 
@@ -74,7 +77,7 @@ export default async function ProfilePage() {
             const { data, error } = await resend.emails.send({
                 from: 'Sahayata <onboarding@sahayata.xyz>',
                 to: [user.email],
-                subject: 'Your OTP Code',
+                subject: type === 'email-verification' ? 'Your OTP Code' : 'Your Password Reset OTP',
                 react: EmailTemplate({ name: user.name, otp }),
             });
 
@@ -98,7 +101,7 @@ export default async function ProfilePage() {
         }
     }
 
-    const verifyOtp = async (user, otp) => {
+    const verifyOtp = async (user, otp, type) => {
         "use server"
 
         try {
@@ -109,6 +112,7 @@ export default async function ProfilePage() {
                     userId: user.id,
                     otp: otp,
                     used: false, // Check if OTP has not been used
+                    type: type,  // Ensure the OTP type matches
                 },
                 orderBy: {
                     createdAt: 'desc',
@@ -135,11 +139,18 @@ export default async function ProfilePage() {
                 data: { used: true },
             });
 
-            // Optionally update the user's email verification status
-            await prisma.user.update({
-                where: { id: user.id },
-                data: { isEmailVerified: true },
-            });
+            // Update the user's email verification status or handle password reset
+            if (type === 'email-verification') {
+                await prisma.user.update({
+                    where: { id: user.id },
+                    data: { isEmailVerified: true },
+                });
+            }
+
+            if (type === 'password-reset') {
+                // Handle password reset logic, such as prompting user to set a new password
+                // You might want to send an email with a password reset link or handle it in another way
+            }
 
 
             return {

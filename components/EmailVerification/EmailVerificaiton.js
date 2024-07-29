@@ -42,7 +42,7 @@ const NumberVerification = ({ data }) => {
     setOtpInfo('');
     setOtpError('');
 
-    const verifyOtp = await data.verifyOtp(data.user, otpString);
+    const verifyOtp = await data.verifyOtp(data.user, otpString, 'email-verification');
 
     // console.log(verifyOtp);
 
@@ -93,7 +93,7 @@ const NumberVerification = ({ data }) => {
     setVerifyInfo('');
     setVerifyError('');
 
-    const sendOtp = await data.sendOtp(data.user);
+    const sendOtp = await data.sendOtp(data.user, "email-verification");
 
     // console.log(sendOtp);
 
