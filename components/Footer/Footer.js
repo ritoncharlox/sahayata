@@ -1,14 +1,21 @@
+"use client"
+
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image';
 import { FaFacebookF, FaInstagram, FaTiktok, FaLinkedinIn, FaYoutube, FaMailBulk } from "react-icons/fa";
 import { FaPhoneVolume } from "react-icons/fa6";
+import { usePathname } from 'next/navigation';
 
 import "./Footer.css";
 
 const Footer = () => {
+
+  const pathname = usePathname();
+  const pathClass = pathname.replace('/', '') || 'home';
+
   return (
-    <footer className='footer-wrapper'>
+    <footer className={`footer-wrapper ${pathClass}`}>
       <div className="footer-top">
         <div className="footer-top-left">
           <h4 className="footer-top-left-title footer-titles">More On Sahayata</h4>

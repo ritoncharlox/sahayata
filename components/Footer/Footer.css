@@ -1,5 +1,5 @@
 .footer-wrapper {
-    margin-top: 50px;
+    position: relative;
     /* border: 2px solid black; */
     display: flex;
     align-items: center;
@@ -7,7 +7,6 @@
     background-color: rgb(30, 29, 29);
     color: rgb(225, 224, 224);
     padding: 25px 0px;
-    
 }
 .footer-separator{
     height: 1.5px;

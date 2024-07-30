@@ -17,6 +17,7 @@
     "@auth/prisma-adapter": "^2.4.1",
     "@prisma/client": "^5.17.0",
     "bcryptjs": "^2.4.3",
+    "date-fns": "^3.6.0",
     "flatpickr": "^4.6.13",
     "nepali-datepicker-reactjs": "^1.1.7",
     "next": "14.2.3",
@@ -27,6 +28,7 @@
     "react-dom": "^18",
     "react-icons": "^5.2.1",
     "react-spinners": "^0.13.8",
+    "recharts": "^2.12.7",
     "resend": "^3.5.0",
     "uuid": "^10.0.0"
   },
