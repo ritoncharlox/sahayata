@@ -8,14 +8,10 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
-import { useRouter } from 'next/navigation';
 
-const Service = ({ session, serviceDetails }) => {
+const Service = ({ serviceDetails }) => {
 
   const { orders, addOrder } = useOrders();
-  const router = useRouter();
-
-  const [user, setUser] = useState(null);
 
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
@@ -46,20 +42,6 @@ const Service = ({ session, serviceDetails }) => {
   ])
 
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
-
-
-  useEffect(() => {
-    if (session?.user?.email) {
-      fetch(`/api/user?email=${session.user.email}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data && !data.error) {
-            setUser(data);
-          }
-        })
-        .catch((error) => console.error('Error fetching user data:', error));
-    }
-  }, [session]);
 
   const popupcrossClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
@@ -94,10 +76,10 @@ const Service = ({ session, serviceDetails }) => {
 
   const handleBookNow = (service) => {
     setNextPending(true);
-    if (!user) {
-      router.push("/login");
-      return;
-    }
+    // if (!user) {
+    //   router.push("/login");
+    //   return;
+    // }
     const currentService = orders.filter(item => {
       return item.orderService == service;
     })

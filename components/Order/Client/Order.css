@@ -214,6 +214,7 @@
     align-items: center;
     justify-content: center;
     color: rgb(152, 3, 3);
+    z-index: 2501;
 }
 .order-confirmation-form-container{
     display: flex;
