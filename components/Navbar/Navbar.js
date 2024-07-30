@@ -51,8 +51,8 @@ const Navbar = ({ session }) => {
   }, []);
 
   useEffect(() => {
-    if (session?.user?.email) {
-      fetch(`/api/user?email=${session.user.email}`)
+    if (session?.user?.id) {
+      fetch(`/api/user?id=${session.user.id}`)
         .then((response) => response.json())
         .then((data) => {
           if (data && !data.error) {
