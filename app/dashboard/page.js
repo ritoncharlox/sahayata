@@ -6,7 +6,6 @@ import React from 'react'
 import Link from 'next/link';
 import AdminDashboard from './_components/AdminDashboard/AdminDashboard';
 
-
 export default async function Dashboard() {
     const session = await auth();
 

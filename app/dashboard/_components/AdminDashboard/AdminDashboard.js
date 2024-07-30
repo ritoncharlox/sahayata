@@ -1,16 +1,22 @@
+"use client"
+
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import { IoAnalytics } from "react-icons/io5";
 import "./AdminDashboard.css";
 import { FaUsers } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
+import Users from './Users/Users';
 
-const AdminDashboard = () => {
+const AdminDashboardClient = ({ data }) => {
+
+    const [selected, setSelected] = useState('analytics');
+
     return (
         <main className="dashboard">
             <aside className="sidebar">
                 <ul>
-                    <li>
+                    <li onClick={() => setSelected('analytics')}>
                         <div className="icon">
                             <IoAnalytics />
                         </div>
@@ -18,7 +24,7 @@ const AdminDashboard = () => {
                             Analytics
                         </div>
                     </li>
-                    <li>
+                    <li onClick={() => setSelected('users')}>
                         <div className="icon">
                             <FaUsers />
                         </div>
@@ -26,7 +32,7 @@ const AdminDashboard = () => {
                             Users
                         </div>
                     </li>
-                    <li>
+                    <li onClick={() => setSelected('orders')}>
                         <div className="icon">
                             <FaShoppingCart />
                         </div>
@@ -37,12 +43,26 @@ const AdminDashboard = () => {
                 </ul>
             </aside>
             <section className="content">
-                <h1>Dashboard</h1>
-                <p>Welcome to the dashboard.</p>
-                {/* Add more content here */}
+                {selected === 'analytics' && (
+                    <>
+                        <h1>Analytics</h1>
+                        <p>Here you can view analytics data.</p>
+                        {/* Add more analytics content here */}
+                    </>
+                )}
+                {selected === 'users' && (
+                    <Users />
+                )}
+                {selected === 'orders' && (
+                    <>
+                        <h1>Orders</h1>
+                        <p>View and manage orders here.</p>
+                        {/* Add more orders content here */}
+                    </>
+                )}
             </section>
         </main>
     )
 }
 
-export default AdminDashboard
+export default AdminDashboardClient
