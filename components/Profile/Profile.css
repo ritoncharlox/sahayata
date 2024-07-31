@@ -376,3 +376,8 @@ main.profile {
     font-size: 1rem;
     font-weight: 500;
 }
+
+.footer-wrapper.profile {
+    /* position: relative; */
+    margin-top: 50px;
+}
