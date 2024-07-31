@@ -8,24 +8,26 @@ const Users = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalUsers, setTotalUsers] = useState(0);
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('desc'); // Default sort order
 
   useEffect(() => {
     const fetchUsers = async () => {
-      setLoading(true); // Start loading
+      setLoading(true);
       try {
-        const result = await getUsers(pageIndex + 1, pageSize);
+        const result = await getUsers(pageIndex + 1, pageSize, searchQuery, sortOrder);
         setData(result.users);
         setTotalUsers(result.totalUsers);
       } catch (error) {
         console.error('Error fetching users:', error);
       } finally {
-        setLoading(false); // End loading
+        setLoading(false);
       }
     };
 
     fetchUsers();
-  }, [pageIndex, pageSize]);
+  }, [pageIndex, pageSize, searchQuery, sortOrder]);
 
   const columns = [
     {
@@ -45,8 +47,8 @@ const Users = () => {
       accessorKey: 'location',
     },
     {
-      header: 'Date Joined', // Updated header
-      accessorKey: 'dateJoined', // Updated accessorKey
+      header: 'Date Joined',
+      accessorKey: 'dateJoined',
       cell: ({ getValue }) => new Date(getValue()).toLocaleDateString(),
     },
   ];
@@ -60,12 +62,30 @@ const Users = () => {
     pageCount: Math.ceil(totalUsers / pageSize),
   });
 
+  const canPreviousPage = pageIndex > 0;
+  const canNextPage = pageIndex < table.getPageCount() - 1;
+
   return (
     <div>
       <h1>Users</h1>
       <p>Manage users here.</p>
+      <input
+        type="text"
+        placeholder="Search by name or email"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="search-input"
+      />
+      <select
+        value={sortOrder}
+        onChange={(e) => setSortOrder(e.target.value)}
+        className="sort-select"
+      >
+        <option value="desc">Newest First</option>
+        <option value="asc">Oldest First</option>
+      </select>
       {loading ? (
-        <div className="loading">Loading...</div> // Loading indicator
+        <div className="loading">Loading...</div>
       ) : (
         <table className="users-table">
           <thead>
@@ -94,17 +114,17 @@ const Users = () => {
       )}
       <div className="pagination-controls">
         <button
-          onClick={() => table.setPageIndex(prev => Math.max(prev - 1, 0))}
-          disabled={!table.getCanPreviousPage()}
+          onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
+          disabled={!canPreviousPage}
         >
           Previous
         </button>
         <span>
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Page {pageIndex + 1} of {table.getPageCount()}
         </span>
         <button
-          onClick={() => table.setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
-          disabled={!table.getCanNextPage()}
+          onClick={() => setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
+          disabled={!canNextPage}
         >
           Next
         </button>
