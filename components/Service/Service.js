@@ -8,14 +8,15 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 const Service = ({ session, serviceDetails }) => {
 
   const { orders, addOrder } = useOrders();
+
   const router = useRouter();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
 
   const [orderDate, setOrderDate] = useState('');
   const [orderTime, setOrderTime] = useState('');
@@ -47,7 +48,6 @@ const Service = ({ session, serviceDetails }) => {
 
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
-
   useEffect(() => {
     if (session?.user?.email) {
       fetch(`/api/user?email=${session.user.email}`)
@@ -61,9 +61,28 @@ const Service = ({ session, serviceDetails }) => {
     }
   }, [session]);
 
+  useEffect(() => {
+    const previosclick = localStorage.getItem("clickedService");
+    for (let i = 0; i < serviceDetails.subcategories.length; i++) {
+      let subcategory = serviceDetails.subcategories[i];
+      if (subcategory.title === previosclick) {
+        setClickedService(previosclick);
+      }
+    }
+
+    setTimeout(() => {
+      localStorage.removeItem("clickedService");
+    }, 400);
+  }, [])
+
+
   const popupcrossClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
     setTimeout(() => {
+      const previosclick = localStorage.getItem("clickedService");
+      if (previosclick) {
+        localStorage.removeItem("clickedService");
+      }
       setClickedService();
       setAlreadyBooked(false);
       setAnimate();
@@ -94,14 +113,16 @@ const Service = ({ session, serviceDetails }) => {
 
   const handleBookNow = (service) => {
     setNextPending(true);
+
     if (!user) {
-      router.push("/login");
+      localStorage.setItem("clickedService", service)
+      router.push(`/login?redirectTo=/services/${serviceDetails.title}`);
       return;
     }
     const currentService = orders.filter(item => {
       return item.orderService == service;
     })
-    
+
     if (currentService.length == 0) {
       setClickedService(service)
     }
@@ -121,7 +142,7 @@ const Service = ({ session, serviceDetails }) => {
   if (serviceDetails) {
     return (
       <>
-        {clickedService && (
+        {(clickedService && user) && (
           <div className="overlay" style={{ animation: animate?.overlayOut }}>
             <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
               <h3 className="popup-header-title">
@@ -169,7 +190,7 @@ const Service = ({ session, serviceDetails }) => {
             </div>
           </div>
         )}
-        {alreadyBooked && <div className="overlay" style={{ animation: animate?.overlayOut }}>
+        {(alreadyBooked && user) && <div className="overlay" style={{ animation: animate?.overlayOut }}>
           <div className="popup-for-service already-booked-container" style={{ animation: animate?.popupOut }}>
             <div className="already-booked-text">You have already booked this service.</div>
             <button className='already-booked-ok-btn' onClick={(e) => { popupcrossClick(); }}>OK</button>

@@ -19,7 +19,7 @@
     font-size: 25px;
     position: absolute;
     top: 5px;
-    right: 50px;
+    right: 40px;
     padding: 2px;
     border-radius: 5px;
     background: inherit;
@@ -214,6 +214,7 @@
     align-items: center;
     justify-content: center;
     color: rgb(152, 3, 3);
+    z-index: 2501;
 }
 .order-confirmation-form-container{
     display: flex;
