@@ -1,129 +1,116 @@
-// app/users/page.js
-import React, { useEffect, useState } from 'react';
-import { useTable, usePagination } from 'react-table';
-import { getUsers } from '@/actions/Users';
+import React, { useState, useEffect } from 'react';
+import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
+import { getUsers } from '@/actions/Users'; // Adjust import path as necessary
 import './Users.css';
 
 const Users = () => {
-    const [data, setData] = useState([]);
-    const [pageCount, setPageCount] = useState(0);
-    const [loading, setLoading] = useState(true);
-    const [pageIndex, setPageIndex] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
+  const [data, setData] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [loading, setLoading] = useState(true); // Added loading state
 
-    const fetchData = async (pageIndex, pageSize) => {
-        setLoading(true);
-        const { users, totalUsers } = await getUsers(pageIndex + 1, pageSize);
-        setData(users);
-        setPageCount(Math.ceil(totalUsers / pageSize));
-        setLoading(false);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true); // Start loading
+      try {
+        const result = await getUsers(pageIndex + 1, pageSize);
+        setData(result.users);
+        setTotalUsers(result.totalUsers);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false); // End loading
+      }
     };
 
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'ID',
-                accessor: 'id',
-            },
-            {
-                Header: 'Name',
-                accessor: 'name',
-            },
-            {
-                Header: 'Email',
-                accessor: 'email',
-            },
-            {
-                Header: 'Role',
-                accessor: (row) => row.isAdmin ? 'Admin' : row.isFreelancer ? 'Freelancer' : 'User',
-            },
-        ],
-        []
-    );
+    fetchUsers();
+  }, [pageIndex, pageSize]);
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        canPreviousPage,
-        canNextPage,
-        gotoPage,
-        nextPage,
-        previousPage,
-    } = useTable(
-        {
-            columns,
-            data,
-            initialState: { pageIndex, pageSize },
-            manualPagination: true,
-            pageCount: pageCount,
-            autoResetPage: false,
-        },
-        usePagination
-    );
+  const columns = [
+    {
+      header: 'ID',
+      accessorKey: 'id',
+    },
+    {
+      header: 'Name',
+      accessorKey: 'name',
+    },
+    {
+      header: 'Email',
+      accessorKey: 'email',
+    },
+    {
+      header: 'Location',
+      accessorKey: 'location',
+    },
+    {
+      header: 'Date Joined', // Updated header
+      accessorKey: 'dateJoined', // Updated accessorKey
+      cell: ({ getValue }) => new Date(getValue()).toLocaleDateString(),
+    },
+  ];
 
-    useEffect(() => {
-        fetchData(pageIndex, pageSize);
-    }, [pageIndex, pageSize]);
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    pageCount: Math.ceil(totalUsers / pageSize),
+  });
 
-    return (
-        <div className="users">
-            <h1>Users</h1>
-            <p>Manage users here.</p>
-            <table {...getTableProps()}>
-                <thead>
-                    {headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()} key={column.id}>
-                                    {column.render('Header')}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()}>
-                    {loading ? (
-                        <tr>
-                            <td colSpan={columns.length}>Loading...</td>
-                        </tr>
-                    ) : (
-                        rows.map(row => {
-                            prepareRow(row);
-                            return (
-                                <tr {...row.getRowProps()} key={row.original.id}>
-                                    {row.cells.map(cell => (
-                                        <td {...cell.getCellProps()} key={cell.column.id}>
-                                            {cell.render('Cell')}
-                                        </td>
-                                    ))}
-                                </tr>
-                            );
-                        })
-                    )}
-                </tbody>
-            </table>
-            <div className="pagination">
-                <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                    {'<<'}
-                </button>
-                <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    {'<'}
-                </button>
-                <button onClick={() => nextPage()} disabled={!canNextPage}>
-                    {'>'}
-                </button>
-                <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                    {'>>'}
-                </button>
-                <span>
-                    Page {pageIndex + 1} of {pageCount}
-                </span>
-            </div>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Users</h1>
+      <p>Manage users here.</p>
+      {loading ? (
+        <div className="loading">Loading...</div> // Loading indicator
+      ) : (
+        <table className="users-table">
+          <thead>
+            {table.getHeaderGroups().map(headerGroup => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map(header => (
+                  <th key={header.id}>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map(row => (
+              <tr key={row.id}>
+                {row.getVisibleCells().map(cell => (
+                  <td key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <div className="pagination-controls">
+        <button
+          onClick={() => table.setPageIndex(prev => Math.max(prev - 1, 0))}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </button>
+        <span>
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
+        <button
+          onClick={() => table.setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Users;
