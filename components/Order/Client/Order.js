@@ -1,9 +1,7 @@
 "use client"
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./Order.css";
-// import "./OtpSection.css";
-// import Link from 'next/link';
-// import { RxCross2 } from "react-icons/rx";
+
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
 import { FaPlus, FaCheckCircle } from "react-icons/fa";
@@ -15,7 +13,7 @@ import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import { useOrders } from '@/contexts/orderContext';
 
-const Order = ({session}) => {
+const Order = ({ session }) => {
 
   const { orders, removeOrder, cancelOrder } = useOrders();
 
@@ -31,7 +29,6 @@ const Order = ({session}) => {
   const [orderError, setOrderError] = useState("");
   const [orderInfo, setOrderInfo] = useState("");
 
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (session?.user?.email) {
@@ -72,7 +69,6 @@ const Order = ({session}) => {
     setTimeout(() => {
       cancelOrder();
     }, 800);
-    setCurrentIndex(0);
     setOrderAddress("");
     setOrderContact("");
   }
@@ -113,7 +109,6 @@ const Order = ({session}) => {
     //Now call the OTP action
     // Example usage below
     setOrderPending(false);
-    setCurrentIndex(currentIndex + 1);
   }
 
   return (
@@ -146,7 +141,7 @@ const Order = ({session}) => {
             </div>
           </div>
           <div className="order-confirmation-form-container">
-            {user ? <div className="order-confirm-section">
+            <div className="order-confirm-section">
               <div className="form-item-up-left">
                 <div className="form-item-title">Confirm Orders:</div>
                 <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Provide below details.</i></p>
@@ -198,7 +193,7 @@ const Order = ({session}) => {
                     </>
                   )
                 }
-                <div className="order-submit-btn-container">
+                {(user && user.isNumberVerified) && <div className="order-submit-btn-container">
                   <button type="submit" className={`order-submit-btn ${orderPending ? `order-pending` : ``}`} disabled={orderPending}>
                     {
                       orderPending ?
@@ -207,9 +202,9 @@ const Order = ({session}) => {
                         "Confirm"
                     }
                   </button>
-                </div>
+                </div>}
               </form>
-            </div> : <div>Hello</div>}
+            </div>
           </div>
           <button className='popup-minus' onClick={() => { popupminusClick(); }}><FiMinus /></button>
           <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
