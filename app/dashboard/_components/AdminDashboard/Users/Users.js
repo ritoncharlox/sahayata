@@ -66,7 +66,7 @@ const Users = () => {
   const canNextPage = pageIndex < table.getPageCount() - 1;
 
   return (
-    <div>
+    <div className="users-container">
       <h1>Users</h1>
       <p>Manage users here.</p>
       <input
