@@ -1,9 +1,9 @@
 import React from 'react'
 import Order from './Client/Order';
 import { auth } from "@/auth";
-// import prisma from '@/config/prisma';
+import prisma from '@/config/prisma';
 
-const page = async() => {
+const page = async () => {
 
   const session = await auth();
 
