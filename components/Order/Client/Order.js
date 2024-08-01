@@ -1,10 +1,10 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import "./Order.css";
 
 import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
-import { FaPlus, FaCheckCircle } from "react-icons/fa";
+import { FaPlus, FaCheckCircle, FaCaretRight } from "react-icons/fa";
 import { MdError } from 'react-icons/md';
 import { FiMinus } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
@@ -35,6 +35,7 @@ const Order = ({ session }) => {
   const [orderError, setOrderError] = useState("");
   const [orderInfo, setOrderInfo] = useState("");
 
+  const popupContentRef = useRef(null);
 
   useEffect(() => {
     if (session?.user?.email) {
@@ -49,6 +50,11 @@ const Order = ({ session }) => {
     }
   }, [session]);
 
+  useEffect(() => {
+    setShowBig(true);
+  }, [orders])
+
+
   const handleRemove = (id) => {
     if (orders.length <= 1) {
       popupcrossClick()
@@ -58,11 +64,6 @@ const Order = ({ session }) => {
     }
   }
 
-  useEffect(() => {
-    setShowBig(true);
-
-  }, [orders])
-
   const popupminusClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
     setTimeout(() => {
@@ -70,6 +71,23 @@ const Order = ({ session }) => {
       setShowBig(false);
     }, 800);
   }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
+        popupminusClick();
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
   const popupcrossClick = () => {
     popupminusClick();
     setTimeout(() => {
@@ -136,21 +154,21 @@ const Order = ({ session }) => {
     setOrderPending(false);
   }
 
-  const handleNotVerified = ()=>{
+  const handleNotVerified = () => {
     setNotVerifiedPending(true);
-    if(!user || !user.number || !user.isNumberVerified){
+    if (!user || !user.number || !user.isNumberVerified) {
       router.push(`/number-verification?redirectTo=/`);
       setNotVerifiedPending(false);
       popupminusClick();
       return;
     }
-    
+
   }
 
   return (
     <>
       {(orders.length !== 0 && showBig) && <div className="order-details-overlay" style={{ animation: animate?.overlayOut }}>
-        <div className="order-details-container-big" style={{ animation: animate?.popupOut }}>
+        <div className="order-details-container-big" ref={popupContentRef} style={{ animation: animate?.popupOut }}>
           <div className="orders-details-container">
             <div className="form-item-up">
               <h3 className="form-item-title">Orders:</h3>
@@ -246,7 +264,7 @@ const Order = ({ session }) => {
                 }
               </form>
             </div> : <div className="order-not-verified-btn-container">
-              <button type="button" onClick={(e)=>{handleNotVerified();}} className={`order-submit-btn ${notVerifiedPending ? `order-pending` : ``}`} disabled={notVerifiedPending}>
+              <button type="button" onClick={(e) => { handleNotVerified(); }} className={`order-submit-btn ${notVerifiedPending ? `order-pending` : ``}`} disabled={notVerifiedPending}>
                 {
                   notVerifiedPending ?
                     <ScaleLoader height={20} color={"#fff"} />
@@ -256,13 +274,16 @@ const Order = ({ session }) => {
               </button>
             </div>}
           </div>
-          <button className='popup-minus' onClick={() => { popupminusClick(); }}><FiMinus /></button>
-          <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
+          <button className='popup-order-minus' onClick={() => { popupminusClick(); }}><IoClose /></button>
+          <button className='popup-order-cross' onClick={() => { popupcrossClick(); }}>Cancel Order</button>
         </div>
       </div>}
-      {(orders.length !== 0 && !showBig) && <div className='order-details-container-small' onClick={(e) => { setShowBig(true) }}>
-        <div className="order-details-container-small-text">Orders</div>
-        <div className="order-details-container-small-count">{orders.length}</div>
+      {(orders.length !== 0 && !showBig) && <div className='order-details-container-small'>
+        <div className="order-details-small-box" onClick={(e) => { setShowBig(true) }}>
+          <div className="order-details-container-small-text">Orders</div>
+          <div className="order-details-container-small-count">{orders.length}</div>
+          <div className="hover-order-info"><span>Orders in progress</span> <FaCaretRight style={{ fontSize: "25px", color: "#010717", position: "relative", left: "-10px" }} /></div>
+        </div>
       </div>}
     </>
   )
