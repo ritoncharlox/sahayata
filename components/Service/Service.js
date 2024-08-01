@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 import DateSection from '@/components/DateSection/DateSection';
@@ -27,6 +27,8 @@ const Service = ({ session, serviceDetails }) => {
   const [alreadyBooked, setAlreadyBooked] = useState(false);
 
   const [nextPending, setNextPending] = useState(false);
+
+  const popupContentRef = useRef(null);
 
   const [faqs, setFaqs] = useState([
     {
@@ -73,8 +75,17 @@ const Service = ({ session, serviceDetails }) => {
     setTimeout(() => {
       localStorage.removeItem("clickedService");
     }, 400);
-  }, [])
 
+    const handleClickOutside = (event) => {
+      if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
+        popupcrossClick();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [])
 
   const popupcrossClick = () => {
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
@@ -144,7 +155,7 @@ const Service = ({ session, serviceDetails }) => {
       <>
         {(clickedService && user) && (
           <div className="overlay" style={{ animation: animate?.overlayOut }}>
-            <div className="popup-for-service" style={{ animation: animate?.popupOut }}>
+            <div className="popup-for-service" ref={popupContentRef} style={{ animation: animate?.popupOut }}>
               <h3 className="popup-header-title">
                 <div className="popup-title-top">
                   <FaQuoteLeft style={{ fontSize: "10px", color: "var(--theme-color2)" }} /> {clickedService && clickedService} <FaQuoteRight style={{ fontSize: "10px", color: "var(--theme-color2)" }} />
@@ -191,7 +202,7 @@ const Service = ({ session, serviceDetails }) => {
           </div>
         )}
         {(alreadyBooked && user) && <div className="overlay" style={{ animation: animate?.overlayOut }}>
-          <div className="popup-for-service already-booked-container" style={{ animation: animate?.popupOut }}>
+          <div className="popup-for-service already-booked-container" ref={popupContentRef} style={{ animation: animate?.popupOut }}>
             <div className="already-booked-text">You have already booked this service.</div>
             <button className='already-booked-ok-btn' onClick={(e) => { popupcrossClick(); }}>OK</button>
           </div>
