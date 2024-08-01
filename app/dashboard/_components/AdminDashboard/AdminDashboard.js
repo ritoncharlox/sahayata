@@ -1,22 +1,50 @@
 "use client"
 
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoAnalytics } from "react-icons/io5";
 import "./AdminDashboard.css";
 import { FaUsers } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import Users from './Users/Users';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 const AdminDashboardClient = ({ data }) => {
 
-    const [selected, setSelected] = useState('analytics');
+    const searchParams = useSearchParams();
+    const router = useRouter();
+
+    const page = searchParams.get('page') || 'analytics';
+    const [selected, setSelected] = useState(page);
+    const [validPage, setValidPage] = useState(true);
+
+    // List of valid pages
+    const validPages = ['analytics', 'users', 'orders'];
+
+    useEffect(() => {
+        if (validPages.includes(page)) {
+            setSelected(page);
+            setValidPage(true);
+        } else {
+            setValidPage(false);
+            // router.push('/dashboard?page=analytics');
+        }
+    }, [page]);
+
+    // Handle sidebar clicks and URL updates
+    const handleSidebarClick = (page) => {
+        setSelected(page);
+        router.push(`/dashboard?page=${page}`);
+    };
 
     return (
         <main className="dashboard">
             <aside className="sidebar">
                 <ul>
-                    <li onClick={() => setSelected('analytics')}>
+                    <li
+                        className={selected === 'analytics' ? 'active' : ''}
+                        onClick={() => handleSidebarClick('analytics')}
+                    >
                         <div className="icon">
                             <IoAnalytics />
                         </div>
@@ -24,7 +52,10 @@ const AdminDashboardClient = ({ data }) => {
                             Analytics
                         </div>
                     </li>
-                    <li onClick={() => setSelected('users')}>
+                    <li
+                        className={selected === 'users' ? 'active' : ''}
+                        onClick={() => handleSidebarClick('users')}
+                    >
                         <div className="icon">
                             <FaUsers />
                         </div>
@@ -32,7 +63,10 @@ const AdminDashboardClient = ({ data }) => {
                             Users
                         </div>
                     </li>
-                    <li onClick={() => setSelected('orders')}>
+                    <li
+                        className={selected === 'orders' ? 'active' : ''}
+                        onClick={() => handleSidebarClick('orders')}
+                    >
                         <div className="icon">
                             <FaShoppingCart />
                         </div>
@@ -43,21 +77,30 @@ const AdminDashboardClient = ({ data }) => {
                 </ul>
             </aside>
             <section className="content">
-                {selected === 'analytics' && (
+                {!validPage ? (
+                    <div className="invalid-page">
+                        <h1>Invalid Page</h1>
+                        <p>The page you are looking for does not exist.</p>
+                    </div>
+                ) : (
                     <>
-                        <h1>Analytics</h1>
-                        <p>Here you can view analytics data.</p>
-                        {/* Add more analytics content here */}
-                    </>
-                )}
-                {selected === 'users' && (
-                    <Users />
-                )}
-                {selected === 'orders' && (
-                    <>
-                        <h1>Orders</h1>
-                        <p>View and manage orders here.</p>
-                        {/* Add more orders content here */}
+                        {selected === 'analytics' && (
+                            <>
+                                <h1>Analytics</h1>
+                                <p>Here you can view analytics data.</p>
+                                {/* Add more analytics content here */}
+                            </>
+                        )}
+                        {selected === 'users' && (
+                            <Users />
+                        )}
+                        {selected === 'orders' && (
+                            <>
+                                <h1>Orders</h1>
+                                <p>View and manage orders here.</p>
+                                {/* Add more orders content here */}
+                            </>
+                        )}
                     </>
                 )}
             </section>

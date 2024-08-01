@@ -69,21 +69,23 @@ const Users = () => {
     <div className="users-container">
       <h1>Users</h1>
       <p>Manage users here.</p>
-      <input
-        type="text"
-        placeholder="Search by name or email"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="search-input"
-      />
-      <select
-        value={sortOrder}
-        onChange={(e) => setSortOrder(e.target.value)}
-        className="sort-select"
-      >
-        <option value="desc">Newest First</option>
-        <option value="asc">Oldest First</option>
-      </select>
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Search by name or email"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="sort-select"
+        >
+          <option value="desc">Newest First</option>
+          <option value="asc">Oldest First</option>
+        </select>
+      </div>
       {loading ? (
         <div className="loading">Loading...</div>
       ) : (
@@ -112,22 +114,27 @@ const Users = () => {
           </tbody>
         </table>
       )}
-      <div className="pagination-controls">
-        <button
-          onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
-          disabled={!canPreviousPage}
-        >
-          Previous
-        </button>
-        <span>
-          Page {pageIndex + 1} of {table.getPageCount()}
-        </span>
-        <button
-          onClick={() => setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
-          disabled={!canNextPage}
-        >
-          Next
-        </button>
+      <div className="pagination-wrapper">
+        <div className="pagination-controls">
+          <button
+            onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
+            disabled={!canPreviousPage}
+          >
+            Previous
+          </button>
+          <span>
+            Page {pageIndex + 1} of {table.getPageCount()}
+          </span>
+          <button
+            onClick={() => setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
+            disabled={!canNextPage}
+          >
+            Next
+          </button>
+        </div>
+        <div className="user-count">
+          {`Showing ${data.length} users out of ${totalUsers}`}
+        </div>
       </div>
     </div>
   );

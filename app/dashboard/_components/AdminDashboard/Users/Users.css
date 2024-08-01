@@ -60,13 +60,22 @@
     background-color: #fff;
 }
 
+.users-container .pagination-wrapper {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 2fr 1fr;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    margin-top: 20px;
+}
+
 .users-container .pagination-controls {
     display: flex;
     justify-content: center;
-    /* Center the pagination controls */
     align-items: center;
+    grid-column-start: 2;
     gap: 10px;
-    /* Add gap between buttons and text */
 }
 
 .users-container .pagination-controls button {
@@ -86,4 +95,13 @@
 
 .users-container .pagination-controls span {
     font-size: 1rem;
+}
+
+
+.users-container .pagination-wrapper .user-count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    /* text-align: right; */
 }
