@@ -221,8 +221,6 @@
     gap: 20px;
     flex-direction: column;
     width: 100%;
-    position: relative;
-    overflow: hidden;
 }
 .order-box-slider{
     display: flex;
@@ -260,13 +258,21 @@
     display: flex;
     width: 100%;
     gap: 30px;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+.order-address-fields{
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 30px;
+    row-gap: 40px;
+    margin-top: 16px;
 }
 .order-input-field {
     height: 50px;
     position: relative;
-    margin: 18px 0;
+    /* margin: 18px 0; */
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -334,6 +340,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* padding-bottom: 10px; */
+    width: 47%;
+}
+.order-not-verified-btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .order-submit-btn{
@@ -347,7 +360,7 @@
     background: var(--theme-color);
     color: #fff;
     font-weight: 600;
-    margin: 10px;
+    /* margin: 10px; */
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.25s;
@@ -371,7 +384,7 @@
     border: 2px solid brown;
     padding: 10px;
     border-radius: 10px;
-    margin: 0px auto;
+    margin: 20px 0px 0px 0px;
 }
 .order-info-field{
     width: calc(80% - 20px);

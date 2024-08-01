@@ -12,19 +12,25 @@ import { TiMinus } from "react-icons/ti";
 import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import { useOrders } from '@/contexts/orderContext';
+import { useRouter } from 'next/navigation';
 
 const Order = ({ session }) => {
 
   const { orders, removeOrder, cancelOrder } = useOrders();
 
-  const [user, setUser] = useState(null);
-  const [showBig, setShowBig] = useState(true);
+  const router = useRouter();
+
+  const [user, setUser] = useState();
+  const [showBig, setShowBig] = useState(false);
   const [animate, setAnimate] = useState();
 
-  const [orderAddress, setOrderAddress] = useState("");
-  const [orderContact, setOrderContact] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [wardAddress, setWardAddress] = useState("");
+  const [cityAddress, setCityAddress] = useState("");
+  // const [orderContact, setOrderContact] = useState("");
 
   const [orderPending, setOrderPending] = useState(false);
+  const [notVerifiedPending, setNotVerifiedPending] = useState(false);
 
   const [orderError, setOrderError] = useState("");
   const [orderInfo, setOrderInfo] = useState("");
@@ -69,19 +75,18 @@ const Order = ({ session }) => {
     setTimeout(() => {
       cancelOrder();
     }, 800);
-    setOrderAddress("");
-    setOrderContact("");
+    setStreetAddress("");
+    setWardAddress("");
+    setCityAddress("");
   }
 
-  const isValidNumber = (input) => {
-    if (typeof input !== 'string' || input.length !== 10) {
-      return false;
-    }
-    if (!input.startsWith('97') && !input.startsWith('98')) {
-      return false;
-    }
-    const digitRegex = /^\d{10}$/;
-    return digitRegex.test(input);
+  const isValidWardNo = (input) => {
+    const regex = /^\d+$/;
+    return regex.test(input) && (input.length === 1 || input.length === 2);
+  }
+  const isValidCity = (input) => {
+    const regex = /^[A-Za-z\s]+$/;
+    return regex.test(input);
   }
 
   const handleConfirmOrder = async (e) => {
@@ -95,20 +100,51 @@ const Order = ({ session }) => {
     setOrderError("");
     setOrderInfo("");
 
-    if (!orderAddress || !orderContact) {
-      setOrderError("Please provide all the fields");
+    if (!streetAddress || !wardAddress || !cityAddress) {
+      setOrderError("Please provide all the fields!");
       setOrderPending(false);
       return;
     }
 
-    if (!isValidNumber(orderContact)) {
-      setOrderError("Please provide valid Phone no.");
+    if (!isValidWardNo(wardAddress)) {
+      setOrderError("Invalid ward no.!");
       setOrderPending(false);
       return;
     }
-    //Now call the OTP action
-    // Example usage below
+
+    if (!isValidCity(cityAddress)) {
+      setOrderError("Invalid city!");
+      setOrderPending(false);
+      return;
+    }
+
+    if (user) {
+      if (user.number) {
+        if (!user.isNumberVerified) {
+          router.push(`/number-verification?redirectTo=/`);
+          return;
+        }
+        console.log("order completed");
+      }
+      router.push(`/number-verification?redirectTo=/`);
+      return;
+    }
+
+    setOrderError("");
+    setOrderInfo("");
+
     setOrderPending(false);
+  }
+
+  const handleNotVerified = ()=>{
+    setNotVerifiedPending(true);
+    if(!user || !user.number || !user.isNumberVerified){
+      router.push(`/number-verification?redirectTo=/`);
+      setNotVerifiedPending(false);
+      popupminusClick();
+      return;
+    }
+    
   }
 
   return (
@@ -141,23 +177,38 @@ const Order = ({ session }) => {
             </div>
           </div>
           <div className="order-confirmation-form-container">
-            <div className="order-confirm-section">
+            {(user && user.number && user.isNumberVerified) ? <div className="order-confirm-section">
               <div className="form-item-up-left">
                 <div className="form-item-title">Confirm Orders:</div>
                 <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Provide below details.</i></p>
               </div>
               <form action="" className="order-confirmation-form" onSubmit={(e) => { handleConfirmOrder(e); }}>
-                <div className="order-confirmation-form-inputs">
+                <div className="order-address-fields">
                   <div className="order-input-field">
-                    <input type="text" className={`titleInput ${orderAddress !== '' ? `valid-order-input` : ''}`} name="orderaddress" onChange={(e) => setOrderAddress(e.target.value)} required />
-                    <span>Address</span>
+                    <input type="text" className={`titleInput ${streetAddress !== '' ? `valid-order-input` : ''}`} name="streetaddress" onChange={(e) => setStreetAddress(e.target.value)} required />
+                    <span>Street Address</span>
                     <i></i>
                   </div>
-                  {/* <div className="order-input-field">
-                    <input type="text" className={`titleInput ${orderContact !== '' ? `valid-order-input` : ''}`} name="ordercontact" onChange={(e) => setOrderContact(e.target.value)} required />
-                    <span>Phone No.</span>
+                  <div className="order-input-field">
+                    <input type="text" className={`titleInput ${wardAddress !== '' ? `valid-order-input` : ''}`} name="wardaddress" onChange={(e) => setWardAddress(e.target.value)} required />
+                    <span>Ward No.</span>
                     <i></i>
-                  </div> */}
+                  </div>
+                  <div className="order-input-field">
+                    <input type="text" className={`titleInput ${cityAddress !== '' ? `valid-order-input` : ''}`} name="cityaddress" onChange={(e) => setCityAddress(e.target.value)} required />
+                    <span>City</span>
+                    <i></i>
+                  </div>
+                  <div className="order-submit-btn-container">
+                    <button type="submit" className={`order-submit-btn ${orderPending ? `order-pending` : ``}`} disabled={orderPending}>
+                      {
+                        orderPending ?
+                          <ScaleLoader height={20} color={"#fff"} />
+                          :
+                          "Confirm"
+                      }
+                    </button>
+                  </div>
                 </div>
                 {
                   orderError ? (
@@ -193,18 +244,17 @@ const Order = ({ session }) => {
                     </>
                   )
                 }
-                {(user && user.isNumberVerified) && <div className="order-submit-btn-container">
-                  <button type="submit" className={`order-submit-btn ${orderPending ? `order-pending` : ``}`} disabled={orderPending}>
-                    {
-                      orderPending ?
-                        <ScaleLoader height={20} color={"#fff"} />
-                        :
-                        "Confirm"
-                    }
-                  </button>
-                </div>}
               </form>
-            </div>
+            </div> : <div className="order-not-verified-btn-container">
+              <button type="button" onClick={(e)=>{handleNotVerified();}} className={`order-submit-btn ${notVerifiedPending ? `order-pending` : ``}`} disabled={notVerifiedPending}>
+                {
+                  notVerifiedPending ?
+                    <ScaleLoader height={20} color={"#fff"} />
+                    :
+                    "Confirm"
+                }
+              </button>
+            </div>}
           </div>
           <button className='popup-minus' onClick={() => { popupminusClick(); }}><FiMinus /></button>
           <button className='popup-cross' onClick={() => { popupcrossClick(); }}><IoClose /></button>
