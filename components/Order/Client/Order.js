@@ -14,6 +14,8 @@ import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 import { useOrders } from '@/contexts/orderContext';
 import { useRouter } from 'next/navigation';
 
+import { handleConfirmOrders } from '@/actions/handleConfirmOrders';
+
 const Order = ({ session }) => {
 
   const { orders, removeOrder, cancelOrder } = useOrders();
@@ -87,7 +89,7 @@ const Order = ({ session }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  
+
   const popupcrossClick = () => {
     popupminusClick();
     setTimeout(() => {
@@ -96,6 +98,8 @@ const Order = ({ session }) => {
     setStreetAddress("");
     setWardAddress("");
     setCityAddress("");
+    setOrderError("");
+    setOrderInfo("");
   }
 
   const isValidWardNo = (input) => {
@@ -111,6 +115,15 @@ const Order = ({ session }) => {
     e.preventDefault();
 
     if (orderPending) {
+      return;
+    }
+
+    if (!user.email) {
+      router.push(`/email-verification?redirectTo=/`);
+      return;
+    }
+    if (!user.isEmailVerified) {
+      router.push(`/email-verification?redirectTo=/`);
       return;
     }
 
@@ -136,28 +149,33 @@ const Order = ({ session }) => {
       return;
     }
 
-    if (user) {
-      if (user.number) {
-        if (!user.isNumberVerified) {
-          router.push(`/number-verification?redirectTo=/`);
-          return;
-        }
-        console.log("order completed");
-      }
-      router.push(`/number-verification?redirectTo=/`);
-      return;
+    const orderAddress = streetAddress + ", " + cityAddress + " - " + wardAddress;
+
+    const confirmed = await handleConfirmOrders(orders, user.id, orderAddress);
+
+    if (confirmed?.error) {
+      setOrderError(confirmed?.error);
+      console.log(confirmed?.error);
+    }
+    if (confirmed?.nextError) {
+      setOrderError(confirmed?.nextError);
+      console.log(confirmed?.nextError);
+    }
+    if (confirmed?.success) {
+      setOrderInfo("Your order is completed!");
+      setTimeout(() => {
+        popupcrossClick();
+        setOrderPending(false);
+        router.push(`/dashboard`);
+      }, 800);
     }
 
-    setOrderError("");
-    setOrderInfo("");
-
-    setOrderPending(false);
   }
 
   const handleNotVerified = () => {
     setNotVerifiedPending(true);
-    if (!user || !user.number || !user.isNumberVerified) {
-      router.push(`/number-verification?redirectTo=/`);
+    if (!user || !user.email || !user.isEmailVerified) {
+      router.push(`/email-verification?redirectTo=/`);
       setNotVerifiedPending(false);
       popupminusClick();
       return;
@@ -195,7 +213,7 @@ const Order = ({ session }) => {
             </div>
           </div>
           <div className="order-confirmation-form-container">
-            {(user && user.number && user.isNumberVerified) ? <div className="order-confirm-section">
+            {(user && user.email && user.isEmailVerified) ? <div className="order-confirm-section">
               <div className="form-item-up-left">
                 <div className="form-item-title">Confirm Orders:</div>
                 <p style={{ fontSize: ".9rem", fontWeight: "400", color: "#363636" }}><i>Provide below details.</i></p>

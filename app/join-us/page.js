@@ -416,11 +416,11 @@ const page = () => {
       }
     ]
 
-    // const addedService = await handleAddService(details);
-    // if (addedService.success) {
-    //   console.log("done");
-    //   console.log(addedService.data);
-    // }
+    const addedService = await handleAddService(details);
+    if (addedService.success) {
+      console.log("done");
+      console.log(addedService.data);
+    }
 
     console.log("hello");
 
