@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
 import { getUsers } from '@/actions/Users'; // Adjust import path as necessary
 import './Users.css';
+import { MoonLoader } from 'react-spinners';
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -68,7 +69,6 @@ const Users = () => {
   return (
     <div className="users-container">
       <h1>Users</h1>
-      <p>Manage users here.</p>
       <div className="filters">
         <input
           type="text"
@@ -87,55 +87,67 @@ const Users = () => {
         </select>
       </div>
       {loading ? (
-        <div className="loading">Loading...</div>
+        <div className="loading">
+          <MoonLoader size={100} color='var(--theme-color)' />
+        </div>
       ) : (
-        <table className="users-table">
-          <thead>
-            {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map(header => (
-                  <th key={header.id}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map(row => (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => (
-                  <td key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <>
+          {data.length > 0 ? (
+            <div className="users-table-container">
+              <table className="users-table">
+                <thead>
+                  {table.getHeaderGroups().map(headerGroup => (
+                    <tr key={headerGroup.id}>
+                      {headerGroup.headers.map(header => (
+                        <th key={header.id}>
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                </thead>
+                <tbody>
+                  {table.getRowModel().rows.map(row => (
+                    <tr key={row.id}>
+                      {row.getVisibleCells().map(cell => (
+                        <td key={cell.id}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="no-users">No users found</div>
+          )}
+          {data.length > 0 && (
+            <div className="pagination-wrapper">
+              <div className="pagination-controls">
+                <button
+                  onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
+                  disabled={!canPreviousPage}
+                >
+                  Previous
+                </button>
+                <span>
+                  Page {pageIndex + 1} of {table.getPageCount()}
+                </span>
+                <button
+                  onClick={() => setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
+                  disabled={!canNextPage}
+                >
+                  Next
+                </button>
+              </div>
+              <div className="user-count">
+                {`Showing ${data.length} users out of ${totalUsers}`}
+              </div>
+            </div>
+          )}
+        </>
       )}
-      <div className="pagination-wrapper">
-        <div className="pagination-controls">
-          <button
-            onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
-            disabled={!canPreviousPage}
-          >
-            Previous
-          </button>
-          <span>
-            Page {pageIndex + 1} of {table.getPageCount()}
-          </span>
-          <button
-            onClick={() => setPageIndex(prev => Math.min(prev + 1, table.getPageCount() - 1))}
-            disabled={!canNextPage}
-          >
-            Next
-          </button>
-        </div>
-        <div className="user-count">
-          {`Showing ${data.length} users out of ${totalUsers}`}
-        </div>
-      </div>
     </div>
   );
 };
