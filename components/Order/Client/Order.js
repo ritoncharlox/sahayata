@@ -189,7 +189,7 @@ const Order = ({ session }) => {
         <div className="order-details-container-big" ref={popupContentRef} style={{ animation: animate?.popupOut }}>
           <div className="orders-details-container">
             <div className="form-item-up">
-              <h3 className="form-item-title">Orders:</h3>
+              <h3 className="form-item-title">Orders in Progress:</h3>
               <p className="selected-order-count">{orders.length}</p>
               <button className='order-addmore-btn' onClick={(e) => { popupminusClick(); }}><FaPlus /></button>
             </div>
