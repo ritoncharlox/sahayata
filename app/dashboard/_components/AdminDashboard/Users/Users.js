@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
 import { getUsers } from '@/actions/Users'; // Adjust import path as necessary
+import { useDebounce } from '@/hooks/useDebounce'; // Adjust import path as necessary
 import './Users.css';
 import { MoonLoader } from 'react-spinners';
+import { BsThreeDots } from "react-icons/bs";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -12,12 +16,19 @@ const Users = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOrder, setSortOrder] = useState('desc'); // Default sort order
+  const [roleFilter, setRoleFilter] = useState(''); // Role filter state
+  const [selectedUser, setSelectedUser] = useState(null); // For selected user in the popup
+  const [showPopup, setShowPopup] = useState(false); // To control the visibility of the popup
+  const popupRef = useRef(null);
+
+  // Debounced search query
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const result = await getUsers(pageIndex + 1, pageSize, searchQuery, sortOrder);
+        const result = await getUsers(pageIndex + 1, pageSize, debouncedSearchQuery, sortOrder, roleFilter);
         setData(result.users);
         setTotalUsers(result.totalUsers);
       } catch (error) {
@@ -28,29 +39,130 @@ const Users = () => {
     };
 
     fetchUsers();
-  }, [pageIndex, pageSize, searchQuery, sortOrder]);
+  }, [pageIndex, pageSize, debouncedSearchQuery, sortOrder, roleFilter]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShowPopup(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const columns = [
-    {
-      header: 'ID',
-      accessorKey: 'id',
-    },
     {
       header: 'Name',
       accessorKey: 'name',
     },
     {
       header: 'Email',
-      accessorKey: 'email',
+      cell: ({ row }) => {
+        const { email, isEmailVerified } = row.original;
+        return email ? (
+          <span className={isEmailVerified ? 'status-verified' : 'status-not-verified'}>
+            {email} {isEmailVerified ? '(Verified)' : '(Not Verified)'}
+          </span>
+        ) : (
+          <span className="status-not-set">Not Set</span>
+        );
+      },
+    },
+    {
+      header: 'Role',
+      cell: ({ row }) => {
+        const { isAdmin, isFreelancer, isUser } = row.original;
+        return isAdmin ? 'Admin' : isFreelancer ? 'Freelancer' : 'User';
+      },
+    },
+    {
+      header: 'Number',
+      cell: ({ row }) => {
+        const { number, isNumberVerified } = row.original;
+        return number ? (
+          <span className={isNumberVerified ? 'status-verified' : 'status-not-verified'}>
+            {number} {isNumberVerified ? '(Verified)' : '(Not Verified)'}
+          </span>
+        ) : (
+          <span className="status-not-set">Not Set</span>
+        );
+      },
     },
     {
       header: 'Location',
-      accessorKey: 'location',
+      cell: ({ row }) => {
+        const { location, isEmailVerified, isNumberVerified } = row.original;
+        if (location) {
+          return (
+            <span className={isEmailVerified && isNumberVerified ? 'status-verified' : 'status-not-set'}>
+              {location} {isEmailVerified && isNumberVerified ? '(Verified)' : ''}
+            </span>
+          );
+        }
+        return <span className="status-not-set">Not Set</span>;
+      },
     },
     {
       header: 'Date Joined',
       accessorKey: 'dateJoined',
       cell: ({ getValue }) => new Date(getValue()).toLocaleDateString(),
+    },
+    {
+      header: 'Actions',
+      id: 'actions',
+      cell: ({ row }) => {
+
+        const { isAdmin, isFreelancer, isUser } = row.original;
+
+        return (
+          <>
+            <button
+              className="action-button"
+              onClick={() => {
+                setSelectedUser(row.original); // Set the user for actions
+                setShowPopup(true); // Show the popup
+              }}
+              ref={popupRef}
+            >
+              <BsThreeDots />
+            </button>
+            {
+              showPopup ?
+                <>
+                  {
+                    selectedUser.id === row.original.id ?
+                      <div className="action-popup">
+                        <button className='action-popup-item'>
+                          <div className="icon">
+                            <MdAdminPanelSettings />
+                          </div>
+                          <div className="text">
+                            Make Admin
+                          </div>
+                        </button>
+                        <button className='action-popup-item delete-button'>
+                          <div className="icon">
+                            <MdDelete />
+                          </div>
+                          <div className="text">
+                            Delete User
+                          </div>
+                        </button>
+                      </div>
+                      :
+                      <></>
+                  }
+                </>
+                :
+                <></>
+            }
+          </>
+        )
+      },
     },
   ];
 
@@ -85,6 +197,16 @@ const Users = () => {
           <option value="desc">Newest First</option>
           <option value="asc">Oldest First</option>
         </select>
+        <select
+          value={roleFilter}
+          onChange={(e) => setRoleFilter(e.target.value)}
+          className="role-select"
+        >
+          <option value="">All Roles</option>
+          <option value="Admin">Admin</option>
+          <option value="Freelancer">Freelancer</option>
+          <option value="User">User</option>
+        </select>
       </div>
       {loading ? (
         <div className="loading">
@@ -110,7 +232,7 @@ const Users = () => {
                   {table.getRowModel().rows.map(row => (
                     <tr key={row.id}>
                       {row.getVisibleCells().map(cell => (
-                        <td key={cell.id}>
+                        <td key={cell.id} className={cell.column.id === 'actions' ? 'action' : ''}>
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </td>
                       ))}

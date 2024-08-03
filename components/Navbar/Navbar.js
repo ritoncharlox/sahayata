@@ -111,8 +111,12 @@ const Navbar = ({ session }) => {
                 <Link href='/profile' className="dropdown-item">Profile</Link>
                 <Link href='/dashboard' className="dropdown-item">Dashboard</Link>
                 <button className="dropdown-item logout-button" onClick={handleSignOut}>
-                  <FaSignOutAlt />
-                  Sign Out
+                  <div className="icon">
+                    <FaSignOutAlt />
+                  </div>
+                  <div className="text">
+                    Sign Out
+                  </div>
                 </button>
               </div>
             )}
