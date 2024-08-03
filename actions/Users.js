@@ -81,3 +81,26 @@ export async function getUsers(page = 1, pageSize = 10, searchQuery = '', sortOr
     totalUsers,
   };
 }
+
+/**
+ * Make a user an admin by their ID.
+ * @param {string} id - The ID of the user to update.
+ * @returns {Promise<void>} - A promise that resolves when the user is updated.
+ */
+export async function makeUserAdmin(id) {
+  await prisma.user.update({
+    where: { id },
+    data: { isAdmin: true },
+  });
+}
+
+/**
+ * Delete a user by their ID.
+ * @param {string} id - The ID of the user to delete.
+ * @returns {Promise<void>} - A promise that resolves when the user is deleted.
+ */
+export async function deleteUser(id) {
+  await prisma.user.delete({
+    where: { id },
+  });
+}

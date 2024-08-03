@@ -1,7 +1,7 @@
 main.dashboard {
+    min-height: 100vh;
     display: flex;
-    height: 100vh;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 main.dashboard .sidebar {
@@ -64,11 +64,11 @@ main.dashboard .sidebar li .link {
 }
 
 main.dashboard .content {
+    /* min-height: 100vh; */
     margin-left: 250px;
     padding: 20px;
     background-color: #f4f4f4;
-    height: 100vh;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     width: calc(100% - 250px);
     box-sizing: border-box;
 }
