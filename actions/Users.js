@@ -31,30 +31,44 @@ export async function getUserById(id) {
 }
 
 /**
- * Fetch users with pagination, optional search query, and sorting.
+ * Fetch users with pagination, optional search query, sorting, and role filtering.
  * @param {number} page - The current page number.
  * @param {number} pageSize - The number of users per page.
  * @param {string} searchQuery - Optional search query to filter users.
  * @param {string} sortOrder - Optional sort order for sorting users ('asc' or 'desc').
+ * @param {string} role - Optional role to filter users ('Admin', 'Freelancer', 'User').
  * @returns {Promise<Object>} - An object containing the list of users and total count.
  */
-export async function getUsers(page = 1, pageSize = 10, searchQuery = '', sortOrder = 'desc') {
+export async function getUsers(page = 1, pageSize = 10, searchQuery = '', sortOrder = 'desc', role = '') {
   const skip = (page - 1) * pageSize;
 
   // Create a query object based on the search query
-  const where = searchQuery
-    ? {
-        OR: [
-          { name: { contains: searchQuery, mode: 'insensitive' } },
-          { email: { contains: searchQuery, mode: 'insensitive' } },
-        ],
-      }
-    : {};
+  const where = {
+    AND: [
+      searchQuery
+        ? {
+            OR: [
+              { name: { contains: searchQuery, mode: 'insensitive' } },
+              { email: { contains: searchQuery, mode: 'insensitive' } },
+            ],
+          }
+        : {},
+      role
+        ? {
+            OR: [
+              role === 'Admin' && { isAdmin: true },
+              role === 'Freelancer' && { isFreelancer: true },
+              role === 'User' && { isUser: true },
+            ].filter(Boolean),
+          }
+        : {},
+    ],
+  };
 
-  // Fetch total number of users based on the search query
+  // Fetch total number of users based on the search query and role
   const totalUsers = await prisma.user.count({ where });
 
-  // Fetch users for the current page based on the search query and sort order
+  // Fetch users for the current page based on the search query, role, and sort order
   const users = await prisma.user.findMany({
     where,
     skip,
