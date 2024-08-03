@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
-import { getUsers } from '@/actions/Users'; // Adjust import path as necessary
+import { getUsers, deleteUser, makeUserAdmin } from '@/actions/Users'; // Import new functions
 import { useDebounce } from '@/hooks/useDebounce'; // Adjust import path as necessary
 import './Users.css';
 import { MoonLoader } from 'react-spinners';
@@ -24,20 +24,20 @@ const Users = () => {
   // Debounced search query
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      try {
-        const result = await getUsers(pageIndex + 1, pageSize, debouncedSearchQuery, sortOrder, roleFilter);
-        setData(result.users);
-        setTotalUsers(result.totalUsers);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const result = await getUsers(pageIndex + 1, pageSize, debouncedSearchQuery, sortOrder, roleFilter);
+      setData(result.users);
+      setTotalUsers(result.totalUsers);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchUsers();
   }, [pageIndex, pageSize, debouncedSearchQuery, sortOrder, roleFilter]);
 
@@ -126,7 +126,6 @@ const Users = () => {
                 setSelectedUser(row.original); // Set the user for actions
                 setShowPopup(true); // Show the popup
               }}
-              ref={popupRef}
             >
               <BsThreeDots />
             </button>
@@ -135,8 +134,8 @@ const Users = () => {
                 <>
                   {
                     selectedUser.id === row.original.id ?
-                      <div className="action-popup">
-                        <button className='action-popup-item'>
+                      <div className="action-popup" ref={popupRef}>
+                        <button className='action-popup-item' onClick={() => handleMakeAdmin(row.original.id)}>
                           <div className="icon">
                             <MdAdminPanelSettings />
                           </div>
@@ -144,7 +143,7 @@ const Users = () => {
                             Make Admin
                           </div>
                         </button>
-                        <button className='action-popup-item delete-button'>
+                        <button className='action-popup-item delete-button' onClick={() => handleDeleteUser(row.original.id)}>
                           <div className="icon">
                             <MdDelete />
                           </div>
@@ -177,6 +176,28 @@ const Users = () => {
 
   const canPreviousPage = pageIndex > 0;
   const canNextPage = pageIndex < table.getPageCount() - 1;
+
+  const handleMakeAdmin = async (id) => {
+    try {
+      await makeUserAdmin(id);
+      await fetchUsers();
+    } catch (error) {
+      console.error('Error making user admin:', error);
+    } finally {
+      setShowPopup(false);
+    }
+  };
+
+  const handleDeleteUser = async (id) => {
+
+    try {
+      await deleteUser(id);
+      setShowPopup(false);
+      await fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
 
   return (
     <div className="users-container">
