@@ -7,6 +7,7 @@ import "./AdminDashboard.css";
 import { FaUsers } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import Users from './Users/Users';
+import Orders from './Orders/Orders'
 import { useSearchParams, useRouter } from 'next/navigation';
 
 const AdminDashboardClient = ({ data }) => {
@@ -95,11 +96,7 @@ const AdminDashboardClient = ({ data }) => {
                             <Users />
                         )}
                         {selected === 'orders' && (
-                            <>
-                                <h1>Orders</h1>
-                                <p>View and manage orders here.</p>
-                                {/* Add more orders content here */}
-                            </>
+                            <Orders />
                         )}
                     </>
                 )}

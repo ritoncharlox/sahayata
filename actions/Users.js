@@ -47,20 +47,20 @@ export async function getUsers(page = 1, pageSize = 10, searchQuery = '', sortOr
     AND: [
       searchQuery
         ? {
-            OR: [
-              { name: { contains: searchQuery, mode: 'insensitive' } },
-              { email: { contains: searchQuery, mode: 'insensitive' } },
-            ],
-          }
+          OR: [
+            { name: { contains: searchQuery, mode: 'insensitive' } },
+            { email: { contains: searchQuery, mode: 'insensitive' } },
+          ],
+        }
         : {},
       role
         ? {
-            OR: [
-              role === 'Admin' && { isAdmin: true },
-              role === 'Freelancer' && { isFreelancer: true },
-              role === 'User' && { isUser: true },
-            ].filter(Boolean),
-          }
+          OR: [
+            role === 'Admin' && { isAdmin: true },
+            role === 'Freelancer' && { isFreelancer: true },
+            role === 'User' && { isUser: true },
+          ].filter(Boolean),
+        }
         : {},
     ],
   };
@@ -88,10 +88,23 @@ export async function getUsers(page = 1, pageSize = 10, searchQuery = '', sortOr
  * @returns {Promise<void>} - A promise that resolves when the user is updated.
  */
 export async function makeUserAdmin(id) {
-  await prisma.user.update({
-    where: { id },
-    data: { isAdmin: true },
-  });
+
+  try {
+
+    await prisma.user.update({
+      where: { id },
+      data: { isAdmin: true },
+    });
+
+    return {
+      success: true
+    }
+    
+  } catch (error) {
+    return {
+      error: error.message
+    }
+  }
 }
 
 /**
@@ -100,7 +113,20 @@ export async function makeUserAdmin(id) {
  * @returns {Promise<void>} - A promise that resolves when the user is deleted.
  */
 export async function deleteUser(id) {
-  await prisma.user.delete({
-    where: { id },
-  });
+
+  try {
+
+    await prisma.user.delete({
+      where: { id },
+    });
+
+    return {
+      success: true
+    }
+
+  } catch (error) {
+    return {
+      error: error.message
+    }
+  }
 }
