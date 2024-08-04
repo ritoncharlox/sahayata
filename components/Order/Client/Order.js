@@ -54,13 +54,6 @@ const Order = () => {
     }
   }, [session]);
 
-  useEffect(() => {
-    let count = 0;
-    while (count == orders.length) {
-      setShowBig(true);
-    }
-  }, [orders])
-
 
   const handleRemove = (id) => {
     if (orders.length <= 1) {
