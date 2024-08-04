@@ -8,11 +8,13 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
 
-const Service = ({ session, serviceDetails }) => {
+const Service = ({ serviceDetails }) => {
 
   const { orders, addOrder } = useOrders();
+  const { data: session } = useSession();
 
   const router = useRouter();
 

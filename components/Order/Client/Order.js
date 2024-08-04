@@ -13,12 +13,14 @@ import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import { useOrders } from '@/contexts/orderContext';
 import { useRouter } from 'next/navigation';
+import { useSession } from "next-auth/react";
 
 import { handleConfirmOrders } from '@/actions/handleConfirmOrders';
 
-const Order = ({ session }) => {
+const Order = () => {
 
   const { orders, removeOrder, cancelOrder } = useOrders();
+  const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -53,7 +55,10 @@ const Order = ({ session }) => {
   }, [session]);
 
   useEffect(() => {
-    setShowBig(true);
+    let count = 0;
+    while (count == orders.length) {
+      setShowBig(true);
+    }
   }, [orders])
 
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import Service from '@/components/Service/Service'
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 import prisma from '@/config/prisma';
 import "./Service.css";
 
 
 const page = async({params}) => {
 
-  const session = await auth();
+  // const session = await auth();
 
   const getService = async ()=>{
     const title = decodeURIComponent(params.service);
@@ -26,7 +26,7 @@ const page = async({params}) => {
 
   return (
     <>
-      <Service session={session} serviceDetails={service}/>
+      <Service serviceDetails={service}/>
     </>
   )
 }
