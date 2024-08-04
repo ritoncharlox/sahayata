@@ -50,7 +50,7 @@ export default function OrderProvider({ children }) {
             return item.id !== id;
         })
         setOrders(reaminingOrders);
-        saveToLs(reaminingOrders);;
+        saveToLs(reaminingOrders);
     };
 
     const cancelOrder = ()=>{
