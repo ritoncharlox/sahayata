@@ -9,6 +9,8 @@ import { MdAdminPanelSettings } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+import Image from 'next/image';
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -62,7 +64,23 @@ const Users = () => {
   const columns = [
     {
       header: 'Name',
-      accessorKey: 'name',
+      cell: ({ row }) => {
+        const { name, avatar } = row.original;
+        return (
+          <div className="name-with-avatar">
+            {
+              avatar ? (
+                <Image className="profile-avatar-image" width={40} height={40} src={avatar} alt="User Avatar" />
+              ) : (
+                <div className="profile-avatar-image-alt">
+                  <FaUserCircle />
+                </div>
+              )
+            }
+            <span className="user-name">{name}</span>
+          </div>
+        );
+      },
     },
     {
       header: 'Email',
