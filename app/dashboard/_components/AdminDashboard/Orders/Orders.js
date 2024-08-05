@@ -2,15 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useReactTable, getCoreRowModel, getPaginationRowModel, getSortedRowModel, flexRender } from '@tanstack/react-table';
 import { getUsers, deleteUser, makeUserAdmin } from '@/actions/Users'; // Import new functions
 import { useDebounce } from '@/hooks/useDebounce'; // Adjust import path as necessary
-import './Users.css';
+import './Orders.css';
 import { MoonLoader } from 'react-spinners';
 import { BsThreeDots } from "react-icons/bs";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { FaCheckCircle } from "react-icons/fa";
-import { MdError } from "react-icons/md";
-import { FaUserCircle } from "react-icons/fa";
-import Image from 'next/image';
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -24,9 +20,6 @@ const Users = () => {
   const [selectedUser, setSelectedUser] = useState(null); // For selected user in the popup
   const [showPopup, setShowPopup] = useState(false); // To control the visibility of the popup
   const popupRef = useRef(null);
-  const [actionInfo, setActionInfo] = useState('');
-  const [actionError, setActionError] = useState('');
-  const [actionLoading, setActionLoading] = useState(false);
 
   // Debounced search query
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -64,23 +57,7 @@ const Users = () => {
   const columns = [
     {
       header: 'Name',
-      cell: ({ row }) => {
-        const { name, avatar } = row.original;
-        return (
-          <div className="name-with-avatar">
-            {
-              avatar ? (
-                <Image className="profile-avatar-image" width={40} height={40} src={avatar} alt="User Avatar" />
-              ) : (
-                <div className="profile-avatar-image-alt">
-                  <FaUserCircle />
-                </div>
-              )
-            }
-            <span className="user-name">{name}</span>
-          </div>
-        );
-      },
+      accessorKey: 'name',
     },
     {
       header: 'Email',
@@ -201,114 +178,24 @@ const Users = () => {
   const canNextPage = pageIndex < table.getPageCount() - 1;
 
   const handleMakeAdmin = async (id) => {
-
-    if (actionLoading) {
-      return;
+    try {
+      await makeUserAdmin(id);
+      await fetchUsers();
+    } catch (error) {
+      console.error('Error making user admin:', error);
+    } finally {
+      setShowPopup(false);
     }
-
-    setActionLoading(true);
-
-    const makeAdmin = await makeUserAdmin(id);
-
-    if (makeAdmin.success) {
-      setActionInfo(`User made admin successfully`);
-
-      setTimeout(async () => {
-        setActionLoading(false);
-        await fetchUsers();
-        setActionInfo('');
-      }, 2000);
-
-      return;
-    }
-
-    if (makeAdmin.error) {
-      setActionError("Something went wrong, please try again after a while");
-
-      setTimeout(() => {
-        setActionLoading(false);
-        setActionError('')
-      }, 2000);
-
-      return;
-    }
-
-    if (makeAdmin.actionError) {
-      setActionError(makeAdmin.actionError);
-
-      setTimeout(() => {
-        setActionLoading(false);
-        setActionError('');
-      }, 2000);
-
-      return;
-    }
-
-    setActionLoading(false);
-    setShowPopup(false);
-
   };
 
   const handleDeleteUser = async (id) => {
 
-    if (actionLoading) {
-      return;
-    }
-
-    setActionLoading(true);
-
-    const deleteAction = await deleteUser(id);
-
-    if (deleteAction.success) {
-      setActionInfo(`User deleted successfully`);
-
-      setTimeout(async () => {
-        setActionLoading(false);
-        await fetchUsers();
-        setActionInfo('')
-      }, 2000);
-
-      return;
-    }
-
-    if (deleteAction.error) {
-      setActionError("Something went wrong, please try again after a while");
-
-      setTimeout(() => {
-        setActionLoading(false);
-        setActionError('');
-      }, 2000);
-
-      return;
-    }
-
-    if (deleteAction.actionError) {
-      setActionError(deleteAction.actionError);
-
-      setTimeout(() => {
-        setActionLoading(false);
-        setActionError('');
-      }, 2000);
-
-      return;
-    }
-
-    setActionLoading(false);
-    setShowPopup(false);
-
-  };
-
-  const actionLoadingCloseHandler = () => {
-    setActionLoading(false);
-    setActionInfo('');
-    setActionError('');
-  }
-
-  const handleContainerClick = (e) => {
-    if (e.target.classList.contains('action-loading')) {
-      setActionLoading(false);
-      setActionInfo('');
-      setActionError('');
+    try {
+      await deleteUser(id);
+      setShowPopup(false);
+      await fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user:', error);
     }
   };
 
@@ -404,61 +291,6 @@ const Users = () => {
           )}
         </>
       )}
-      {
-        actionLoading ?
-          <div className="action-loading" onClick={handleContainerClick}>
-            <div className="action-loading-content">
-              <>
-                {
-                  actionInfo ? (
-                    <>
-                      <div className="main-icon info">
-                        <FaCheckCircle />
-                      </div>
-                      <div className="info-field">
-                        <div className="icon">
-                          <FaCheckCircle />
-                        </div>
-                        <div className="text">
-                          {actionInfo}
-                        </div>
-                      </div>
-                      <button className="action-loading-content-button" onClick={actionLoadingCloseHandler}>OK</button>
-                    </>
-                  ) : (
-                    <>
-                      {
-                        actionError ? (
-                          <>
-                            <div className="main-icon error">
-                              <MdError />
-                            </div>
-                            <div className="error-field">
-                              <div className="icon">
-                                <MdError />
-                              </div>
-                              <div className="text">
-                                {actionError}
-                              </div>
-                            </div>
-                            <button className="action-loading-content-button" onClick={actionLoadingCloseHandler}>OK</button>
-                          </>
-                        ) : (
-                          <>
-                            <MoonLoader className='loading-icon' size={100} color='var(--theme-color)' />
-                          </>
-                        )
-                      }
-                    </>
-                  )
-                }
-              </>
-            </div>
-          </div>
-          :
-          <>
-          </>
-      }
     </div>
   );
 };
