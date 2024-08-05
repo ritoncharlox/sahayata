@@ -53,19 +53,6 @@ const Service = ({ serviceDetails }) => {
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
   useEffect(() => {
-    if (session?.user?.email) {
-      fetch(`/api/user?email=${session.user.email}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data && !data.error) {
-            setUser(data);
-          }
-        })
-        .catch((error) => console.error('Error fetching user data:', error));
-    }
-  }, [session]);
-
-  useEffect(() => {
     const previosclick = localStorage.getItem("clickedService");
     for (let i = 0; i < serviceDetails.subcategories.length; i++) {
       let subcategory = serviceDetails.subcategories[i];
@@ -73,10 +60,9 @@ const Service = ({ serviceDetails }) => {
         setClickedService(previosclick);
       }
     }
-
-    setTimeout(() => {
-      localStorage.removeItem("clickedService");
-    }, 400);
+    // setTimeout(() => {
+    //   localStorage.removeItem("clickedService");
+    // }, 400);
 
     const handleClickOutside = (event) => {
       if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
@@ -89,7 +75,26 @@ const Service = ({ serviceDetails }) => {
     };
   }, [])
 
+  useEffect(() => {
+    if (session?.user?.email) {
+      fetch(`/api/user?email=${session.user.email}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data && !data.error) {
+            setUser(data);
+          }
+        })
+        .catch((error) => console.error('Error fetching user data:', error));
+    }
+  }, [session]);
+
+
   const popupcrossClick = () => {
+    let nowclicked = localStorage.getItem("clickedService");
+    if (nowclicked) {
+      localStorage.removeItem("clickedService");
+    }
+
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
     setTimeout(() => {
       const previosclick = localStorage.getItem("clickedService");
