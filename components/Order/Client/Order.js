@@ -42,6 +42,19 @@ const Order = () => {
   const popupContentRef = useRef(null);
 
   useEffect(() => {
+    function handleClickOutside(event) {
+      if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
+        popupminusClick();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     if (session?.user?.email) {
       fetch(`/api/user?email=${session.user.email}`)
         .then((response) => response.json())
@@ -71,22 +84,6 @@ const Order = () => {
       setShowBig(false);
     }, 800);
   }
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
-        popupminusClick();
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener('mousedown', handleClickOutside);
-
-    // Clean up the event listener
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   const popupcrossClick = () => {
     popupminusClick();
