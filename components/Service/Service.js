@@ -8,12 +8,12 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
-import { useRouter } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react";
 
 const Service = ({ serviceDetails }) => {
 
-  const { orders, addOrder } = useOrders();
+  const { orders, addOrder, setShowBig } = useOrders();
   const { data: session } = useSession();
 
   const router = useRouter();
@@ -60,9 +60,6 @@ const Service = ({ serviceDetails }) => {
         setClickedService(previosclick);
       }
     }
-    // setTimeout(() => {
-    //   localStorage.removeItem("clickedService");
-    // }, 400);
 
     const handleClickOutside = (event) => {
       if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
@@ -125,6 +122,7 @@ const Service = ({ serviceDetails }) => {
         orderTime: orderTime,
         orderDescription: orderDescription,
       });
+      setShowBig(true);
     }
     popupcrossClick();
   }
