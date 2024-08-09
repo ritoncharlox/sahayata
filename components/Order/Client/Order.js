@@ -6,32 +6,27 @@ import { RiDeleteBack2Fill } from "react-icons/ri";
 import { ScaleLoader } from 'react-spinners';
 import { FaPlus, FaCheckCircle, FaCaretRight } from "react-icons/fa";
 import { MdError } from 'react-icons/md';
-import { FiMinus } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import { TiMinus } from "react-icons/ti";
-import { GrFormPreviousLink, GrFormNextLink } from "react-icons/gr";
 
 import { useOrders } from '@/contexts/orderContext';
-import { useRouter } from 'next/navigation';
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 import { handleConfirmOrders } from '@/actions/handleConfirmOrders';
 
 const Order = () => {
 
-  const { orders, removeOrder, cancelOrder } = useOrders();
+  const { orders, removeOrder, cancelOrder, showBig, setShowBig } = useOrders();
   const { data: session } = useSession();
 
   const router = useRouter();
 
   const [user, setUser] = useState();
-  const [showBig, setShowBig] = useState(false);
   const [animate, setAnimate] = useState();
 
   const [streetAddress, setStreetAddress] = useState("");
   const [wardAddress, setWardAddress] = useState("");
   const [cityAddress, setCityAddress] = useState("");
-  // const [orderContact, setOrderContact] = useState("");
 
   const [orderPending, setOrderPending] = useState(false);
   const [notVerifiedPending, setNotVerifiedPending] = useState(false);
@@ -52,6 +47,7 @@ const Order = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+    
   }, []);
 
   useEffect(() => {
@@ -178,6 +174,10 @@ const Order = () => {
 
   }
 
+  const handleMinimizedClick = ()=>{
+    setShowBig(true);
+  }
+
   return (
     <>
       {(orders.length !== 0 && showBig) && <div className="order-details-overlay" style={{ animation: animate?.overlayOut }}>
@@ -292,7 +292,7 @@ const Order = () => {
         </div>
       </div>}
       {(orders.length !== 0 && !showBig) && <div className='order-details-container-small'>
-        <div className="order-details-small-box" onClick={(e) => { setShowBig(true) }}>
+        <div className="order-details-small-box" onClick={(e) => { handleMinimizedClick(); }}>
           <div className="order-details-container-small-text">Orders</div>
           <div className="order-details-container-small-count">{orders.length}</div>
           <div className="hover-order-info"><span>Orders in progress</span> <FaCaretRight style={{ fontSize: "25px", color: "#010717", position: "relative", left: "-10px" }} /></div>

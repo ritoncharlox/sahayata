@@ -10,6 +10,7 @@ export const useOrders = () => useContext(OrderContext);
 export default function OrderProvider({ children }) {
 
     const [orders, setOrders] = useState([]);
+    const [showBig, setShowBig] = useState(false);
 
     useEffect(() => {
       let myOrders = localStorage.getItem("order");
@@ -59,7 +60,7 @@ export default function OrderProvider({ children }) {
     }
 
     return (
-        <OrderContext.Provider value={{ orders, addOrder, removeOrder, cancelOrder }}>
+        <OrderContext.Provider value={{ orders, addOrder, removeOrder, cancelOrder, showBig, setShowBig }}>
             {children}
         </OrderContext.Provider>
     );
