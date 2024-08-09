@@ -9,15 +9,15 @@ import { MdError } from 'react-icons/md';
 import { IoClose } from "react-icons/io5";
 
 import { useOrders } from '@/contexts/orderContext';
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 
 import { handleConfirmOrders } from '@/actions/handleConfirmOrders';
 
-const Order = () => {
+const Order = ({session}) => {
 
   const { orders, removeOrder, cancelOrder, showBig, setShowBig } = useOrders();
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
 
   const router = useRouter();
 
@@ -37,6 +37,7 @@ const Order = () => {
   const popupContentRef = useRef(null);
 
   useEffect(() => {
+
     function handleClickOutside(event) {
       if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
         popupminusClick();
@@ -180,7 +181,7 @@ const Order = () => {
 
   return (
     <>
-      {(orders.length !== 0 && showBig) && <div className="order-details-overlay" style={{ animation: animate?.overlayOut }}>
+      {(orders.length !== 0 && showBig && user) && <div className="order-details-overlay" style={{ animation: animate?.overlayOut }}>
         <div className="order-details-container-big" ref={popupContentRef} style={{ animation: animate?.popupOut }}>
           <div className="orders-details-container">
             <div className="form-item-up">
@@ -291,7 +292,7 @@ const Order = () => {
           <button className='popup-order-cross' onClick={() => { popupcrossClick(); }}>Cancel Order</button>
         </div>
       </div>}
-      {(orders.length !== 0 && !showBig) && <div className='order-details-container-small'>
+      {(orders.length !== 0 && !showBig && user) && <div className='order-details-container-small'>
         <div className="order-details-small-box" onClick={(e) => { handleMinimizedClick(); }}>
           <div className="order-details-container-small-text">Orders</div>
           <div className="order-details-container-small-count">{orders.length}</div>

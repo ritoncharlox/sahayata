@@ -34,6 +34,10 @@ const Navbar = ({ session }) => {
   };
 
   const handleSignOut = () => {
+    const pendingOrders = localStorage.getItem("order");
+    if(pendingOrders){
+      localStorage.removeItem("order");
+    }
     signOut();
   };
 

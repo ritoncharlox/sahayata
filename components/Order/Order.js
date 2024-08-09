@@ -8,7 +8,7 @@ const page = async () => {
 
   return (
     <>
-      <Order/>
+      <Order session={session}/>
     </>
   )
 }
