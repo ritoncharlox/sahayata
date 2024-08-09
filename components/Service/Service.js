@@ -8,15 +8,15 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaQuoteLeft, FaQuoteRight, FaChevronDown } from "react-icons/fa";
 import { ScaleLoader } from 'react-spinners';
 import { useOrders } from '@/contexts/orderContext';
-import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { useSession } from "next-auth/react";
+import { useSearchParams, useRouter } from 'next/navigation';
 
-const Service = ({ serviceDetails }) => {
+const Service = ({ serviceDetails, session }) => {
 
   const { orders, addOrder, setShowBig } = useOrders();
-  const { data: session } = useSession();
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const serviceName = searchParams.get("clicked");
 
   const [user, setUser] = useState();
 
@@ -25,7 +25,7 @@ const Service = ({ serviceDetails }) => {
   const [orderDescription, setOrderDescription] = useState('');
   const [animate, setAnimate] = useState();
 
-  const [clickedService, setClickedService] = useState();
+  const [clickedService, setClickedService] = useState(serviceName || '');
   const [alreadyBooked, setAlreadyBooked] = useState(false);
 
   const [nextPending, setNextPending] = useState(false);
@@ -53,13 +53,6 @@ const Service = ({ serviceDetails }) => {
   const timeList = ["7 AM - 9 AM", "9 AM - 11 AM", "11 AM - 1 PM", "1 AM - 3 PM", "3 PM - 5 PM", "5 PM - 7 PM"];
 
   useEffect(() => {
-    const previosclick = localStorage.getItem("clickedService");
-    for (let i = 0; i < serviceDetails.subcategories.length; i++) {
-      let subcategory = serviceDetails.subcategories[i];
-      if (subcategory.title === previosclick) {
-        setClickedService(previosclick);
-      }
-    }
 
     const handleClickOutside = (event) => {
       if (popupContentRef.current && !popupContentRef.current.contains(event.target)) {
@@ -87,18 +80,11 @@ const Service = ({ serviceDetails }) => {
 
 
   const popupcrossClick = () => {
-    let nowclicked = localStorage.getItem("clickedService");
-    if (nowclicked) {
-      localStorage.removeItem("clickedService");
-    }
 
     setAnimate({ popupOut: "popupOut .3s forwards", overlayOut: "overlayOut .8s forwards" });
     setTimeout(() => {
-      const previosclick = localStorage.getItem("clickedService");
-      if (previosclick) {
-        localStorage.removeItem("clickedService");
-      }
       setClickedService();
+      router.push(`/services/${serviceDetails.title}`)
       setAlreadyBooked(false);
       setAnimate();
       resetOrderDetails();
@@ -131,8 +117,7 @@ const Service = ({ serviceDetails }) => {
     setNextPending(true);
 
     if (!user) {
-      localStorage.setItem("clickedService", service)
-      router.push(`/login?redirectTo=/services/${serviceDetails.title}`);
+      router.push(`/login?redirectTo=/services/${serviceDetails.title}?clicked=${service}`);
       return;
     }
     const currentService = orders.filter(item => {
@@ -141,6 +126,7 @@ const Service = ({ serviceDetails }) => {
 
     if (currentService.length == 0) {
       setClickedService(service)
+      router.push(`/services/${serviceDetails.title}?clicked=${service}`)
     }
     else {
       setAlreadyBooked(true);
@@ -248,7 +234,7 @@ const Service = ({ serviceDetails }) => {
                     </li>
                   )
                 })}
-                <div className="other-services" onClick={(e) => { setClickedService("Others") }}>
+                <div className="other-services" onClick={(e) => { console.log("hello"); }}>
                   Others
                   <FaArrowRightLong />
                 </div>

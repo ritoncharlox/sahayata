@@ -26,7 +26,7 @@ const Userdashboard = () => {
             setValidPage(true);
         } else {
             setValidPage(false);
-            // router.push('/dashboard?page=analytics');
+            // router.push('/userdash?page=analytics');
         }
     }, [page]);
 

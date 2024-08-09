@@ -10,7 +10,7 @@ export default async function page() {
     const session = await auth();
 
     if (!session) {
-        redirect('/login?redirectTo=/dashboard');
+        redirect('/login?redirectTo=/userdash');
         return null;
     }
 

@@ -69,6 +69,8 @@ model Order {
   orderTime        String
   orderDescription String
   orderAddress     String
+  isCompleted      Boolean  @default(false)
+  dateCreated      DateTime @default(now())
   user             User     @relation(fields: [userId], references: [id], onDelete: Restrict)
   userId           String   @db.ObjectId
   createdAt        DateTime @default(now())
